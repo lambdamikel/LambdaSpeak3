@@ -41,6 +41,8 @@ enough power for LambdaSpeak 3.
 
 Explanation of the LambdaSpeak 3 board.  
 
+![LambdaSpeak 3 Board](images/ls3-annotated.jpg)
+
 LambdaSpeak 3 processes 3 or 4 sources of audio. The 10 position DIP switch is used to assign these different sources to either the left or right audio channels of LambdaSpeak's stereo output jack. A source can also be assigned to both left and right. The DIP switches 1 to 4 determine which audio source is routed to the left, and the switches 6 to 9 are used to assign the right audio channel of the stereo output jack.  Moreover, the non-plus CPCs also allow to feed back the audio signal into the CPC using the SND pin of the expansion port, and loopback audio signal then gets amplified and routed to the internal speaker of the CPC. This does not work for Plus CPCs though. Hence, switches 5 and 10 can be used to switch on or off the audio feed into the CPC. Otherwise, an external amplifier must be used and connected to LambdaSpeak's stereo output jack. 
 
 The audio sources processed and routed via the the DIP switch are the following. The corresponding labels are printed on the PCB; see picture. **Please note that there should be at most one audio signal routed to the left output channel, and at most one audio signal routed to the right output channel. It is OK to route one source to both left and right, but one should not route two sources (or more) to the same (left or right) channel!**
@@ -66,14 +68,9 @@ A *reasonable default configuration* for an Amdrum / PCM Sample Playing session 
 
 The 12 LED segment bar is used to indicate the current mode / status of LambdaSpeak 3. The LEDs have the following meaning: 
 
-| Syntax      | Description | Test Text     |
-| :---        |    :----:   |          ---: |
-| Header      | Title       | Here's this   |
-| Paragraph   | Text        | And more      |
+| EPS | SPO | AM | DK | SSA1 | RDY | TR | LRQ | SBY | VCC | Meaning | 
+|     |     |    |    |      |     |    |     |     |     |         | 
 
-
-
-![LambdaSpeak 3 Board](images/ls3-annotated.jpg)
 
 ![LambdaSpeak 3 Board](images/DSC08491.JPG)
 
