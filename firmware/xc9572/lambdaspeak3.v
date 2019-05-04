@@ -270,23 +270,16 @@ output oDK_MODE ;
 // LEDs 
 //
 
-// assign oEPSON_ON  = ssa1_epson | dk_epson | eeprom_sample_upload | eeprom_sample_play ; 
-assign oEPSON_ON  = ssa1_epson | dk_epson | eeprom_sample_play ; 
-// assign oSPO256_ON = spo256_ctrl           | eeprom_sample_play ; 
-assign oSPO256_ON = spo256_ctrl           | eeprom_sample_upload ; 
-assign oAMDRUM_ON = amdrum                | eeprom_sample_upload | eeprom_sample_play ; // NOT amdrum_ctrl ! 
+assign oEPSON_ON  = ssa1_epson | dk_epson | lambda_epson | lambda_dectalk ;
+    
+assign oSPO256_ON = spo256_ctrl           | eeprom_sample_play ;
+   
+assign oAMDRUM_ON = amdrum                | eeprom_sample_upload | eeprom_sample_play ; // NOT amdrum_ctrl !
+     
+assign oSSA1_MODE = ssa1_spo256 | ssa1_epson | eeprom_sample_upload | lambda_epson ;
+     							 
+assign oDK_MODE   = dk_spo256   | dk_epson   | eeprom_sample_play   | lambda_dectalk ;  
 
-assign oSSA1_MODE = ( ssa1_ctrl      & ! lambda_epson & ! lambda_dectalk | lambda_epson | serial_mode )   & ! eeprom_sample_play & ! eeprom_sample_upload ;  
-							 
-assign oDK_MODE   = ( dktronics_ctrl & ! lambda_epson & ! lambda_dectalk | lambda_dectalk | serial_mode ) & ! eeprom_sample_play & ! eeprom_sample_upload ;
-
-/*
- assign oEPSON_ON = 0; 
- assign oAMDRUM_ON = 0; 
- assign oSPO256_ON = 0; 
- assign oSSA1_MODE = 0 ; 
- assign oDK_MODE = 1; 
-*/ 
  
 endmodule
 
