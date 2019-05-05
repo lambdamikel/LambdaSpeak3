@@ -75,7 +75,7 @@ mode / status of LambdaSpeak 3. The LEDs have the following meaning:
   - **RDY**: Mostly used to indicate that LambdaSpeak is ready to accept input; however, the LED is also used for other purposes.
   - **TR**: Mostly used to indicate that LambdaSpeak is transmitting data to the the Epson daughterboard (that it is speaking); however, the LED is also used for other purposes.  
   
-  - the other LEDs **EPS, SPO, AM, DK, SSA1** are used to indicate the following modes: 
+  - the other LEDs **EPS, SPO, AM, DK, SSA1** are used to indicate the following modes; notice that the EEPROM PCM Play mode is the autonomous PCM sample playback mode. Since this mode can also involve the SPO256-AL2 using Channel 10, the SPO LED is being lit in this mode as well: 
 
     ------------------------------------------------------
     | EPS | SPO | AM  | DK  | SSA1 | Mode                | 
