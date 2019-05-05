@@ -76,17 +76,22 @@ mode / status of LambdaSpeak 3. The LEDs have the following meaning:
   - **TR**: Mostly used to indicate that LambdaSpeak is transmitting data to the the Epson daughterboard (that it is speaking); however, the LED is also used for other purposes.  
   
   - the other LEDs **EPS, SPO, AM, DK, SSA1** are used to indicate the following modes: 
-    - **EPS** is lit if the current mode uses the Epson daugherboard, i.e., the native DECtalk mode, the native Epson mode, or the DECtalk-based SSA1 or DKtronics emulation. 
 
-   - **SPO** is lit if the SPO256-AL2 is (potentially) being used by the current mode, i.e., the authentic SSA1 or DKtronics re-implementation modes, or the PCM Sample Playing mode ("PCM Channel 10" is used for the SPO256-AL2 in this mode, see below). 
+------------------------------------------------------
+| EPS | SPO | AM  | DK  | SSA1 | Mode                | 
+|-----|-----|-----|---- |------|---------------------|
+|     |     |     |     |      | Serial Mode / UART  |
+|  X  |     |     |  X  |   X  | Native Epson        | 
+|  X  |     |     |     |      | Native DECtalk      |
+|  X  |     |     |     |   X  | SSA1 Emulation      |
+|  X  |     |     |  X  |      | DKtronics Emulation |
+|     |  X  |     |     |   X  | SSA1 SPO            |
+|     |  X  |     |  X  |      | DKtronics SPO       |
+|     |     |  X  |     |      | Amdrum Emulation    |
+|     |     |  X  |  X  |   X  | EEPROM PCM Upload   |
+|     |  X  |  X  |  X  |   X  | EEPROM PCM Play     |
+------------------------------------------------------
 
-   - **AM** is lit in Amdrum mode, or in autonomous PCM Sample Upload or autonomous Sample Play Mode.  
-
-   - **SSA1** indicates the SSA1 mode; the LED comes on for the emulated as well as for the SPO256-AL2-based mode. In the latter case, the **SPO** LED is also lit. Moreover, **SSA1** also indicates the native Epson mode (note that **EPS** will also be lit then). **SSA1** also indicates the PCM Sample Upload mode (in that case, also **AM** will be lit). 
-
-   - **DK** indicates the DKtronics mode; the LED comes for the emulated as well as for the SPO256-AL2-based mode. In the latter case, the **SPO** LED is also lit. Moreover, **DK** also indicates the native DECtalk mode (note that **EPS** will also be lit then). **DK* also indicates the autonomous PCM Sample Playing mode (in that case, also **AM** will be lit). 
-
-Hence, each LambdaSpeak 3 mode has a unique pattern of LED activations. 
 
 The **8 LED segment bar on the right** is used to indicate the current / last byte transmitted from the CPC to LambdaSpeak (the last databus byte latched from IO port &FBEE). Each `out &fbee,<byte>` BASIC command will show the `<byte>` in binary on the LED segment. Moreover, by removing the LED segment bar from its socket, the socket can be used as General Purpose Digital Output controller by the CPC; for example, a 8-Relay Module can be driven by these outputs to control home appliances or other devices from the CPC. It is not possible to do General Purpose Digital Input over these ports, but the CPC's joystick port could be used for that purpose. 
 
