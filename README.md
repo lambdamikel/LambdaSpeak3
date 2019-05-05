@@ -77,20 +77,20 @@ mode / status of LambdaSpeak 3. The LEDs have the following meaning:
   
   - the other LEDs **EPS, SPO, AM, DK, SSA1** are used to indicate the following modes: 
 
-------------------------------------------------------
-| EPS | SPO | AM  | DK  | SSA1 | Mode                | 
-|-----|-----|-----|---- |------|---------------------|
-|     |     |     |     |      | Serial Mode / UART  |
-|  X  |     |     |  X  |   X  | Native Epson        | 
-|  X  |     |     |     |      | Native DECtalk      |
-|  X  |     |     |     |   X  | SSA1 Emulation      |
-|  X  |     |     |  X  |      | DKtronics Emulation |
-|     |  X  |     |     |   X  | SSA1 SPO            |
-|     |  X  |     |  X  |      | DKtronics SPO       |
-|     |     |  X  |     |      | Amdrum Emulation    |
-|     |     |  X  |  X  |   X  | EEPROM PCM Upload   |
-|     |  X  |  X  |  X  |   X  | EEPROM PCM Play     |
-------------------------------------------------------
+    ------------------------------------------------------
+    | EPS | SPO | AM  | DK  | SSA1 | Mode                | 
+    |-----|-----|-----|---- |------|---------------------|
+    |     |     |     |     |      | Serial Mode / UART  |
+    |  X  |     |     |  X  |   X  | Native Epson        | 
+    |  X  |     |     |     |      | Native DECtalk      |
+    |  X  |     |     |     |   X  | SSA1 Emulation      |
+    |  X  |     |     |  X  |      | DKtronics Emulation |
+    |     |  X  |     |     |   X  | SSA1 SPO            |
+    |     |  X  |     |  X  |      | DKtronics SPO       |
+    |     |     |  X  |     |      | Amdrum Emulation    |
+    |     |     |  X  |  X  |   X  | EEPROM PCM Upload   |
+    |     |  X  |  X  |  X  |   X  | EEPROM PCM Play     |
+    ------------------------------------------------------
 
 
 The **8 LED segment bar on the right** is used to indicate the current / last byte transmitted from the CPC to LambdaSpeak (the last databus byte latched from IO port &FBEE). Each `out &fbee,<byte>` BASIC command will show the `<byte>` in binary on the LED segment. Moreover, by removing the LED segment bar from its socket, the socket can be used as General Purpose Digital Output controller by the CPC; for example, a 8-Relay Module can be driven by these outputs to control home appliances or other devices from the CPC. It is not possible to do General Purpose Digital Input over these ports, but the CPC's joystick port could be used for that purpose. 
