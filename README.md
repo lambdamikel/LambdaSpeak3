@@ -133,6 +133,15 @@ LambdaSpeak 3 with LambdaBoard CPC expansion backplane:
 #### Autonomous PCM Playback Mode (EEPROM PCM Play Mode) 
 
 
+#### Serial Mode (UART Mode) 
+
+##### The 4 $ Catalex MP3 Module 
+
+#### I2C Mode 
+
+##### The 6 $ DS3231 RTC (Battery Buffered Real Time Clock) 
+
+
 
 
 ### Software
