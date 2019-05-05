@@ -75,7 +75,7 @@ mode / status of LambdaSpeak 3. The LEDs have the following meaning:
   - **RDY**: Mostly used to indicate that LambdaSpeak is ready to accept input; however, the LED is also used for other purposes.
   - **TR**: Mostly used to indicate that LambdaSpeak is transmitting data to the the Epson daughterboard (that it is speaking); however, the LED is also used for other purposes.  
   
-  - the other LEDs **EPS, SPO, AM, DK, SSA1** are used to indicate the following modes; notice that the EEPROM PCM Play mode is the autonomous PCM sample playback mode. Since this mode can also involve the SPO256-AL2 using Channel 10, the SPO LED is being lit in this mode as well: 
+  - the other LEDs **EPS, SPO, AM, DK, SSA1** are used to indicate the following modes; notice that the EEPROM PCM Play mode is the autonomous PCM sample playback mode. Since this mode can also involve the SPO256-AL2 using Channel 10, the SPO LED is being lit in this mode as well. Moreover, to upload the PCM samples from the CPC into LambdaSpeak's EEPROM, the EEPROM PCM Upload mode is being used: 
 
     ------------------------------------------------------
     | EPS | SPO | AM  | DK  | SSA1 | Mode                | 
@@ -91,6 +91,8 @@ mode / status of LambdaSpeak 3. The LEDs have the following meaning:
     |     |     |  X  |  X  |   X  | EEPROM PCM Upload   |
     |     |  X  |  X  |  X  |   X  | EEPROM PCM Play     |
     ------------------------------------------------------
+
+    These modes are going to explained in more detailed in the subsequent sections. 
 
 
 The **8 LED segment bar on the right** is used to indicate the current / last byte transmitted from the CPC to LambdaSpeak (the last databus byte latched from IO port &FBEE). Each `out &fbee,<byte>` BASIC command will show the `<byte>` in binary on the LED segment. Moreover, by removing the LED segment bar from its socket, the socket can be used as General Purpose Digital Output controller by the CPC; for example, a 8-Relay Module can be driven by these outputs to control home appliances or other devices from the CPC. It is not possible to do General Purpose Digital Input over these ports, but the CPC's joystick port could be used for that purpose. 
@@ -110,11 +112,32 @@ LambdaSpeak 3 with LambdaBoard CPC expansion backplane:
 
 
 
-### LambdaSpeak Firmware 
+### The Modes of LambdaSpeak 3 and the LambdaSpeak Firmware 
+
+#### Native Epson Mode
+
+#### Native DECtalk Mode
+
+#### DECtalk-based SSA1 Mode (SSA1 Emulation)
+
+#### DECtalk-based DK'tronics Mode (DKtronics Emulation) 
+
+#### Authentic SPO256-AL2-based SSA1 Mode (SSA1 Re-Implementation)
+
+#### Authentic SPO256-AL2-based DKtronics Mode (DKtronics Re-Implementation)
+
+#### Amdrum Mode (Amdrum Emulation) 
+
+#### Autonomous PCM Upload Mode (EEPROM PCM Upload Mode) 
+
+#### Autonomous PCM Playback Mode (EEPROM PCM Play Mode) 
+
 
 
 
 ### Software
+
+There are a couple of demo programs. 
 
 ### Support & Prices 
 
