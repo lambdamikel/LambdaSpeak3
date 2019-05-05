@@ -147,12 +147,10 @@ wire amdrum       = ! spo256_ctrl & amdrum_ctrl & ! ssa1_ctrl & ! dktronics_ctrl
 wire lambda_epson   = ! spo256_ctrl & ! amdrum_ctrl & ! ssa1_ctrl & ! dktronics_ctrl ; 
 wire lambda_dectalk = ! spo256_ctrl &   amdrum_ctrl &   ssa1_ctrl &   dktronics_ctrl ; 
 
-// wire eeprom_sample_upload = ! spo256_ctrl & ! amdrum_ctrl &   ssa1_ctrl & ! dktronics_ctrl ; 
-// wire eeprom_sample_play   = ! spo256_ctrl & ! amdrum_ctrl & ! ssa1_ctrl &   dktronics_ctrl ; 
-
 // also allow SPO to be one with eeprom: 
-wire eeprom_sample_upload = ! amdrum_ctrl &   ssa1_ctrl & ! dktronics_ctrl ; 
-wire eeprom_sample_play   = ! amdrum_ctrl & ! ssa1_ctrl &   dktronics_ctrl ; 
+wire eeprom_sample_upload =  ! spo256_ctrl & ! amdrum_ctrl & ! ssa1_ctrl &   dktronics_ctrl ; 
+wire eeprom_sample_play   =    spo256_ctrl &   amdrum_ctrl &   ssa1_ctrl & ! dktronics_ctrl ; 
+
 
 //
 
@@ -268,18 +266,18 @@ output oDK_MODE ;
 
 //
 // LEDs 
-//
+// 
+
 
 assign oEPSON_ON  = ssa1_epson | dk_epson | lambda_epson | lambda_dectalk ;
     
 assign oSPO256_ON = spo256_ctrl           | eeprom_sample_play ;
-   
-assign oAMDRUM_ON = amdrum                | eeprom_sample_upload | eeprom_sample_play ; // NOT amdrum_ctrl !
-     
-assign oSSA1_MODE = ssa1_spo256 | ssa1_epson | eeprom_sample_upload | lambda_epson ;
+    
+assign oAMDRUM_ON = amdrum | eeprom_sample_upload | eeprom_sample_play ;
+    	 
+assign oSSA1_MODE = ssa1_spo256 | ssa1_epson | eeprom_sample_upload | eeprom_sample_play | lambda_epson ;
      							 
-assign oDK_MODE   = dk_spo256   | dk_epson   | eeprom_sample_play   | lambda_dectalk ;  
+assign oDK_MODE   = dk_spo256   | dk_epson   | eeprom_sample_upload | eeprom_sample_play | lambda_epson ; 
 
- 
 endmodule
 
