@@ -7,8 +7,8 @@ eps spo am dk ssa1
 10000 | native dectalk
 10001 | ssa1 emu
 10010 | dk emu
-01010 | dk spo
 01001 | ssa spo
+01010 | dk spo
 00100 | amdrum
 00111 | eeprom pcm upload
 01111 | eeprom pcm play
