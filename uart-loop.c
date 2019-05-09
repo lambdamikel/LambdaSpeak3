@@ -58,7 +58,6 @@ void usart_on0(uint8_t rate, uint8_t width, uint8_t parity, uint8_t stop_bits) {
 
 }
 
-
 void usart_mode_loop(void) {
 
   cli(); 
@@ -78,6 +77,8 @@ void usart_mode_loop(void) {
   uint8_t hi_byte = 0; 
 
   uint8_t direct_mode = 0;  
+  
+  CUR_MODE = SERIAL_M; 
 
   while (1) {
 
@@ -248,6 +249,7 @@ void usart_mode_loop(void) {
 	  
 	  usart_input_buffer_index = 0; 
 	  cpc_read_cursor = 0; 
+	  SERIAL_ON; 
 
 	  break; 
 
@@ -264,10 +266,11 @@ void usart_mode_loop(void) {
 
 	case 20 : 
 	  
-	  usart_off(); 	  
+	  usart_off(); 	   
 	  LAMBDA_EPSON_ON; 	  	    
 	  speech_native_busy;  
 	  BLOCKING = 1; 
+	  NON_BLOCK_CONFIRMATIONS = 0; 
 	  command_confirm("Quitting serial mode."); 
 	  process_reset(); 
 
@@ -306,6 +309,14 @@ void usart_mode_loop(void) {
 
 	  break; 
 
+	case 0xF2 : get_full_mode(); break; 
+
+	case 0xC3 : 
+	  LAMBDA_EPSON_ON; 	  	    
+	  announce_cur_mode(); 
+	  SERIAL_ON; 
+	  break; 
+
 	}
       }
 
@@ -327,6 +338,3 @@ void usart_mode_loop(void) {
     }   
   }
 }
-
-#endif 
-
