@@ -92,7 +92,7 @@ mode / status of LambdaSpeak 3. The LEDs have the following meaning:
     |     |  X  |  X  |  X  |   X  | EEPROM PCM Play     | FA .. FD | RB      | 
     ---------------------------------------------------------------------------
 
-    LambdaSpeak 3 is controlled by sending "control bytes" or "commands" - the different modes are enable and disabled by sending control bytes. If normal operation mode, each byte being sent to IO port `&FBEE` > 127 is considered a control byte. All bytes < 128 are considered as content (phonemes, text, ...) for the speech synthesizer. This is the behavior of LambdaSpeak's normal control byte dispatcher / main mode listener loop.  
+    LambdaSpeak 3 is controlled by sending "control bytes" or "commands" - the different modes are enable and disabled by sending control bytes. In normal operation mode (i.e., the standard dispatcher loop is running), each byte being sent to IO port `&FBEE` > 127 is considered a control byte. All bytes < 128 are considered as content (phonemes, text, ...) for the speech synthesizer. This is the behavior of LambdaSpeak's normal control byte dispatcher / main mode listener loop.  
 
     Moreover, the **Serial Mode / UART** has its own command dispatcher / listener loop, and follows different conventions. See below for an explanation of the Serial Mode. Other modes, such as the Amdrum Emulation mode, also do not interpret control / command bytes (each byte is considered a PCM sample). 
 
