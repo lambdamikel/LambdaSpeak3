@@ -77,22 +77,30 @@ mode / status of LambdaSpeak 3. The LEDs have the following meaning:
   
   - the other LEDs **EPS, SPO, AM, DK, SSA1** are used to indicate the following modes; notice that the EEPROM PCM Play mode is the autonomous PCM sample playback mode. Since this mode can also involve the SPO256-AL2 using Channel 10, the SPO LED is being lit in this mode as well. Moreover, to upload the PCM samples from the CPC into LambdaSpeak's EEPROM, the EEPROM PCM Upload mode is being used: 
 
-    ------------------------------------------------------
-    | EPS | SPO | AM  | DK  | SSA1 | Mode                | 
-    |-----|-----|-----|---- |------|---------------------|
-    |     |     |     |     |      | Serial Mode / UART  |
-    |  X  |     |     |  X  |   X  | Native Epson        | 
-    |  X  |     |     |     |      | Native DECtalk      |
-    |  X  |     |     |     |   X  | SSA1 Emulation      |
-    |  X  |     |     |  X  |      | DKtronics Emulation |
-    |     |  X  |     |     |   X  | SSA1 SPO            |
-    |     |  X  |     |  X  |      | DKtronics SPO       |
-    |     |     |  X  |     |      | Amdrum Emulation    |
-    |     |     |  X  |  X  |   X  | EEPROM PCM Upload   |
-    |     |  X  |  X  |  X  |   X  | EEPROM PCM Play     |
-    ------------------------------------------------------
+    -------------------------------------------------------------------------------
+    | EPS | SPO | AM  | DK  | SSA1 | Mode                |  To Enter |   To Quit  | 
+    |-----|-----|-----|---- |------|---------------------|-------------------------
+    |     |     |     |     |      | Serial Mode / UART  |    &F1    |  &FF &14   | 
+    |  X  |     |     |  X  |   X  | Native Epson        |    &EF    |            |
+    |  X  |     |     |     |      | Native DECtalk      |    &EE    |            |
+    |  X  |     |     |     |   X  | SSA1 Emulation      |    &ED    |            | 
+    |  X  |     |     |  X  |      | DKtronics Emulation |    &EC    |            | 
+    |     |  X  |     |     |   X  | SSA1 SPO            |    &E2    |            | 
+    |     |  X  |     |  X  |      | DKtronics SPO       |    &E1    |            |
+    |     |     |  X  |     |      | Amdrum Emulation    |    &E3    | PC         |
+    |     |     |  X  |  X  |   X  | EEPROM PCM Upload   |    &FE    | EOM RB     | 
+    |     |  X  |  X  |  X  |   X  | EEPROM PCM Play     | &FA - &FD | RB         | 
+    -------------------------------------------------------------------------------
 
-    These modes are going to explained in more detailed in the subsequent sections. 
+    LambdaSpeak 3 is controlled by sending "control bytes" or "commands" - the different modes are enable and disabled by sending control bytes. If normal operation mode, each byte being sent to IO port `&FBEE` > 127 is considered a control byte. All bytes < 128 are considered as content (phonemes, text, ...) for the speech synthesizer. Moreover, the **Serial Mode / UART** has its own command dispatcher / listener loop, and follows different conventions. See below for an explanation of the Serial Mode. Other modes, such as the Amdrum Emulation mode, also do not interpret control / command bytes (each byte is considered a PCM sample). 
+
+    In addition, there is a "sub" mode for setting the RTC (Real Time Clock) time and calendar, which does not have a dedicated LED pattern. To set the time, invoke control byte / command `&DB`, and then send the hours, minutes, and seconds to the databus (port `&FBEE`), one byte at a time. Likewise, to set the calendar, invoke control byte `&DA`, and then send the year, month, date, and weekday (1 to 7 for Monday to Sunday) on the databus, one byte at a time. The set time and set calendar sub modes are 'modal' in the sense that normal operation of LambdaSpeak 3 is suspended until all requested parameters have been received. While the set time and set date commands are still requesting parameters, normal control byte dispatching is disabled, and LambdaSpeak returns to normal behavior (hence exiting the modal "sub" mode) after the clock (resp. calendar) has been set. There is no special LED pattern to indicate these set time and set calendar "sub" modes. 
+
+    Note that, in the table above, `PC` stands for Power Cycle - the only way of quitting the Amdrum mode is to power cycle the CPC (and LambdaSpeak). This is of course always an option to quit any of the listed modes, but the Amdrum mode it is the only way of quitting it. `EOM` mean `end of operation`; this means that normal control byte / command dispatching is resumed after all requested bytes have been received. `RB` stands for the LambdaSpeak Reset Button -- with the exception of the Amdrum mode, the Reset Button is of course always an option to leave the current mode, but it is listed for a mode in the table above if there is no other way of quitting this mode. 
+    
+    The different modes are going to explained in more detail in the subsequent sections. 
+
+    It should be noted that
 
 
 The **8 LED segment bar on the right** is used to indicate the current / last byte transmitted from the CPC to LambdaSpeak (the last databus byte latched from IO port &FBEE). Each `out &fbee,<byte>` BASIC command will show the `<byte>` in binary on the LED segment. Moreover, by removing the LED segment bar from its socket, the socket can be used as General Purpose Digital Output controller by the CPC; for example, a 8-Relay Module can be driven by these outputs to control home appliances or other devices from the CPC. It is not possible to do General Purpose Digital Input over these ports, but the CPC's joystick port could be used for that purpose. 
