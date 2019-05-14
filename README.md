@@ -79,7 +79,7 @@ mode / status of LambdaSpeak 3. The LEDs have the following meaning:
 
     ----------------------------------------------------------------------------
     | EPS | SPO | AM  | DK  | SSA1 | Mode                | To Enter | To Quit  | 
-    |-----|-----|-----|---- |------|---------------------|----------------------
+    |-----|-----|-----|---- |------|---------------------|----------|----------|
     |     |     |     |     |      | Serial Mode / UART  |    F1    |  FF 14   | 
     |  X  |     |     |  X  |   X  | Native Epson        |    EF    |          |
     |  X  |     |     |     |      | Native DECtalk      |    EE    |          |
