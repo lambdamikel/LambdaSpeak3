@@ -154,8 +154,31 @@ table above if there is no other way of quitting this mode.
 #### Schematics 
 
 ![Schematics](images/schematics-overview.jpg) 
-[Click here for a PDF version of the schematics.](images/schematics.pdf) )
+[Click here for a PDF version of the schematics.](schematics/schematics.pdf) 
 
+#### Printed Circuit Boards
+
+![PCB](images/ls3-pcb.jpg) 
+![PCB Front](images/pcb-front.jpg) 
+![PCB Back](images/pcb-back.jpg) 
+[Gerbers can be found here.](gerbers/lambdaspeak30-final.zip) 
+
+A version is also hosted on the [Seeed Gallery for immediate ordering PCBs.](https://www.seeedstudio.com/LambdaSpeak-3-g-1230571)
+
+### Bill of Material 
+
+Please note that the resistor networks are 1k Ohms. All other values can be found in the BOM: 
+
+![BOM1](images/bom1.jpg) 
+
+![BOM2](images/bom2.jpg) 
+
+#### Some Images 
+
+![Prototype][images/DSC08417.JPG]
+![Prototype][images/DSC08419.JPG]
+
+Early prototype.
 
 ![LambdaSpeak 3 Board](images/DSC08491.JPG)
 
@@ -166,8 +189,8 @@ Backside of LamdbaSpeak 3, with Catalex MP3 UART module connected / soldered in,
 LambdaSpeak 3 with LambdaBoard CPC expansion backplane: 
 
 ![LambdaSpeak 3 Board](images/DSC08488.JPG)
-
 ![LambdaSpeak 3 Board](images/DSC08489.JPG)
+![KiCAD 3D Model](images/ls3-3d.jpg)
 
 
 
