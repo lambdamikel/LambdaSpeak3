@@ -176,9 +176,9 @@ Please note that the resistor networks are 1k Ohms. All other values can be foun
 
 Final breadboard prototype.
 
-![Prototype Breadboard 1][images/DSC08417.JPG]
+![Prototype Breadboard 1](images/DSC08417.JPG)
 
-![Prototype Breadboard 2][images/DSC08419.JPG]
+![Prototype Breadboard 2](images/DSC08419.JPG)
 
 First PCB with additional RTC and MP3 module add after LambdaSpeak 3.0 was already completed, and Zhulien from the CPC Wiki Forum had suggested to add the MP3 module (and I also added the I2C RTC): 
 
