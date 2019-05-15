@@ -93,7 +93,7 @@ mode / status of LambdaSpeak 3. The LEDs have the following meaning:
 
     These different modes are going to explained in more detail in the subsequent sections. 
 
-  - the **8 LED segment bar on the right** is used to indicate the current / last byte transmitted from the CPC to LambdaSpeak (the last databus byte latched from IO port &FBEE). Each `out &fbee,<byte>` BASIC command will show the `<byte>` in binary on the LED segment. Moreover, by removing the LED segment bar from its socket, the socket can be used as General Purpose Digital Output controller by the CPC; for example, a 8-Relay Module can be driven by these outputs to control home appliances or other devices from the CPC. It is not possible to do General Purpose Digital Input over these ports, but the CPC's joystick port could be used for that purpose. 
+The **8 LED segment bar on the right** is used to indicate the current / last byte transmitted from the CPC to LambdaSpeak (the last databus byte latched from IO port &FBEE). Each `out &fbee,<byte>` BASIC command will show the `<byte>` in binary on the LED segment. Moreover, by removing the LED segment bar from its socket, the socket can be used as General Purpose Digital Output controller by the CPC; for example, a 8-Relay Module can be driven by these outputs to control home appliances or other devices from the CPC. It is not possible to do General Purpose Digital Input over these ports, but the CPC's joystick port could be used for that purpose. 
 
 #### Overview of LambdaSpeak 3 Modes 
 
