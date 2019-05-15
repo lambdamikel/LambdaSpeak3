@@ -172,7 +172,7 @@ Please note that the resistor networks (`RN1`, `RN2`, `RN3`) are 1k Ohm. All oth
 
 ![BOM2](images/bom2.jpg) 
 
-In addition, I suggest to use standard stackable Arduino Headers for J1, and J2, for plugging in the speech daughter board (instead of soldering it in permanently). A standard 2x25 angled IDC Box Header can then be used to plug LambdaSpeak into the **Mother X4 board** or [**LambdaBoard**}(https://www.seeedstudio.com/LambdaBoard-Expansion-Board-Backplane-for-Amstrad-CPC-Computers-g-1143632), to connect a 50 pin ribbon cable, or to plug it into [my CPC 464 epansion port connector](https://oshpark.com/shared_projects/3yA33GYO).
+In addition, I suggest to use standard stackable Arduino Headers for J1, and J2, for plugging in the speech daughter board (instead of soldering it in permanently). A standard 2x25 angled IDC Box Header can then be used to plug LambdaSpeak into the **Mother X4 board** or [**LambdaBoard**](https://www.seeedstudio.com/LambdaBoard-Expansion-Board-Backplane-for-Amstrad-CPC-Computers-g-1143632), to connect a 50 pin ribbon cable, or to plug it into [my CPC 464 epansion port connector](https://oshpark.com/shared_projects/3yA33GYO).
 
 The form factors in the above BOM are **for illustration only.** Instead of ceramic disc capacitors, I have used ceramic multilayer capacitors mostly. I recommend using DIP sockets for all chips. 
 
@@ -197,7 +197,7 @@ Backside of LamdbaSpeak 3, with Catalex MP3 UART module connected / soldered in,
 
 ![LambdaSpeak 3 Board](images/DSC08493.JPG)
 
-LambdaSpeak 3 with LambdaBoard CPC expansion backplane: 
+LambdaSpeak 3 plugged into my **LambdaBoard** CPC expansion backplane: 
 
 ![LambdaSpeak 3 Board](images/DSC08488.JPG)
 ![LambdaSpeak 3 Board](images/DSC08489.JPG)
@@ -239,7 +239,7 @@ LambdaSpeak 3 with LambdaBoard CPC expansion backplane:
 
 Here are the firmware files:  
 
-* [Xilinx XC9572 PLLC84 CPLD)](firmware/xc9572/lambdaspeak3.jed)
+* [Xilinx XC9572 PLLC84 CPLD](firmware/xc9572/lambdaspeak3.jed)
 * [ATmega 644 Firmware](firmware/atmega644/lambdaspeak3-firmware.hex)
 
 For reference, the [Verilog](firmware/xc9572/lambdaspeak3.v) and
@@ -249,11 +249,13 @@ well.
 I have used the [ISE
 WebPack](https://www.xilinx.com/products/design-tools/ise-design-suite/ise-webpack.html)
 under Ubuntu Linux and a generic Xilinx USB Platform Cable (clone) to
-program the CPLD. Note that the LambdaSpeak 3 has JTAG headers on
-board. So it can be assembled first and then programmed, being powered
-by the 5V jack (center polarity = +!).
+program the CPLD. Note that LambdaSpeak 3 has JTAG headers on
+board. Power can be provided from the 5V jack (center polarity = +!) for programming. 
 
-The ATmega can be programmed with an EEPROM programmer such as the inexpensive  USB TL866II which can be found on Ebay and/or Amazon for ~ 30 USD. The fuse settings are shown in the following picture:  
+The ATmega can be programmed with an EEPROM programmer such as the
+inexpensive USB TL866II which can be found on Ebay and/or Amazon for ~
+30 USD. The fuse settings required for LambdaSpeak's 20 MHz external
+clock are shown in the following picture:
 
 ![Fuse Settings](firmware/atmega644/atmega-flash-config.jpg)
  
