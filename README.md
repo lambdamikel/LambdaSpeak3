@@ -157,6 +157,9 @@ table above if there is no other way of quitting this mode.
 
 #### Printed Circuit Boards
 
+LambdaSpeak 3 was made with [http://kicad-pcb.org/](KiCad EDA v4.0.7),
+and ``freeRouting.jar`` did the routing.
+
 ![PCB](images/ls3-pcb.jpg) 
 ![PCB Front](images/pcb-front.jpg) 
 ![PCB Back](images/pcb-back.jpg) 
