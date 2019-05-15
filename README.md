@@ -163,6 +163,8 @@ and ``freeRouting.jar`` did the routing.
 ![PCB](images/ls3-pcb.jpg) 
 ![PCB Front](images/pcb-front.jpg) 
 ![PCB Back](images/pcb-back.jpg) 
+![KiCAD 3D Model](images/ls3-3d.jpg)
+
 [Gerbers can be found here.](gerbers/lambdaspeak30-final.zip) 
 
 A version is also hosted on the [Seeed Gallery for immediate ordering PCBs.](https://www.seeedstudio.com/LambdaSpeak-3-g-1230571)
@@ -206,8 +208,6 @@ LambdaSpeak 3 plugged into my **LambdaBoard** CPC expansion backplane:
 
 ![LambdaSpeak 3 Board](images/DSC08488.JPG)
 ![LambdaSpeak 3 Board](images/DSC08489.JPG)
-
-![KiCAD 3D Model](images/ls3-3d.jpg)
 
 #### Some YouTube Videos of LambdaSpeak 3 in Action
 
