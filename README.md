@@ -177,7 +177,9 @@ In addition, I suggest to use standard stackable Arduino Headers for J1, and J2,
 The form factors in the above BOM are **for illustration only.** Instead of ceramic disc capacitors, I have used ceramic multilayer capacitors mostly. I recommend using DIP sockets for all chips. 
 
 
-#### Some Pictures 
+### Media 
+
+#### Some Pictures
 
 Final breadboard prototype: 
 
@@ -203,6 +205,25 @@ LambdaSpeak 3 plugged into my **LambdaBoard** CPC expansion backplane:
 ![LambdaSpeak 3 Board](images/DSC08489.JPG)
 
 ![KiCAD 3D Model](images/ls3-3d.jpg)
+
+#### Some YouTube Videos 
+
+- [Amdrum Emulation Testing with early Breadboard Prototype](https://youtu.be/VLRJbIvIBPY?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx)
+- [SPO256-AL2 Testing](https://youtu.be/09xEWBEMHK0?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx) 
+- [Driving Relays / Home Automation with the CPC?](https://youtu.be/FM8kbuwGmSI?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx)
+- [LambdaDrum with Boss DR660 Samples](https://youtu.be/k0D6YG4FTk4?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx)
+- [LambdaDrum with HighDef Samples](https://youtu.be/BGyaB4OQniw?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx) 
+- [LambdaDrum BASIC Drumming](https://youtu.be/CklrKWw14GU?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx)
+- [LambdaDrum BASIC Sequencer with HighDef Samples](https://youtu.be/BGyaB4OQniw?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx)
+- [LambdaDrum BASIC Sequencer with MediumDef Samples](https://youtu.be/M7aI7KLEi1s?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx)
+- [Talking Battery-Buffered Real Time Clock](https://youtu.be/Dsok873zTjM?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx)
+- [UART MP3 Player](https://youtu.be/NtUVlTJrOkU?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx) 
+- [RS232 Serial Interface Test](https://youtu.be/uKeZEkyIqtg?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx)
+- [FTDI USB Cable Serial Interface Test](https://youtu.be/8MZMzynYyxI?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx)
+
+#### Older Versions
+
+Check of [the predecessors of LambdaSpeak 3.](https://github.com/lambdamikel/LambdaSpeak) 
 
 
 ### The Modes of LambdaSpeak 3 and the LambdaSpeak Firmware 
