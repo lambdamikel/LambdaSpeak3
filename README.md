@@ -146,12 +146,14 @@ Note that, in the table above, `PC` stands for Power Cycle - the only
 way of quitting the Amdrum mode is to power cycle the CPC (and
 LambdaSpeak). This is of course always an option to quit any of the
 listed modes, but the Amdrum mode it is the only way of quitting
-it. `EOO` stands for `end of operation`; this means that normal control byte
-/ command dispatching is resumed after all requested bytes have been
-received. `RB` stands for the LambdaSpeak Reset Button -- with the
-exception of the Amdrum mode, the Reset Button is of course always an
-option to leave the current mode, but it is listed for a mode in the
-table above if there is no other way of quitting this mode.
+it. `EOO` stands for `end of operation`; this means that normal
+control byte / command dispatching is resumed after all requested
+bytes have been received, so the mode terminates / quits itself and
+returns to LS 3 default mode.  `RB` stands for the LambdaSpeak Reset
+Button -- with the exception of the Amdrum mode, the Reset Button is
+of course always an option to leave the current mode, but it is listed
+for a mode in the table above if there is no other way of quitting
+this mode.
     
 
 #### Schematics 
@@ -165,23 +167,23 @@ LambdaSpeak 3 was made with [KiCad EDA v4.0.7](http://kicad-pcb.org/),
 and ``freeRouting.jar`` did the routing.
 
 ![PCB](images/ls3-pcb.jpg) 
-![PCB Front](images/pcb-front.jpg) 
-![PCB Back](images/pcb-back.jpg) 
+![PCB Front](images/pcb-front.png) 
+![PCB Back](images/pcb-back.png) 
 ![KiCAD 3D Model](images/ls3-3d.jpg)
 
 [Gerbers can be found here.](gerbers/lambdaspeak30-final.zip) 
 
-A version is also hosted on the [Seeed Gallery for immediate ordering PCBs.](https://www.seeedstudio.com/LambdaSpeak-3-g-1230571)
+A version is also hosted on the [Seeed Gallery for immediate ordering of PCBs.](https://www.seeedstudio.com/LambdaSpeak-3-g-1230571)
 
 ### Bill of Material 
 
-Please note that the resistor networks (`RN1`, `RN2`, `RN3`) are 1k Ohm. All other values can be found in the BOM: 
+Please note that the resistor networks (`RN1`, `RN2`, `RN3`) are all 1k Ohm. All other values can be found in the BOM: 
 
 ![BOM1](images/bom1.jpg) 
 
 ![BOM2](images/bom2.jpg) 
 
-In addition, I suggest to use standard stackable Arduino Headers for J1, and J2, for plugging in the speech daughter board (instead of soldering it in permanently). A standard 2x25 angled IDC Box Header can then be used to plug LambdaSpeak into the **Mother X4 board** or [**LambdaBoard**](https://www.seeedstudio.com/LambdaBoard-Expansion-Board-Backplane-for-Amstrad-CPC-Computers-g-1143632), to connect a 50 pin ribbon cable, or to plug it into [my CPC 464 epansion port connector](https://oshpark.com/shared_projects/3yA33GYO).
+I recommend to use standard stackable Arduino Headers for J1 and J2 (instead of soldering the daugher board in permanently). A standard 2x25 angled IDC Box Header can then be used to plug LambdaSpeak into the **Mother X4 board** or [**LambdaBoard**](https://www.seeedstudio.com/LambdaBoard-Expansion-Board-Backplane-for-Amstrad-CPC-Computers-g-1143632). Or a 50 pin ribbon cable. For the CPC 464 and 664, there is also [my CPC 464 epansion port connector](https://oshpark.com/shared_projects/3yA33GYO) as an option.
 
 The form factors in the above BOM are **for illustration only.** Instead of ceramic disc capacitors, I have used ceramic multilayer capacitors mostly. I recommend using DIP sockets for all chips. 
 
@@ -256,6 +258,12 @@ Check of [the predecessors of LambdaSpeak 3.](https://github.com/lambdamikel/Lam
 
 
 #### Serial Mode (UART Mode) 
+
+If the MP3 module is not soldered in directly, it is wise to use pin headers such 
+that an FTDI cable or RS232 MAX level converter with DSUB9 RS232 socket can be hooked
+up to LambdaSpeak 3 directly: 
+
+![RS232 Connector](images/DSC085340.jpg)
 
 ##### The 4 $ Catalex MP3 Module 
 
