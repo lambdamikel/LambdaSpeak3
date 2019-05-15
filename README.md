@@ -166,7 +166,7 @@ A version is also hosted on the [Seeed Gallery for immediate ordering PCBs.](htt
 
 ### Bill of Material 
 
-Please note that the resistor networks are 1k Ohms. All other values can be found in the BOM: 
+Please note that the resistor networks (`RN1`, `RN2`, `RN3`) are 1k Ohm. All other values can be found in the BOM: 
 
 ![BOM1](images/bom1.jpg) 
 
@@ -174,7 +174,7 @@ Please note that the resistor networks are 1k Ohms. All other values can be foun
 
 #### Some Pictures 
 
-Final breadboard prototype.
+Final breadboard prototype: 
 
 ![Prototype Breadboard 1](images/DSC08417.JPG)
 
@@ -182,8 +182,9 @@ Final breadboard prototype.
 
 First PCB with additional RTC and MP3 module add after LambdaSpeak 3.0 was already completed, and Zhulien from the CPC Wiki Forum had suggested to add the MP3 module (and I also added the I2C RTC): 
 
-![LambdaSpeak with RTC and MP3 Modules][images/DSC08486.JPG]
+![LambdaSpeak with RTC and MP3 Modules](images/DSC08486.JPG)
 
+Final version of LambdaSpeak 3: 
 
 ![LambdaSpeak 3 Board](images/DSC08491.JPG)
 
@@ -195,8 +196,8 @@ LambdaSpeak 3 with LambdaBoard CPC expansion backplane:
 
 ![LambdaSpeak 3 Board](images/DSC08488.JPG)
 ![LambdaSpeak 3 Board](images/DSC08489.JPG)
-![KiCAD 3D Model](images/ls3-3d.jpg)
 
+![KiCAD 3D Model](images/ls3-3d.jpg)
 
 
 ### The Modes of LambdaSpeak 3 and the LambdaSpeak Firmware 
