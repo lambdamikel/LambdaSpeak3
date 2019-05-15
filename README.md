@@ -180,7 +180,7 @@ Final breadboard prototype:
 
 ![Prototype Breadboard 2](images/DSC08419.JPG)
 
-First PCB with RTC and MP3 modules added when LambdaSpeak 3.0 was already final, and "Zhulien" from the CPC Wiki Forum suggested to the MP3 module (and then I couldn't resist to no also include a RTC for 4 $, given that the ATmega still had 3 KBs of program memory left): 
+First PCB with RTC and MP3 modules added when LambdaSpeak 3.0 was already "final", and "Zhulien" from the CPC Wiki Forum had suggested to add the UART MP3 module; and then I couldn't stand to leave the last 3 KBs of ATmega program memory unused, and added the I2C RTC: 
 
 ![LambdaSpeak with RTC and MP3 Modules](images/DSC08486.JPG)
 
