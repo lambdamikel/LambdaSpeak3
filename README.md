@@ -263,7 +263,7 @@ If the MP3 module is not soldered in directly, it is wise to use pin headers suc
 that an FTDI cable or RS232 MAX level converter with DSUB9 RS232 socket can be hooked
 up to LambdaSpeak 3 directly: 
 
-![RS232 Connector](images/DSC085340.jpg)
+![RS232 Connector](images/DSC08534.JPG)
 
 ##### The 4 $ Catalex MP3 Module 
 
