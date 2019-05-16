@@ -98,8 +98,15 @@ The **8 LED segment bar on the right** is used to indicate the current / last by
 
 #### Overview of LambdaSpeak 3 Modes 
 
+The following automata gives an overview of the different modes and
+transitions between modes: 
+
+![LS3 Modes](manuals/ls3-modes.png) 
+
+There is also [a PDF version of this image.](manuals/ls3-modes.pdf). 
+
 The default mode is the SSA-1 Emulation mode. This mode is enabled
-after a reset (via `&FF` or reset button), or power cycle. 
+after a reset (via `&FF` or reset button), or after a power cycle, for example. 
 
 Referring to the table above, the EEPROM PCM Play mode is the
 autonomous PCM sample playback mode. Since this mode can also involve
