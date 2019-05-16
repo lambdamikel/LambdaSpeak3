@@ -76,23 +76,23 @@ mode / status of LambdaSpeak 3. The LEDs have the following meaning:
   
   - the other LEDs **EPS, SPO, AM, DK, SSA1** are used to indicate the current mode. 
 
-    ---------------------------------------------------------------------------------------------------
-    | EPS | SPO | AM  | DK  | SSA1 | Mode                | To Enter | To Quit |   Notes & Comments    |
-    |-----|-----|-----|---- |------|---------------------|----------|---------|------------------------
-    |     |     |     |     |      | Serial Mode / UART  |    F1    |  FF,14  | For MP3, RS232, FTDI  | 
-    |  X  |     |     |  X  |   X  | Native Epson        |    EF    |         | Natural Speech        |
-    |  X  |     |     |     |      | Native DECtalk      |    EE    |         | DECtalk can even sing | 
-    |  X  |     |     |     |   X  | SSA1 Emulation      |    ED    |         | **LS Default Mode**   | 
-    |  X  |     |     |  X  |      | DKtronics Emulation |    EC    |         | Better than SPO       | 
-    |     |  X  |     |     |   X  | SSA1 SPO            |    E2    |         | Re-Implementation     |
-    |     |  X  |     |  X  |      | DKtronics SPO       |    E1    |         | Re-Implementation     | 
-    |     |     |  X  |     |      | Amdrum Emulation    |    E3    | PC      | Amdrum PCM Emulation  |
-    |     |     |  X  |  X  |   X  | EEPROM PCM Upload   |    FE    | EOO RB  | PCM Data to EEPROM    |
-    |     |  X  |  X  |  X  |   X  | EEPROM PCM Play     | FA .. FD | RB      | 1 to 4 Channel HQ PCM | 
-    --------------------------------------------------------------------------------------------------
+    -----------------------------------------------------------------------------------------------------
+    | EPS | SPO | AM  | DK  | SSA1 | Mode                | To Enter  | To Quit  |   Notes & Comments    |
+    |-----|-----|-----|---- |------|---------------------|-----------|----------|------------------------
+    |     |     |     |     |      | Serial Mode / UART  |    &F1    | &FF, &14 | For MP3, RS232, FTDI  | 
+    |  X  |     |     |  X  |   X  | Epson               |    &EF    | CM       | Natural Speech        |
+    |  X  |     |     |     |      | DECtalk             |    &EE    | CM       | DECtalk can even sing | 
+    |  X  |     |     |     |   X  | SSA1 Emulation      |    &ED    | CM       | **LS Default Mode**   | 
+    |  X  |     |     |  X  |      | DKtronics Emulation |    &EC    | CM       | Better than SPO       | 
+    |     |  X  |     |     |   X  | SSA1 SPO            |    &E2    | CM       | Re-Implementation     |
+    |     |  X  |     |  X  |      | DKtronics SPO       |    &E1    | CM       | Re-Implementation     | 
+    |     |     |  X  |     |      | Amdrum Emulation    |    &E3    | PC       | Amdrum PCM Emulation  |
+    |     |     |  X  |  X  |   X  | EEPROM PCM Upload   |    &FE    | EOM RB   | PCM Data to EEPROM    |
+    |     |  X  |  X  |  X  |   X  | EEPROM PCM Play     | &FA - &FD | RB       | 1 to 4 Channel HQ PCM | 
+    -----------------------------------------------------------------------------------------------------
 
     These different modes are going to explained in more detail in the subsequent sections. 
-    `PC` = Power Cycle, `RB` = Reset Button, EOO = `End of normal operation`, `FF,14` = sequence of command / control bytes in hexadecimal (first send 255 = &FF, then 20 = &14). `HQ PCM` = High Quality PCM (Pulse Code Modulation), > 18 khZ possible, 8 Bit PCM. 
+    `PC` = Power Cycle, `RB` = Reset Button, `EOM` = `End of mode`, `CM` = `Change Mode` (means that the control bytes `To Enter` a different mode will be accepted in that mode), `&FF, &14` = sequence of command / control bytes in hexadecimal (first send 255 = &FF, then 20 = &14). `HQ PCM` = High Quality PCM (Pulse Code Modulation), > 18 khZ possible, 8 Bit PCM. 
 
 The **8 LED segment bar on the right** is used to indicate the current / last byte transmitted from the CPC to LambdaSpeak (the last databus byte latched from IO port &FBEE). Each `out &fbee,<byte>` BASIC command will show the `<byte>` in binary on the LED segment. Moreover, by removing the LED segment bar from its socket, the socket can be used as General Purpose Digital Output controlled by the CPC; for example, a 8-Relay Module can be driven by these outputs to control home appliances or other devices from the CPC. It is not possible to do General Purpose Digital Input over these ports, but the CPC's joystick port could be used for that purpose. 
 
@@ -238,9 +238,9 @@ Check of [the predecessors of LambdaSpeak 3.](https://github.com/lambdamikel/Lam
 
 ### The Modes of LambdaSpeak 3 and the LambdaSpeak Firmware 
 
-#### Native Epson Mode
+#### Epson Mode
 
-#### Native DECtalk Mode
+#### DECtalk Mode
 
 #### DECtalk-based SSA1 Mode (SSA1 Emulation)
 
