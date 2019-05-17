@@ -249,7 +249,7 @@ This tables shows the command / control bytes recognized by LambdaSpeak:
 
 -----------------------------------------------------------------------------------------
 | M/CB | Explanation                | Epson, DECtalk, SSA1 & DK Emu | SSA1 SPO & DK SPO | 
-|------|--------------------------- |----------------------------------------------------
+-------|--------------------------- |----------------------------------------------------
 | &FF  | Reset LambdaSpeak          |                X              |         X         |
 | &FE  | PCM Upload - PCM to EEPROM |                X              |         X         | 
 | &FD  | Enable PCM 4 Channel Play  |                X              |         X         |
