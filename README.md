@@ -247,11 +247,72 @@ Check of [the predecessors of LambdaSpeak 3.](https://github.com/lambdamikel/Lam
 
 This tables shows the command / control bytes recognized by LambdaSpeak: 
 
---------------------
-| M/CB | SSA1 | DK |
-|------|------|----|
-| FF   |   X  |    |
---------------------
+-----------------------------------------------------------------------------------------
+| M/CB | Explanation                | Epson, DECtalk, SSA1 & DK Emu | SSA1 SPO & DK SPO | 
+|------|--------------------------- |----------------------------------------------------
+| &FF  | Reset LambdaSpeak          |                X              |         X         |
+| &FE  | PCM Upload - PCM to EEPROM |                X              |         X         | 
+| &FD  | Enable PCM 4 Channel Play  |                X              |         X         |
+| &FC  | Enable PCM 3 Channel Play  |                X              |         X         | 
+| &FB  | Enable PCM 2 Channel Play  |                X              |         X         |
+| &FA  | Enable PCM 1 Channel Play  |                X              |         X         |
+| &F8  | EEPROM Erase               |                X              |         X         |
+| &F5  | EEPROM Erase & Check       |                X              |         X         | 
+| &F4  | Non-Blocking Confirmations |                X              |         X         |
+| &F3  | Blocking Confirmations     |                X              |         X         |
+| &F2  | Get Mode Descriptor Byte   |                X              |         X         | 
+| &F1  | Enable Serial Mode         |                X              |         X         |
+| &EF  | Enable Epson Mode          |                X              |         X         | 
+| &EE  | Enable DECtalk Mode        |                X              |         X         |
+| &ED  | Enable SSA1 Emu Mode       |                X              |         X         |
+| &EC  | Enable DKtronics Emu Mode  |                X              |         X         |
+| &EB  | Non-Blocking Speech Mode   |                X              |                   | 
+| &EA  | Blocking Speech Mode       |                X              |                   |
+| &E9  | Command Confirmation On    |                X              |                   |
+| &E8  | Command Confirmations Off  |                X              |                   |
+| &E7  | English Mode On            |                X              |                   | 
+| &E6  | Castilian Spanish Mode On  |                X              |                   | 
+| &E5  | Short Delay for Getters    |                X              |                   | 
+| &E4  | Long Delay for Getters     |                X              |                   | 
+| &E3  | Enable Amdrum Emu Mode     |                X              |         X         | 
+| &E2  | Enable SSA1 SPO Mode       |                X              |         X         |
+| &E1  | Enable DKtronics SPO Mode  |                X              |         X         | 
+| &DF  | ASYNCHRONOUS STOP SPEECH   |                X              |                   | 
+| &DE  | Flush Speech Buffer Now    |                X              |                   |  
+| &DD  | Speak RTC Time             |                X              |                   |
+| &DC  | Speak RTC Date             |                X              |                   |
+| &DB  | Set RTC Time               |                X              |                   | 
+| &DA  | Set RTC Calendar           |                X              |                   | 
+| &D9  | Get RTC Weekday            |                X              |                   |
+| &D8  | Get RTC Date               |                X              |                   |
+| &D7  | Get RTC Month              |                X              |                   |
+| &D6  | Get RTC Year (20xx)        |                X              |                   |
+| &D5  | Get RTC Seconds            |                X              |                   |
+| &D4  | Get RTC Minutes            |                X              |                   |
+| &D3  | Get RTC Hours              |                X              |                   |
+| &D2  | Get RTC Temperature (C)    |                X              |                   |
+| &CF  | Get Mode (LS1.95 Compat.)  |                X              |                   |
+| &CE  | Get Volume                 |                X              |                   |
+| &CD  | Get Voice                  |                X              |                   |
+| &CC  | Get Speak Rate             |                X              |                   |
+| &CB  | Get Language               |                X              |                   |
+| &CA  | Get Buffer AutoFlush Delay |                X              |                   |
+| &C9  | Get Firmware Version       |                X              |                   | 
+| &C8  | Speak Copyright/Info Note  |                X              |         X         |
+| &C7  | Speak HAL9000 Quote        |                X              |         X         |
+| &C6  | Sing DECtalk "Daisy" Song  |                X              |         X         |
+| &C5  | Run Port Echo Test Program |                X              |         X         | 
+| &C3  | Speak Current Mode Info    |                X              |         X         |
+| &C2  | Run PCM Test Program       |                X              |         X         | 
+| &B<x>| Use Voice <x>              |                X              |                   | 
+| &B0  | Use Default Voice          |                X              |                   | 
+| &A<x>| Set Volume to <x>          |                X              |                   | 
+| &A0  | Use Default Volume         |                X              |                   | 
+| &9<x>| Set Speak Rate to <x>      |                X              |                   | 
+| &90  | Use Default Speak Rate     |                X              |                   | 
+| &8<x>| Set Fush Buffer Delay <x > |                X              |                   | 
+| &80  | Use Default Flush Delay    |                X              |                   | 
+-----------------------------------------------------------------------------------------
 
 #### Epson Mode
 
