@@ -340,35 +340,36 @@ Control bytes start with 255 / &FF; hence, in order to send the byte 255 as cont
 The following table lists the command bytes in Serial Mode: 
 
 
--------------------------------------------------------------------------------------------------
-| Byte      | Explanation                                   | Note                              |
-|-----------|-----------------------------------------------|-----------------------------------|
-| 0...&FE   | Send Byte 0...254                             | Either buffered or TX directly    |
-| &FF, &FF  | Send Byte 255                                 | Either buffered or TX directly    |
-| &FF, 1, x | Read x from bus and TX x                      | Transmit x directly to TX         |
-| &FF, 2    | Send buffer to TX                             | Flush buffer, max 256 + 268 bytes |
-| &FF, 3    | Get low byte number of bytes in input buffer  | Check if bytes have been received | 
-| &FF, 4    | Get high byte number of bytes in input buffer | Check if bytes have been received | 
-| &FF, 5    |                                               |                                   | 
-| &FF, 6    |                                               |                                   | 
-| &FF, 7    |                                               |                                   | 
-| &FF, 8    |                                               |                                   | 
-| &FF, 9    |                                               |                                   | 
-| &FF, 10   |                                               |                                   | 
-| &FF, 11   |                                               |                                   | 
-| &FF, 12   |                                               |                                   | 
-| &FF, 13   |                                               |                                   | 
-| &FF, 14   |                                               |                                   | 
-| &FF, 15   |                                               |                                   | 
-| &FF, 16   |                                               |                                   | 
-| &FF, 17   |                                               |                                   | 
-| &FF, 20   |                                               |                                   | 
-| &FF, 31   |                                               |                                   | 
-| &FF, 32   |                                               |                                   | 
-| &FF, 33   |                                               |                                   | 
-| &FF, &C3  |                                               |                                   | 
-| &FF, &F2  |                                               |                                   | 
--------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+| Byte Sequence   | Explanation                                   | Note                              |
+|-----------------|-----------------------------------------------|-----------------------------------|
+| 0...&FE         | Send Byte 0...254                             | Either buffered or TX directly    |
+| &FF, &FF        | Send Byte 255                                 | Either buffered or TX directly    |
+| &FF, 1, x       | Read x from bus and TX x                      | Transmit x directly to TX         |
+| &FF, 2          | Send buffer to TX                             | Flush buffer, max 256 + 268 bytes |
+| &FF, 3          | Get low byte number of bytes in input buffer  | Check if bytes have been received | 
+| &FF, 4          | Get high byte number of bytes in input buffer | Check if bytes have been received | 
+| &FF, 5          |                                               |                                   | 
+| &FF, 6          |                                               |                                   | 
+| &FF, 7          |                                               |                                   | 
+| &FF, 8          |                                               |                                   | 
+| &FF, 9          |                                               |                                   | 
+| &FF, 10         |                                               |                                   | 
+| &FF, 11, lo, hi |                                               |                                   | 
+| &FF, 12         |                                               |                                   | 
+| &FF, 13         |                                               |                                   | 
+| &FF, 14         |                                               |                                   | 
+| &FF, 15         |                                               |                                   | 
+| &FF, 16         |                                               |                                   | 
+| &FF, 17         |                                               |                                   | 
+| &FF, 20         |                                               |                                   | 
+| &FF, 30, baud   |                                               |                                   | 
+| &FF, 31, width  |                                               |                                   | 
+| &FF, 32, par.   |                                               |                                   | 
+| &FF, 33, stop   |                                               |                                   | 
+| &FF, &C3        |                                               |                                   | 
+| &FF, &F2        |                                               |                                   | 
+-------------------------------------------------------------------------------------------------------
 
 
 
