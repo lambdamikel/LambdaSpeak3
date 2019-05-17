@@ -335,9 +335,23 @@ This tables shows the command / control bytes recognized by LambdaSpeak:
 
 #### Serial Mode (UART Mode) 
 
-In the serial mode, every byte that is sent to `&FBEE` is output directly to the UART (TX), and it constantly receives via RX (interupt-based). 
-Control bytes start with 255 / &FF; hence, in order to send the byte 255 as content to the UART, it needs to be `escaped` by sending 255 and then 255 again. 
-The following table lists the command bytes in Serial Mode: 
+In the serial mode, every byte that is sent to `&FBEE` is output
+directly to the UART (TX), if the serial interface is in direct mode,
+and otherwise the received bytes are buffered and the buffer is
+flushed with a command.  Bytes can be received (interupt-based) via
+RX, and they get buffered.  Since the send / receive buffer is shared,
+bytes should only be received after the buffer has been flushed in
+buffered mode, or the non-buffered (direct) mode should be used (in
+this case, the buffer is not being used for sending bytes, and can
+excusively used for receiving bytes). The send/receive buffer has a
+size of 256 + 268 bytes, and it will automatically overflow.
+
+To control the UART interface, sequences of control bytes are used,
+and a control sequence starts with 255 / &FF. 255 can be be `escaped`
+by sending 255 and then 255 again (so, to transmit 255 as content
+byte, send 255 twice).
+
+The following table lists the command bytes in Serial Mode:
 
 
 -------------------------------------------------------------------------------------------------------
