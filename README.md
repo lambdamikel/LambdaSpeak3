@@ -245,6 +245,16 @@ Check of [the predecessors of LambdaSpeak 3.](https://github.com/lambdamikel/Lam
 
 ### The Modes of LambdaSpeak 3 and the LambdaSpeak Firmware 
 
+This tables shows the command / control bytes recognized by LambdaSpeak: 
+
+--------------------
+| Mode | SSA1 | DK |
+--------------------
+| CB   |      |    |
+--------------------
+| FF   |   X  |    |
+--------------------
+
 #### Epson Mode
 
 #### DECtalk Mode
