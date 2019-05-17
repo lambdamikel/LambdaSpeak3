@@ -249,7 +249,7 @@ This tables shows the command / control bytes recognized by LambdaSpeak:
 
 --------------------
 | M/CB | SSA1 | DK |
---------------------
+|------|------|----|
 | FF   |   X  |    |
 --------------------
 
