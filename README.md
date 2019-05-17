@@ -248,9 +248,7 @@ Check of [the predecessors of LambdaSpeak 3.](https://github.com/lambdamikel/Lam
 This tables shows the command / control bytes recognized by LambdaSpeak: 
 
 --------------------
-| Mode | SSA1 | DK |
---------------------
-| CB   |      |    |
+| M/CB | SSA1 | DK |
 --------------------
 | FF   |   X  |    |
 --------------------
