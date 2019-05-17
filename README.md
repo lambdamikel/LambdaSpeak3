@@ -335,6 +335,43 @@ This tables shows the command / control bytes recognized by LambdaSpeak:
 
 #### Serial Mode (UART Mode) 
 
+In the serial mode, every byte that is sent to `&FBEE` is output directly to the UART (TX), and it constantly receives via RX (interupt-based). 
+Control bytes start with 255 / &FF; hence, in order to send the byte 255 as content to the UART, it needs to be `escaped` by sending 255 and then 255 again. 
+The following table lists the command bytes in Serial Mode: 
+
+
+-------------------------------------------------------------------------------------------------
+| Byte      | Explanation                                   | Note                              |
+|-----------|-----------------------------------------------|-----------------------------------|
+| 0...&FE   | Send Byte 0...254                             | Either buffered or TX directly    |
+| &FF, &FF  | Send Byte 255                                 | Either buffered or TX directly    |
+| &FF, 1, x | Read x from bus and TX x                      | Transmit x directly to TX         |
+| &FF, 2    | Send buffer to TX                             | Flush buffer, max 256 + 268 bytes |
+| &FF, 3    | Get low byte number of bytes in input buffer  | Check if bytes have been received | 
+| &FF, 4    | Get high byte number of bytes in input buffer | Check if bytes have been received | 
+| &FF, 5    |                                               |                                   | 
+| &FF, 6    |                                               |                                   | 
+| &FF, 7    |                                               |                                   | 
+| &FF, 8    |                                               |                                   | 
+| &FF, 9    |                                               |                                   | 
+| &FF, 10   |                                               |                                   | 
+| &FF, 11   |                                               |                                   | 
+| &FF, 12   |                                               |                                   | 
+| &FF, 13   |                                               |                                   | 
+| &FF, 14   |                                               |                                   | 
+| &FF, 15   |                                               |                                   | 
+| &FF, 16   |                                               |                                   | 
+| &FF, 17   |                                               |                                   | 
+| &FF, 20   |                                               |                                   | 
+| &FF, 31   |                                               |                                   | 
+| &FF, 32   |                                               |                                   | 
+| &FF, 33   |                                               |                                   | 
+| &FF, &C3  |                                               |                                   | 
+| &FF, &F2  |                                               |                                   | 
+-------------------------------------------------------------------------------------------------
+
+
+
 If the MP3 module is not soldered in directly, it is wise to use pin headers such 
 that an FTDI cable or RS232 MAX level converter with DSUB9 RS232 socket can be hooked
 up to LambdaSpeak 3 directly: 
