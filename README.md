@@ -251,14 +251,14 @@ This tables shows the command / control bytes recognized by LambdaSpeak:
 | M/CB | Explanation                | Epson, DECtalk, SSA1 & DK Emu | SSA1 SPO & DK SPO | 
 -------|--------------------------- |----------------------------------------------------
 | &FF  | Reset LambdaSpeak          |                X              |         X         |
-| &FE  | PCM Upload - PCM to EEPROM |                X              |         X         | 
+| &FE  | PCM Upload / PCM to EEPROM |                X              |         X         | 
 | &FD  | Enable PCM 4 Channel Play  |                X              |         X         |
 | &FC  | Enable PCM 3 Channel Play  |                X              |         X         | 
 | &FB  | Enable PCM 2 Channel Play  |                X              |         X         |
 | &FA  | Enable PCM 1 Channel Play  |                X              |         X         |
 | &F8  | EEPROM Erase               |                X              |         X         |
 | &F5  | EEPROM Erase & Check       |                X              |         X         | 
-| &F4  | Non-Blocking Confirmations |                X              |         X         |
+| &F4  | Non Blocking Confirmations |                X              |         X         |
 | &F3  | Blocking Confirmations     |                X              |         X         |
 | &F2  | Get Mode Descriptor Byte   |                X              |         X         | 
 | &F1  | Enable Serial Mode         |                X              |         X         |
@@ -266,7 +266,7 @@ This tables shows the command / control bytes recognized by LambdaSpeak:
 | &EE  | Enable DECtalk Mode        |                X              |         X         |
 | &ED  | Enable SSA1 Emu Mode       |                X              |         X         |
 | &EC  | Enable DKtronics Emu Mode  |                X              |         X         |
-| &EB  | Non-Blocking Speech Mode   |                X              |                   | 
+| &EB  | Non Blocking Speech Mode   |                X              |                   | 
 | &EA  | Blocking Speech Mode       |                X              |                   |
 | &E9  | Command Confirmation On    |                X              |                   |
 | &E8  | Command Confirmations Off  |                X              |                   |
@@ -304,13 +304,13 @@ This tables shows the command / control bytes recognized by LambdaSpeak:
 | &C5  | Run Port Echo Test Program |                X              |         X         | 
 | &C3  | Speak Current Mode Info    |                X              |         X         |
 | &C2  | Run PCM Test Program       |                X              |         X         | 
-| &B<x>| Use Voice <x>              |                X              |                   | 
+| &Bx  | Use Voice x                |                X              |                   | 
 | &B0  | Use Default Voice          |                X              |                   | 
-| &A<x>| Set Volume to <x>          |                X              |                   | 
+| &Ax  | Set Volume to x            |                X              |                   | 
 | &A0  | Use Default Volume         |                X              |                   | 
-| &9<x>| Set Speak Rate to <x>      |                X              |                   | 
+| &9x  | Set Speak Rate to x        |                X              |                   | 
 | &90  | Use Default Speak Rate     |                X              |                   | 
-| &8<x>| Set Fush Buffer Delay <x > |                X              |                   | 
+| &8x  | Set Fush Buffer Delay x    |                X              |                   | 
 | &80  | Use Default Flush Delay    |                X              |                   | 
 -----------------------------------------------------------------------------------------
 
