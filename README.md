@@ -338,6 +338,11 @@ Uploading a sample / wave file into the EEPROM is simple:
 1. Enter the PCM EEPROM Upload Mode by sending `&FE`. 
 2. to be written
 
+A couple of BASIC programs illustrate how to upload PCM samples into
+the EEPROM; check the `DRUMLOAD.BAS` program on the
+[`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk) disk,
+
+
 #### EEPROM PCM Playback Mode
 
 To enter the EEPROM PCM Playback mode, use `&FA` for 1 PCM Channel,
@@ -370,7 +375,7 @@ sample will start using the channel immediately and terminate the
 sample that was playing.
 
 A couple of BASIC programs illustrate how to use the play command, for example, 
-`DRUMMER.BAS` on the [`MIDEFSEQ2.DSK`]
+`DRUMMER.BAS` on the [`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk) disk.
 
 
 #### Serial Mode (UART Mode) 
