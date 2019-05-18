@@ -109,10 +109,11 @@ The default mode is the SSA-1 Emulation mode. This mode is enabled
 after a reset (via `&FF` or reset button), or after a power cycle, for example. 
 
 Referring to the table above, the EEPROM PCM Play mode is the
-autonomous PCM sample playback mode. Since this mode can also involve
-the SPO256-AL2 using Channel 10, the SPO LED is being lit in this mode
-as well. Moreover, to upload the PCM samples from the CPC into
-LambdaSpeak's EEPROM, the EEPROM PCM Upload mode is being used:
+autonomous PCM sample playback mode; sample / wave files are being
+played back from EEPROM.  Since this mode can also involve the
+SPO256-AL2 (addressed via Channel 10), the SPO LED is being lit as
+well in this mode. Moreover, to upload the PCM samples from the CPC
+into LambdaSpeak's EEPROM, the EEPROM PCM Upload mode is being used. 
 
 LambdaSpeak 3 is controlled by sending "control bytes" or "commands" -
 the different modes are enable and disabled by sending control
@@ -251,7 +252,7 @@ This tables shows the command / control bytes recognized by LambdaSpeak:
 | M/CB | Explanation                | Note                          | Epson, DECtalk, SSA1 & DK Emu | SSA1 SPO & DK SPO | 
 |------|--------------------------- |-------------------------------|-------------------------------|-------------------|
 | &FF  | Reset LambdaSpeak          | Restarts firmware, SSA1 emu   |                X              |         X         |
-| &FE  | PCM Upload / PCM to EEPROM | Send page, #bytes, then bytes |                X              |         X         | 
+| &FE  | EEPROM PCM Upload          | Send page, #bytes, then bytes |                X              |         X         | 
 | &FD  | Enable PCM 4 Channel Play  | Use "Play PCM" command        |                X              |         X         |
 | &FC  | Enable PCM 3 Channel Play  | Use "Play PCM" command        |                X              |         X         | 
 | &FB  | Enable PCM 2 Channel Play  | Use "Play PCM" command        |                X              |         X         |
@@ -328,9 +329,48 @@ This tables shows the command / control bytes recognized by LambdaSpeak:
 
 #### Amdrum Mode (Amdrum Emulation) 
 
-#### Autonomous PCM Upload Mode (EEPROM PCM Upload Mode) 
 
-#### Autonomous PCM Playback Mode (EEPROM PCM Play Mode) 
+
+#### EEPROM PCM Upload Mode 
+
+Uploading a sample / wave file into the EEPROM is simple: 
+ 
+1. Enter the PCM EEPROM Upload Mode by sending `&FE`. 
+2. to be written
+
+#### EEPROM PCM Playback Mode
+
+To enter the EEPROM PCM Playback mode, use `&FA` for 1 PCM Channel,
+`&FB` for 2 PCM Channels, `&FC` for 3 PCM Channels, and `&FD` for 4
+Channels. The more channels, the worse the PCM quality. Also, pitch
+(playback speed) will only affect the PCM playback very coarsly the
+more channels are being used. Future firmware version might improve
+upon this. 
+
+Once samples are in the EEPROM, it is straightforward to trigger sample playing, using the
+play sample command. When LambdaSpeak 3 is in EEPROM PCM Playback Mode, it constantly listens
+to port `&FBEE` for play sample commands. A play sample command is simply a sequence of bytes: 
+
+1. Send 0
+2. Send channel: 1 to <n>
+   Note that <n> cannot be higher than the max number of Channels that has been selected. 
+3. Send 0 
+4. Send PCM address = the EEPROM start page of the wave file / sample
+5. Send 0 
+6. Send the length of the wave file / sample, in EEPROM pages. 
+7. Send 0 
+8. Send the sample playback speed. That affects the pitch. 
+
+So, a play command is a sequence of 8 bytes. Note that LambdaSpeak
+constanty listents to incoming play PCM commands, even as samples are
+being played. The zero is being used as a synchronization byte. Note
+that all parameters are greater than 0. If a channel is being
+triggered which is still being used / still playing, then the new
+sample will start using the channel immediately and terminate the
+sample that was playing.
+
+A couple of BASIC programs illustrate how to use the play command, for example, 
+`DRUMMER.BAS` on the [`MIDEFSEQ2.DSK`]
 
 
 #### Serial Mode (UART Mode) 
@@ -385,20 +425,45 @@ The following table lists the command bytes in Serial Mode:
 | &FF, &F2        | Get Mode Descriptor Byte                      | Same &F2 as in speech modes       | 
 -------------------------------------------------------------------------------------------------------
 
-
-
 If the MP3 module is not soldered in directly, it is wise to use pin headers such 
 that an FTDI cable or RS232 MAX level converter with DSUB9 RS232 socket can be hooked
 up to LambdaSpeak 3 directly: 
 
 ![RS232 Connector](images/DSC08534.jpg)
 
+There is a simple `SERIAL.BAS` terminal program. If you ony want to
+receive but not send, simply press Enter. Note that the input buffer
+size is 256 + 268 bytes only. The sender needs to pause and give the
+CPC time to read the received bytes via the read cursor from the
+buffer, otherwise received bytes will get lost.
+
 ##### The 4 $ Catalex MP3 Module 
+
+You can get it on Ebay for 4 USD. There is a demo program `MP3.BAS` on the 
+[`LS300.DSK`](cpc/lambda/LS300.dsk). 
+
+The MP3 directories and filenames on the micro SDCard to be played
+needs to follow certain conventions, check [the
+manual](manuals/Catalex_MP3_board.pdf). I successfully used it with an
+8 GB FAT32 formatted SD card with a single root directory "01" and a
+couple of MP3 files named "001xxx.mp3" to "009xxx.mp3". There are
+certainly more possibilities for naming, but that worked for me.
 
 #### I2C Mode 
 
+Currently, only the RTC module is supported. It is conceivable that an alternative firmware 
+will be supplied in the future such that the I2C interface can be opened up to the CPC, in 
+a generic way such that different I2C devices can be connected to LambdaSpeak 3 and hence the CPC. 
+
 ##### The 6 $ DS3231 RTC (Battery Buffered Real Time Clock) 
 
+You can get it on Ebay for 6 USD. There is a demo program `RTC.BAS` 
+on the [`LS300.DSK`](cpc/lambda/LS300.dsk). 
+
+The RTC also features a temperature sensor, in (C) degrees.  Not sure
+how to read negative temperatures though. 
+
+Check [the manual](manuals/DS3231.pdf). 
 
 ### The LambdaSpeak 3 Firmware 
 
@@ -428,7 +493,24 @@ clock are shown in the following picture:
 
 ### Software
 
-There are a couple of demo programs. 
+There are a couple of demo programs.
+
+The main disk is called [`LS300.DSK`](cpc/lambda/LS300.dsk): 
+
+![LS300.DSK](images/ls300-dsk.jpg) 
+
+Then, there are also 2 sample disks demonstrating LambdaDrum - 
+
+[`HIDEFSEQ1.DSK`](cpc/lambda/hidefseq1.dsk): 
+
+![High Definition Samples](images/hidefseq1-dsk.jpg)
+
+and [`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk): 
+
+![Medium Definition Samples](images/midefseq2-dsk.jpg)
+
+
+
 
 **make a table**
 
