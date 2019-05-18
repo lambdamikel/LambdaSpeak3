@@ -363,26 +363,26 @@ The following table lists the command bytes in Serial Mode:
 | &FF, 2          | Send buffer to TX                             | Flush buffer, max 256 + 268 bytes |
 | &FF, 3          | Get low byte number of bytes in input buffer  | Check if bytes have been received | 
 | &FF, 4          | Get high byte number of bytes in input buffer | Check if bytes have been received | 
-| &FF, 5          |                                               |                                   | 
-| &FF, 6          |                                               |                                   | 
-| &FF, 7          |                                               |                                   | 
-| &FF, 8          |                                               |                                   | 
-| &FF, 9          |                                               |                                   | 
-| &FF, 10         |                                               |                                   | 
-| &FF, 11, lo, hi |                                               |                                   | 
-| &FF, 12         |                                               |                                   | 
-| &FF, 13         |                                               |                                   | 
-| &FF, 14         |                                               |                                   | 
-| &FF, 15         |                                               |                                   | 
-| &FF, 16         |                                               |                                   | 
-| &FF, 17         |                                               |                                   | 
-| &FF, 20         |                                               |                                   | 
-| &FF, 30, baud   |                                               |                                   | 
-| &FF, 31, width  |                                               |                                   | 
-| &FF, 32, par.   |                                               |                                   | 
-| &FF, 33, stop   |                                               |                                   | 
-| &FF, &C3        |                                               |                                   | 
-| &FF, &F2        |                                               |                                   | 
+| &FF, 5          | Check if send/receive buffer is full          | 1 if full, 0 otherwise            | 
+| &FF, 6          | Reset read and input cursors                  | Sets input & read cursors to 0    | 
+| &FF, 7          | Check if another byte can be read from buffer | 1 if read cursor < input cursor   | 
+| &FF, 8          | Get byte from buffer at read cursor position  | Byte will appear on databus       | 
+| &FF, 9          | Get byte at read cursor position, inc. cursor | Read receive buffer byte by byte  | 
+| &FF, 10         | Get byte at read cursor position, dec. cursor | Read buffer from end byte by byte |         
+| &FF, 11, lo, hi | Set read cursor to position hi*256 + lo       | Use &FF, 8 to read byte at pos    | 
+| &FF, 12         | Set read cursor to 0                          | Does not erase the buffer         |  
+| &FF, 13         | Set read cursor to input cursor position -1   | Read cursor points to last byte   | 
+| &FF, 14         | Get mode - direct or buffered mode            | 1 = direct mode, 0 = buffered     | 
+| &FF, 15         | Speak mode (BAUD, Width, Parity, Stop Bits)   | Confirmations need to be enabed   | 
+| &FF, 16         | Direct mode on                                | No CPC input buffering, direct TX | 
+| &FF, 17         | Direct mode off                               | Buffer CPC input, then &FF, 2     | 
+| &FF, 20         | Quit and reset Serial Mode                    | Like Reset Button                 | 
+| &FF, 30, baud   | Set BAUD rate: baud = 0..15, see Baud Table   | Default 9600 (baud = 2, or > 15)  |   
+| &FF, 31, width  | Set word width: width = 5...8                 | Default 8 bits                    | 
+| &FF, 32, par.   | Set parity: 0, 1, 2                           | 0=No (Default), 1=Odd, 2=Even     | 
+| &FF, 33, stop   | Set number of stop bits: 1, 2                 | 1 = Default                       | 
+| &FF, &C3        | Speak Current Mode Info                       | Same &C3 as in speech modes       | 
+| &FF, &F2        | Get Mode Descriptor Byte                      | Same &F2 as in speech modes       | 
 -------------------------------------------------------------------------------------------------------
 
 
