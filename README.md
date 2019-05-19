@@ -386,7 +386,16 @@ A fully authentic re-implementation of the original classical DKtronics speech s
 
 #### Amdrum Mode (Amdrum Emulation) 
 
-Amdrum mode. 
+LambdaSpeak 3 offers a PCM sample-playing mode - it emulates the **Amdrum module**. In this mode, every byte sent to port `&FFxx` (xx = arbitrary) will immediatly be played as an 8bit PCM sample. The **Amdrum software** works out of the box in this mode, and sample quality is surprisingly good / high, given that no DAC chip is used, but the PCM conversion is implemented in software on the ATmega 644, using a fast timer. This mode can only be exited by power cycling LambdaSpeak. All ATmega interrupts are disabled, for maximimum processing speed and sample quality. Hence, even the reset button of LambdaSpeak is ineffective. Decoding of IO addresses &FFxx will only be active when the Amdrum mode is enabled. 
+
+Note that this mode is different from the autonomous PCM Playing mode,
+which uses the onboard SPI 128 KB EEPROM for storing PCM samples. The
+sound quality of the EEPROM PCM Playing mode is superiour to the
+Amdrum mode and comes with zero CPU load, unlike the Amdrum mode. 
+
+However, the Amdrum mode allows you to use the awesome Amdrum
+software, and other CPC software that "streams" the PCM sample bytes
+over the databus.
 
 
 #### EEPROM PCM Upload Mode 
