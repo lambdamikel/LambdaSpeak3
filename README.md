@@ -2,8 +2,8 @@
 ## A Modern-Vintage Speech Synthesizer, PCM Sample Player, Drum Computer, Serial Interface, MP3 Player, and Real Time Clock for the Amstrad / Schneider CPC  
 #### Hardware Design & LambdaSpeak Firmware: [Michael Wessel](https://www.michael-wessel.info/) 
 #### LambdaSpeak CPC ROM and RSX: [Dr. Stefan Stumpferl (TFM)](http://futureos.cpc-live.com) 
-#### Technical Guidance: Bryce from the CPC Wiki Board)[http://www.cpcwiki.eu/forum/index.php]
-#### Additional Ideas: Zhulien from the CPC Wiki Board)[http://www.cpcwiki.eu/forum/index.php]
+#### Technical Guidance: Bryce from the [CPC Wiki Board](http://www.cpcwiki.eu/forum/index.php)
+#### Additional Ideas: Zhulien from the [CPC Wiki Board](http://www.cpcwiki.eu/forum/index.php)
 #### License: GPL 3
 
 ### Introduction
@@ -594,16 +594,62 @@ The main disk is called [`LS300.DSK`](cpc/lambda/LS300.dsk):
 
 ![LS300.DSK](images/ls300-dsk.jpg) 
 
-Then, there are also 2 sample disks demonstrating LambdaDrum - 
+-------------------------------------------------------------
+| Program   | Description                                   |
+|-----------|-----------------------------------------------|
+| DECSING   | Demo of DECtalk singing. Load BANNER or BDAY. |
+| ELISA-DK  | A German-speaking Eliza using DKtronics Emu.  | 
+| ELISASPO  | A German-speaking Eliza using DKTronics SPO.  | 
+| ELIZA     | High-End English Eliza, Natural Epson Speech. | 
+| ENGLISH   | Demo of English-speaking Epson mode.          | 
+| MP3       | Simple MP3 play for the Catalex module.       | 
+| RTC       | Simple Real Time Clock; uses DS3231 module.   | 
+| SAYECHO   | Simple Epson-based "say what I type" program. | 
+| SERIAL    | Simple terminal prog. Use with FTDI or RS232. | 
+| SPANISH   | Demo of Spanish-speaking Epson mode.          |
+| SPO-GERM  | SPO-based German "say what I type" program.   |
+| SPORAND   | Random SPO babbling. SPO test and sounds cool.|
+| WELCOME   | Demonstrates Epson, DECtalk, Control Bytes.   | 
+------------------------------------------------------------- 
 
-[`HIDEFSEQ1.DSK`](cpc/lambda/hidefseq1.dsk): 
+Notice that the Software Distribution provided by TFM contains more
+examples, also illustrating the RSX driver software.
+
+Then, there are also 2 sample disks demonstrating LambdaDrum / 
+the Autonomous PCM Playing Mode. 
+
+First, the [`HIDEFSEQ1.DSK`](cpc/lambda/hidefseq1.dsk) 
+contains hi quality PCM samples of the Boss DR660 drum computer
+and demo: 
 
 ![High Definition Samples](images/hidefseq1-dsk.jpg)
 
-and [`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk): 
+-------------------------------------------------------------
+| Program   | Description                                   |
+|-----------|-----------------------------------------------|
+| DRUMLOAD  | Load the PCM samples from disk into EEPROM.   |
+| DRUMPLAY  | A drum computer - use DRUMLOAD once first!    |
+| DRUMSEQ   | A simple patter-based drum computer.          | 
+| *.WAV     | Boss DR660 Wave Files (LARGE - High Quality). |
+------------------------------------------------------------- 
+
+A larger set of drums in slightly lower PCM quality is on the disk
+[`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk):
 
 ![Medium Definition Samples](images/midefseq2-dsk.jpg)
 
+-------------------------------------------------------------
+| Program   | Description                                   |
+|-----------|-----------------------------------------------|
+| DRUMLOAD  | Load the PCM samples from disk into EEPROM.   |
+| DRUMMER   | A drum computer - use DRUMLOAD once first!    |
+| SEQUENC2  | A patter-based drum computer, with SPO track. | 
+| *.WAV     | Boss DR660 Wave Files (SMALL -Medium Quality).|
+------------------------------------------------------------- 
+
+#### A Note on Preparing Sample (WAV) Files 
+
+To be written. 
 
 #### LambdaSpeak |RSX Driver and ROM by Dr. Stefan Stumpferl (aka TFM, Gunhed)
 
