@@ -39,6 +39,24 @@ enough power for LambdaSpeak 3.
 
 ### Hardware Description
 
+
+#### Z80 / CPC IO Ports 
+
+LambdaSpeak listens to IO Read and Write Requests from the Z80 CPU on
+port `&FBEE` (all modes with the exception of Amdrum mode) as well as
+port `&FBFE` (all modes with the exception of the Amdrum
+mode). Traditionally, `&FBEE` was used by the Amstrad SSA-1 speech
+synthesizer, and `&FBFE` by the DKtronics speech synthesizer.  The two 
+ports are indistinguishable from the LambdaSpeak 3 firmware point of view. 
+
+All LambdaSpeak 3 communication goes over these ports, with the
+exception of the Amdrum mode.  The Amdrum mode uses ports `&FFxx`,
+where `xx` is arbitrary. This is the port traditionally being used by
+the Amdrum module. 
+
+Please note that also the EEPROM PCM upload and play modes, the
+serial interface, and the RTC uses `&FBEE` (and `&FBFE`). 
+
 #### Explanation of the LambdaSpeak 3 board.  
 
 ![LambdaSpeak 3 Board](images/ls3-annotated.jpg)
