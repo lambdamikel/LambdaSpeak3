@@ -1,9 +1,9 @@
 # LambdaSpeak 3
 ## A Modern-Vintage Speech Synthesizer, PCM Sample Player, Drum Computer, Serial Interface, MP3 Player, and Real Time Clock for the Amstrad / Schneider CPC  
 #### Hardware Design & LambdaSpeak Firmware: [Michael Wessel](https://www.michael-wessel.info/) 
-#### LambdaSpeak CPC ROM and RSX: [Dr. Stefan Stumpferl]() 
-#### Technical Guidance: Bryce (from the CPC Wiki Board) 
-#### Additional Ideas: Zhulien (from the CPC Wiki Board) 
+#### LambdaSpeak CPC ROM and RSX: [Dr. Stefan Stumpferl (TFM)](http://futureos.cpc-live.com) 
+#### Technical Guidance: Bryce from the CPC Wiki Board)[http://www.cpcwiki.eu/forum/index.php]
+#### Additional Ideas: Zhulien from the CPC Wiki Board)[http://www.cpcwiki.eu/forum/index.php]
 #### License: GPL 3
 
 ### Introduction
@@ -605,11 +605,44 @@ and [`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk):
 ![Medium Definition Samples](images/midefseq2-dsk.jpg)
 
 
+#### LambdaSpeak |RSX Driver and ROM by Dr. Stefan Stumpferl (aka TFM, Gunhed)
+
+[TFM](http://futureos.cpc-live.com/pics/tfm_gr.jpg), well-known in the CPC Community for his [FutureOS operating system for the CPC](http://futureos.cpc-live.com/), has created an awesome |RSX driver for LambdaSpeak. It comes in two versions - as a ROM, and as a disc-based relocatable driver (loadable from BASIC). |RSX commands exists for all LambdaSpeak control bytes, and also some high-level functions are offered that do not directly correspond to LambdaSpeak control bytes. For example, a PCM sample `|play` command (and `|eplay` for playing from an extended memory extension) for LambdaSpeak's Amdrum mode is offered, as well as a `|speakscreen` screen reading and a `|speakfile` file reading function. 
+
+The disc version of the software is shown in the following picture:  
+
+![TFM's LambdaSpeak RSX Driver](images/tfm-rsx.jpg)
+
+Here is a picture of the LambdaSpeak ROM, `|lshelp` command: 
+
+![TFM's LambdaSpeak RSX ROM](images/tfm-rsx-rom.jpg)
+
+The latest version of the [LambdaSpeak driver software is hosted on TFM's home page](http://futureos.cpc-live.com/files/LambdaSpeak_RSX_by_TFM.zip). The zip file also contains a `README` and the `.dsk` file contains an extensive manual describing all features of the software. 
+
+The RSX library was written for a previous version of LambdaSpeak. 
+**TFM is planning to up upgrade this library to also support the new features of LambdaSpeak 3 - stay tuned
+and check out his site for updates!** 
+
+### Maker Support 
+
+The Gerbers and Firmware and all specs (BOM, ...) are all open source and in principle you can build one
+yourself. However, if you require certain parts or a pre-programmed Xilinx CPLD, ATmega, or even a fully assembled
+LambdaSpeak 3, please contact me. 
+
+### Acknowledgements
+
+TFM (Dr. Stefan Stumpferl) for the RSX driver and CPC ROM, ideas, enthusiasm, friendship! 
+
+Julian ("zhulien" from the CPC Wiki Forum) for suggesting the Amdrum mode, incorporating the MP3 module, enthusiasm and support! 
+
+Bryce, for guiding and pushing me into the right direction - Xilinx CPLD instead of GAL22V10, Verilog instead of WinCupl, countless discussions, etc.  
+
+Thanks to all of you, long live the CPC! 
 
 
-**make a table**
+### Disclaimer 
 
-### Support & Prices 
+Use at your own risk. I am not responsible for any potential damage you might cause to your CPC, other machinery, or yourself, in the process of assembling and using this piece of hardware.
 
-### Acknowledgements 
+**Enjoy!** 
 
