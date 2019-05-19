@@ -702,6 +702,8 @@ Julian ("zhulien" from the CPC Wiki Forum) for suggesting the Amdrum mode, incor
 
 Bryce, for guiding and pushing me into the right direction - Xilinx CPLD instead of GAL22V10, Verilog instead of WinCupl, countless discussions, etc.  
 
+ChinnyVision, for [reviwing a previous version of LambdaSpeak on his YouTube channel.](https://youtu.be/yAZAAMu1DfA)
+
 Thanks to all of you, long live the CPC! 
 
 
