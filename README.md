@@ -246,6 +246,27 @@ Check of [the predecessors of LambdaSpeak 3.](https://github.com/lambdamikel/Lam
 
 ### The Modes of LambdaSpeak 3 and the LambdaSpeak Firmware 
 
+When LambdaSpeak 3 is turned on, or after a reset command (`&FF`), or after the reset button has been pressed, 
+it starts in the SSA1 Emulation mode (`&FD`). This mode was selected such that games that support the Amstrad
+SSA-1 speech synthesizer work out of the box without requiring further configuration of LambdaSpeak 3
+(e.g., "Roland in Space"). However, this mode does not produce the best speech or most natural sounding speech.
+The Epson and DECtalk modes are far superior in speech quality. 
+
+As mentioned previousl, with the exception of the SPO-based SSA1 and DKtronics modes, all speech content 
+is 7bit, hence byters < 128 are being buffered in a speech input buffer, and if within x milliseonds
+(a configurable flush delay time) no new content has been received, the buffer is spoken. Hence, speech 
+is asynchronous, and a slight delay is to be expected. Also, the speech input buffer has a limited size of 
+253 bytes, hence the buffer is also flushed and hence spoken if that limit is reached. 
+
+Moreover, every byte with 8th bit set, hence bytes > 127, are consider command bytes or control bytes. 
+The bytes are used for setting various parameters (voice, volume, speak rate), and for chaning modes
+of LambdaSpeak 3. The table of command / control bytes is given below. 
+
+Unlike the Epson-based speech modes (SSA1 Emu, DKtronics Emu, Epson mode, DECtalk mode), the SPO-based
+speech modes are not using buffered input, and speech is synchronous. Every byte < 128 is directly 
+sent and processed by the SPO256-AL2 speech chip. Also, most settings such as voice, volume, language 
+etc. only apply to the Epson-based speech synthesizer, not the SPO256-AL2. 
+
 This tables shows the command / control bytes recognized by LambdaSpeak: 
 
 -------------------------------------------------------------------------------------------------------------------------
@@ -317,30 +338,94 @@ This tables shows the command / control bytes recognized by LambdaSpeak:
 
 #### Epson Mode
 
+Same high speech quality as DECtalk mode, natural sounding English and
+Spanish speaking. Easy to program.  Check out the `ENGLISH.BAS` and
+`SPANISH.BAS` example programs on [the
+`LS300.DSK`](cpc/lambda/LS300.dsk) to learn about the syntax of the
+Epson mode, and the [documentation of the Epson mode in ([the manual; see section on Epson Parser.](https://www.parallax.com/sites/default/files/downloads/30016-Emic-2-Text-To-Speech-Documentation-v1.2.pdf))
+
+
 #### DECtalk Mode
+
+Very versatile and powerful speech synthesis - can even sing!  Check
+out the `WELCOME.BAS` and `DECSING.BAS` example programs on [the
+`LS300.DSK`](cpc/lambda/LS300.dsk) to learn about the syntax of the
+Epson mode, and the [documentation of the DECtalk
+mode](manuals/EpsonDECtalk501.pdf). 
+
+There is also a [repository of DECtalk songs](http://www.theflameofhope.co/SONGS.html). 
+Howver, most of these songs were written for an earlier version of DECTalk v2. Hence, 
+they require conversion. You can get an idea by running `DECSING.BAS` and
+either loading `BANNER` or `BDAY`. Also, there is a built-in song in LambdaSpeak 3, 
+which you can listen to via control byte `&C6`. 
 
 #### DECtalk-based SSA1 Mode (SSA1 Emulation)
 
+The DECtalk-based emulation of the classic Amstrad SSA1 speech synthesizer. 
+The emulation is faithful enough such that the SSA1 driver software, and classic 
+games such as `Roland in Space` will work in this mode. The speech sounds different from the original though, 
+since DECtalk is being used, and not the SPO256-AL2. Use the SPO-based SSA1 mode for 
+full authenticity and 100% faithful SSA1 speech. 
+
 #### DECtalk-based DK'tronics Mode (DKtronics Emulation) 
+
+The DECtalk-based emulation of the classic DKtronics speech synthesizer. 
+The emulation is faithful enough such that the DKtronics RSX driver software, and classic 
+games such as `Roland in Space` will work in this mode. The speech sounds different from the original though, 
+since DECtalk is being used, and not the SPO256-AL2. Use the SPO-based DKtronics mode for 
+full authenticity and 100% faithful DKtronics speech. 
 
 #### Authentic SPO256-AL2-based SSA1 Mode (SSA1 Re-Implementation)
 
+A fully authentic re-implementation of the original classical Amstrad SSA1 speech synthesizer. 
+
 #### Authentic SPO256-AL2-based DKtronics Mode (DKtronics Re-Implementation)
+
+A fully authentic re-implementation of the original classical DKtronics speech synthesizer. 
+
 
 #### Amdrum Mode (Amdrum Emulation) 
 
+Amdrum mode. 
 
 
 #### EEPROM PCM Upload Mode 
 
+The 128 KB SPI EEPROM used to store the PCM wave files / samples for
+the autonomous PCM Play Mode (not the Amdrum mode) is organized in
+pages. Wheras the SPI EEPROM has 512 pages of 256 bytes, in order to
+keep page addressing to one byte, LambdaSpeak uses pages of 512 bytes.
+There is no page 0 in LambdaSpeak / LambdaDrum. Hence, the first page
+starts at page address 1 and has 512 bytes. The last page has address
+255. Hence, there are 255 pages of 512 bytes. Each page can hold one
+PCM wave file / sample. However, a single PCM file can also span
+multiple pages. 
+
+Pages are uploaded as a whole. In case a sample does not fill a whole
+page, the remaining bytes need to be filled with 127. 
+
 Uploading a sample / wave file into the EEPROM is simple: 
  
-1. Enter the PCM EEPROM Upload Mode by sending `&FE`. 
-2. to be written
+1. Enter the PCM EEPROM Upload Mode by sending `&FE`.  
+2. Send the start page number, from 1 to 255 (using `out &fbee,startpage`). 
+3. Send the number of pages  (using `out &fbee,no-pages`). 
+4. Send no-page * 512 bytes to (using `out &fbee,byte`). 
+Note that 127 is used to fill the remaining bytes in the page until it is full.  
+5. After all bytes have been received, LambdaSpeak 3 returns to normal 
+operation (i.e., its previous mode). 
+
+Notice that the speech synthesizer will also speak instructions what
+kind of input is expected during the upload process (i.e., it will say
+"Send page number" for step 2., etc.) However, confirmations must be
+turned on for the spoken instructions. 
 
 A couple of BASIC programs illustrate how to upload PCM samples into
 the EEPROM; check the `DRUMLOAD.BAS` program on the
-[`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk) disk,
+[`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk) disk. This uploads a drum
+set from the Boss DR660 drum computer in medium PCM sample quality (16
+kHz) into the EEPROM. Since this is a BASIC program, loading the whole
+drum set takes about 15 minutes. A machine code program should be able
+to upload this within seconds. 
 
 
 #### EEPROM PCM Playback Mode
@@ -373,6 +458,11 @@ that all parameters are greater than 0. If a channel is being
 triggered which is still being used / still playing, then the new
 sample will start using the channel immediately and terminate the
 sample that was playing.
+
+Notice that the speech synthesizer will also speak instructions when
+the mode is entered, in what order of sequence which parameters are
+expected for the Play PCM trigger command. However, confirmations must
+be turned on for the spoken instructions.
 
 A couple of BASIC programs illustrate how to use the play command, for example, 
 `DRUMMER.BAS` on the [`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk) disk.
