@@ -649,7 +649,17 @@ A larger set of drums in slightly lower PCM quality is on the disk
 
 #### A Note on Preparing Sample (WAV) Files 
 
-To be written. 
+I am using the following tool chain to prepare 8Bit PCM WAV files: 
+
+1. Download WAV files from the internet, e.g. Boss DR660 drum files. 
+2. Load into Audacity. Normalize,  edit, cut, fade, ... 
+3. Use "Export...", select "Export as WAV". For file type, Select 
+"Other Uncompressed Format". Select "WAV" and "Unsigned 8-bit PCM". Save the file. 
+4. The WAV file still contains header information which, if played by LambdaSpeak, 
+causes hissing and other artefacts. To remove the header information from the file, 
+I found the program `riffstrip.exe` is doing a great job (a simple command line tool). 
+5. Now simply drop the WAV files onto a CPC DSK (e.g., using Markus Hohmann's `DSKTool.jar`
+or similar). 
 
 #### LambdaSpeak |RSX Driver and ROM by Dr. Stefan Stumpferl (aka TFM, Gunhed)
 
