@@ -12,87 +12,71 @@ LambdaSpeak 3 is a versatile hardware extension for the Amstrad / Schneider CPC 
 
 It offers:
 
-  1. **DECtalk-based Text-to-Speech (TTS) synthesis:** the **Epson S1V30120 TTS** chip on the utilized mikroBUS "TextToSpeech Click!" daughterboard from MikroElektronika implements DECtalk v5 -- a natural sounding speech synthesizer for English and Spanish, with different voices. DECtalk can even sing. The DECtalk mode is very powerful and versatile, but can the DECtalk control language can be difficult to program. Hence, a simplified control language for the S1V30120 is offered as well, the so-called Epson mode. The DECtalk mode is used to implement two Amstrad CPC specific modes: LambdaSpeak offers a DECtalk-based emulation of the Amstrad SSA-1 Speech Synthesizer, and an emulation of the DK'tronics Speech Synthesizer as well. These retro speech synthesizers from ~ 1985 used the SPO256-AL2 from General Instruments. The emulation is faitful enough such that software that supports these speech synthesizers (e.g., Games such as "Roland In Space" from Amsoft) works. However, the speech is different from original SPO256-AL2. For higher authenticity, LambdaSpeak can optionally be fitted with a SPO256-AL2 as well. 
+  1. **DECtalk-based Text-to-Speech (TTS) synthesis:** the **Epson S1V30120 TTS** chip on the utilized mikroBUS "TextToSpeech Click!" daughterboard from MikroElektronika implements DECtalk v5 -- a natural sounding speech synthesizer for English and Spanish, with different voices. DECtalk can even sing. The DECtalk mode is very powerful and versatile, but can the DECtalk control language can be difficult to program. Hence, a simplified control language for the S1V30120 is offered as well, the so-called Epson mode. The DECtalk mode is used to implement two Amstrad CPC specific modes: LambdaSpeak offers a DECtalk-based emulation of the Amstrad SSA-1 Speech Synthesizer, and an emulation of the DK'tronics Speech Synthesizer as well. These retro speech synthesizers from ~ 1985 used the SPO256-AL2 from General Instruments. The emulation is faithful enough such that software that supports these speech synthesizers (e.g., Games such as "Roland in Space" from Amsoft) works. However, the speech is different from original SPO256-AL2. For higher authenticity, LambdaSpeak can optionally be fitted with a SPO256-AL2 as well. 
 
-  2. **Optional GI SPO256-AL2 speech synthesis:** this chip was used in the official Amstrad CPC SSA-1 speech synthesizer as well as the D'tronics speech synthesizer for the CPC. With fitted SPO256-AL2, LambdaSpeak 3 offers a modern re-implementation of these historic speech synthesizers that sound just like the orginals from 1985. 
+  2. **Optional GI SPO256-AL2 speech synthesis:** this chip was used in the official Amstrad CPC SSA-1 speech synthesizer as well as the D'tronics speech synthesizer for the CPC. With fitted SPO256-AL2, LambdaSpeak 3 offers a modern re-implementation of these historic speech synthesizers that sound just like the originals from 1985. 
 
-  3. **PCM Sample Playing Capability / Amdrum emulation:** the Amdrum was a digital sample player / drum computer for the CPC. It consisted of a simple Digital-to-Analog (DAC) converter connected to the CPC databus. Bytes transmitted to the DAC would be turned into PCM audio. Hence, the PCM sample data has to be "streamed" from the CPC over the databus to Amdrum to play a PCM sample. The Amdrum supports 3 channels of 8 Bit audio in a decent quality; the mixing of PCM channels is done in software by the CPC / Z80 though, in realtime, to achieve polyphony. 
+  3. **PCM Sample Playing Capability / Amdrum emulation:** the Amdrum was a digital sample player / drum computer for the CPC. It consisted of a simple Digital-to-Analog (DAC) converter connected to the CPC databus. Bytes transmitted to the DAC would be turned into PCM audio. Hence, the PCM sample data has to be "streamed" from the CPC over the databus to Amdrum to play a PCM sample. The Amdrum supports 3 channels of 8 Bit audio in a decent quality; the mixing of PCM channels is done in software by the CPC / Z80 though, in real time, to achieve polyphony. 
 
-  4. **HighQuality Polyphonous Autonomous PCM Sample Playing Capability:** unlike the Amdrum mode, which requires the CPC to send the PCM sammple bytes in realtime over the databus to the Amdrum DAC, this mode offers "autonomous" sample playing. LambdaSpeak 3 is equipped with a 128 KB SPI EEPROM, which serves as a persistent memory for PCM samples. Samples can be uploaded into that memory from the CPC and played back by issuing a commend from the CPC. This mode offers 4 channels of PCM polyphony, and > 16 kHz bandwith. Moreover, since no realtime streaming of PCM sample bytes is required from the CPC for sample playback, PCM sample playback can even be trigger from BASIC. The playback mode offers 1, 2, 3, or 4 channels, and pitch can be controlled to some extent as well. A sample can be as large as 128 KBs. The 8bit PCM quality can be much higher than Amdrum's. 
+  4. **High Quality Polyphonous Autonomous PCM Sample Playing Capability:** unlike the Amdrum mode, which requires the CPC to send the PCM sample bytes in real time over the databus to the Amdrum DAC, this mode offers "autonomous" sample playing. LambdaSpeak 3 is equipped with a 128 KB SPI EEPROM, which serves as a persistent memory for PCM samples. Samples can be uploaded into the EEPROM memory from the CPC, and played back by sending a "Play PCM". This mode offers 4 channels of PCM polyphony, and > 16 kHz band with. Moreover, since no real time streaming of PCM sample bytes is required from the CPC for sample playback, PCM sample playback can even be trigger from BASIC. The playback mode offers 1, 2, 3, or 4 channels, and pitch can be controlled to some extent as well. A sample can be as large as 128 KBs. The 8bit PCM quality can be much higher than with the Amdrum mode. 
 
-  5. **An UART / Serial Interface:**  this versatile general purpose UART / Serial Interface offers flexible BAUD rates, 5 to 8 bits per frame, different parity bit and number of stop bit configurations. The UART Interface can either be offered via a PIN header on the LambdaSpeak 3 PCB such that FTDI cables or RS232 TTL serial converters can be attached to it via DuPont cables, or a UART module can be soldered in and flushed´onto the back of the LambdaSpeak 3 PCB. The 4 $ MP3 Module from Catalex is a good choice for such a UART module; it offers MP3 playback from a MicroSD Card. See below.  
+  5. **An UART / Serial Interface:**  this versatile general purpose UART / Serial Interface offers flexible BAUD rates, 5 to 8 bits per frame, different parity bit and number of stop bit configurations. The UART Interface can either be offered via a PIN header on the LambdaSpeak 3 PCB such that FTDI cables or RS232 TTL serial converters can be attached to it via DuPont cables, or a UART module can be soldered in and flushed onto the back of the LambdaSpeak 3 PCB. The 4 $ MP3 Module from Catalex is a good choice for such a UART module; it offers MP3 playback from a MicroSD Card. See below.  
 
   6. **An I2C Interface:** this interface is currently used for a **Real Time Clock (RTC) module**. LambdaSpeak 3 can be fitted with an optional DS3231 RTC module, a 6 $ module. At the time of this writing, the LambdaSpeak 3 firmware only supports this DS3231 RTC, but it is conceivable that other I2C modules will be supported in the future as well. The DS3231 also contains a **Temperature Sensor**. 
 
 
 ### CPC Connection 
 
-LambdaSpeak 3 is a MX4-compatible IO extension board. To connect it to
-the CPC, it either requires a cable (edge connector / male Centronics
-to 50 pin female IDC connector), or a CPC expansion port extender /
-backplane, such as the Mother4X or the LambdaBoard.
+LambdaSpeak 3 is a MX4-compatible IO extension board. To connect it to the CPC, it either requires a cable (edge connector / male Centronics to 50 pin female IDC connector), or a CPC expansion port extender / backplane, such as the "Mother4X" or the "LambdaBoard".
 
-LambdaSpeak 3 has an optional barrel jack for a 5 V DC power supply;
-center polarity is positive. This should only be used with a
-stabilized DC PSU in case the CPC or backplane is incable of providing
-enough power for LambdaSpeak 3. 
+LambdaSpeak 3 has an optional barrel jack for a 5 V DC power supply; center polarity is positive. This should only be used with a stabilized DC PSU in case the CPC or backplane is incapable of providing enough power for LambdaSpeak 3. 
 
 ### Hardware Description
 
 
 #### Z80 / CPC IO Ports 
 
-LambdaSpeak listens to IO Read and Write Requests from the Z80 CPU on
-port `&FBEE` (all modes with the exception of Amdrum mode) as well as
-port `&FBFE` (all modes with the exception of the Amdrum
-mode). Traditionally, `&FBEE` was used by the Amstrad SSA-1 speech
-synthesizer, and `&FBFE` by the DKtronics speech synthesizer.  The two 
-ports are indistinguishable from the LambdaSpeak 3 firmware point of view. 
+LambdaSpeak listens to IO Read and Write Requests from the Z80 CPU on port `&FBEE` (all modes with the exception of Amdrum mode) as well as port `&FBFE` (all modes with the exception of the Amdrum mode). Traditionally, `&FBEE` was used by the Amstrad SSA-1 speech synthesizer, and `&FBFE` by the DK’tronics speech synthesizer.  The two ports are indistinguishable from the LambdaSpeak 3 firmware point of view. 
 
-All LambdaSpeak 3 communication goes over these ports, with the
-exception of the Amdrum mode.  The Amdrum mode uses ports `&FFxx`,
-where `xx` is arbitrary. This is the port traditionally being used by
-the Amdrum module. 
+All LambdaSpeak 3 communication goes over these ports, with the exception of the Amdrum mode.  The Amdrum mode uses ports `&FFxx`, where `xx` is arbitrary. This is the port traditionally being used by the Amdrum module. 
 
-Please note that also the EEPROM PCM upload and play modes, the
-serial interface, and the RTC uses `&FBEE` (and `&FBFE`). 
+Please note that also the EEPROM PCM upload and play modes, the serial interface, and the RTC uses `&FBEE` (and `&FBFE`). 
 
 #### Explanation of the LambdaSpeak 3 board.  
 
 ![LambdaSpeak 3 Board](images/ls3-annotated.jpg)
 
-LambdaSpeak 3 processes 3 or 4 sources of audio. The 10 position DIP switch is used to assign these different sources to either the left or right audio channels of LambdaSpeak's stereo output jack. A source can also be assigned to both left and right. The DIP switches 1 to 4 determine which audio source is routed to the left, and the switches 6 to 9 are used to assign the right audio channel of the stereo output jack.  Moreover, the non-plus CPCs also allow to feed back the audio signal into the CPC using the SND pin of the expansion port, and loopback audio signal then gets amplified and routed to the internal speaker of the CPC. This does not work for Plus CPCs though. Hence, switches 5 and 10 can be used to switch on or off the audio feed into the CPC. Otherwise, an external amplifier must be used and connected to LambdaSpeak's stereo output jack. 
+LambdaSpeak 3 processes 3 or 4 sources of audio. The 10 position DIP switch is used to assign these different sources to either the left or right audio channels of LambdaSpeak's stereo output jack. A source can also be assigned to both left and right. The DIP switches 1 to 4 determine which audio source is routed to the left, and the switches 6 to 9 are used to assign the right audio channel of the stereo output jack.  Moreover, the non-plus CPCs also allows to loop back the audio signal into the CPC using the SND pin of the expansion port. The loopback audio signal then gets amplified and gets routed to the CPC’s internal speaker. This does not work for Plus CPCs though. Hence, switches 5 and 10 can be used to switch the loopback on or off. Regardless of the switches 5 and 10, an external amplifier can always be connected to LambdaSpeak's stereo output jack. 
 
-The audio sources processed and routed via the the DIP switch are the following. The corresponding labels are printed on the PCB; see picture. **Please note that there should be at most one audio signal routed to the left output channel, and at most one audio signal routed to the right output channel. It is OK to route one source to both left and right, but one should not route two sources (or more) to the same (left or right) channel!**
+The audio sources processed and routed via the DIP switch are the following. The corresponding labels are printed on the PCB; see picture. **Please note that there should be at most one audio signal routed to the left output channel, and at most one audio signal routed to the right output channel. It is OK to route one source to both left and right, but one should not route two sources (or more) to the same (left or right) channel!**
 
 From left to right, the DIP switches 1 to 5 and 6 to 10 are: 
 
   - **MIX (1 = left, 6 = right):** MIX is the output of LambdaSpeak's OP amp. The OP amp is a summing OP amp with Gain control that amplifies and recovers the mono PCM output generated by the ATmega (PCM Sample Playing), and the sound generated by the SPO256-AL2 vintage speech chip. The corresponding DIP switch determines if the OP amp's output is routed to the left and/or right output channel (or turned off completely). Notice that using an OP amp always results in some degradation of the audio quality. Hence, it is also possible to exclusively route the PCM output or exclusively route the SPO256-AL2 output to the left or right channel (see switches SPO and AT below). If no SPO256-AL2 is being used, then there is no need for the MIX output, and the switch should be in the off position. 
 
-  - **EPS (2 = left, 7 = right):** Turn on or off routing of the stereo audio signal received over LambdaSpeak's stereo audio input jack (the right stero jack on the board). Usually, this connects to the output output jack of the Epson click daughter board. The output of the Epson speech board is mono, but heard on the left and right channel. The TTS click daugherboard is already equipped with an audio amplifier, so it also possible to directly connect a loudspeaker or audio amplifier to the audio socket of the daugherboard itself. In the case, LambdaSpeak's stereo input jack is available to receive either the audio output generated by the  CPC, using the audio stereo output jack of the CPC (and left or right channels will be routed accordingly), or to the output of the MP3 module can be used (see below). In any way, the left or right channels will be routed accordingly (i.e., left to left and right to right). Note that EPS input is not amplified by the internal OP amp. 
+  - **EPS (2 = left, 7 = right):** Turn on or off routing of the stereo audio signal received over LambdaSpeak's stereo audio input jack (the right stero jack on the board). Usually, this connects to the output output jack of the Epson click daughter board. The output of the Epson speech board is mono, but heard on the left and right channel. The TTS click daughterboard is already equipped with an audio amplifier, so it also possible to directly connect a loudspeaker or audio amplifier to the audio socket of the daughterboard itself. In the case, LambdaSpeak's stereo input jack is available to receive either the audio output generated by the  CPC, using the audio stereo output jack of the CPC (and left or right channels will be routed accordingly), or to the output of the MP3 module can be used (see below). In any way, the left or right channels will be routed accordingly (i.e., left to left and right to right). Note that EPS input is not amplified by the internal OP amp. 
 
   - **AT (3 = left, 8 = right):** the raw PCM output from the ATmega; used for the Amdrum mode and the autonomous PCM Sample Playing mode. This signal has higher quality than the MIX output. If no SPO256-AL2 is being used, then there is no need for the MIX output, and the AT raw PCM output achieves higher PCM quality and bandwidth. 
 
-  - **SPO (4 = left, 9 = right):** the raw speech output from the optional SPO256-AL2 chip; used for the SPO-based SSA1 and DKtronics modes. This signal has higher quality than the MIX output. If no SPO256-AL2 is being used, then this switch should be in the off position. 
+  - **SPO (4 = left, 9 = right):** the raw speech output from the optional SPO256-AL2 chip; used for the SPO-based SSA1 and DK’tronics modes. This signal has higher quality than the MIX output. If no SPO256-AL2 is being used, then this switch should be in the off position. 
 
   - **CPC (5 = left, 10 = right):** determines if the left (resp. right) output channel of LambdaSpeak's stereo output jack should be routed into the CPC's internal audio amplifier and speaker. Please note that the assignment of the left and right output of LambdaSpeak's stereo jack is determined by the DIP switches 1 to 5, and 6 to 9, resp., as just explained. This does not work on the Plus line of CPC computers, so these switches should be in the off position for a CPC Plus computer. 
  
 A *reasonable default configuration* for a LambdaSpeak 3 *with SPO256-AL2* is `10001-01001`. Hence, MIX on the left output channel, and Epson speech on the right output channel. Moreover, both are being heard in the CPC's internal speaker as well, so no need for an external amplifier. 
 
-A *reasonable default configuration* for a LambdaSpeak 3 *without SPO256-AL2* is `00101-01001`. Hence, raw ATmega PCM audio on the left channel, and Epson speech on the right. Moreover, the CPC speaker is turned on. 
+A *reasonable default configuration* for a LambdaSpeak 3 *without SPO256-AL2* is `00101-01001`, resulting in raw ATmega PCM audio on the left channel, and Epson speech on the right. Moreover, the CPC speaker is turned on. 
 
-A *reasonable default configuration* for an Amdrum / PCM Sample Playing session could be `00101-00101`. Hence, raw ATmega PCM audio on the left and right channel, and no speech output at all. However, an extra cable and external mixer and amplifier or dedicated loudspeaker could still be used for Epson speech (use the daugherboards own stero jack). 
+A *reasonable default configuration* for an Amdrum / PCM Sample Playing session could be `00101-00101`, giving raw ATmega PCM audio on the left and right channel, and no speech output at all. However, an extra cable and external mixer and amplifier or dedicated loudspeaker could still be used for Epson speech (use the daughterboard’s own stero jack). 
 
-The **10 LED segment bar on the left** is used to indicate the current
-mode / status of LambdaSpeak 3. The LEDs have the following meaning:
+The **10 LED segment bar on the left** is used to indicate the current mode / status of LambdaSpeak 3. The LEDs have the following meaning:
 
   - **VCC:** Power LED. 
   - **SBY:** If fitted with a SPO256-AL2, the status of the SBY pin ("Standby"). 
   - **LRQ:** If fitted with a SPO256-AL2, the status of the LRQ pin ("Load Request"). 
   - **RDY**: Mostly used to indicate that LambdaSpeak is ready to accept input; however, the LED is also used for other purposes.
-  - **TR**: Mostly used to indicate that LambdaSpeak is transmitting data to the the Epson daughterboard (that it is speaking); however, the LED is also used for other purposes.  
+  - **TR**: Mostly used to indicate that LambdaSpeak is transmitting data to the Epson daughterboard (that it is speaking); however, the LED is also used for other purposes.  
   
-  - the other LEDs **EPS, SPO, AM, DK, SSA1** are used to indicate the current mode. 
+  - the LEDs **EPS, SPO, AM, DK, SSA1** are used to indicate the current mode. 
 
     -----------------------------------------------------------------------------------------------------
     | EPS | SPO | AM  | DK  | SSA1 | Mode                | To Enter  | To Quit  |   Notes & Comments    |
@@ -101,85 +85,40 @@ mode / status of LambdaSpeak 3. The LEDs have the following meaning:
     |  X  |     |     |  X  |   X  | Epson               |    &EF    | CM       | Natural Speech        |
     |  X  |     |     |     |      | DECtalk             |    &EE    | CM       | DECtalk can even sing | 
     |  X  |     |     |     |   X  | SSA1 Emulation      |    &ED    | CM       | **LS Default Mode**   | 
-    |  X  |     |     |  X  |      | DKtronics Emulation |    &EC    | CM       | Better than SPO       | 
+    |  X  |     |     |  X  |      | DK’tronics Emulation |    &EC    | CM       | Better than SPO       | 
     |     |  X  |     |     |   X  | SSA1 SPO            |    &E2    | CM       | Re-Implementation     |
-    |     |  X  |     |  X  |      | DKtronics SPO       |    &E1    | CM       | Re-Implementation     | 
+    |     |  X  |     |  X  |      | DK’tronics SPO       |    &E1    | CM       | Re-Implementation     | 
     |     |     |  X  |     |      | Amdrum Emulation    |    &E3    | PC       | Amdrum PCM Emulation  |
     |     |     |  X  |  X  |   X  | EEPROM PCM Upload   |    &FE    | EOM RB   | PCM Data to EEPROM    |
     |     |  X  |  X  |  X  |   X  | EEPROM PCM Play     | &FA - &FD | RB       | 1 to 4 Channel HQ PCM | 
     -----------------------------------------------------------------------------------------------------
 
-    These different modes are going to explained in more detail in the subsequent sections. 
+    These different modes are going to be explained in more detail in the subsequent sections. 
     `PC` = Power Cycle, `RB` = Reset Button, `EOM` = `End of mode`, `CM` = `Change Mode` (means that the control bytes `To Enter` a different mode will be accepted in that mode), `&FF, &14` = sequence of command / control bytes in hexadecimal (first send 255 = &FF, then 20 = &14). `HQ PCM` = High Quality PCM (Pulse Code Modulation), > 18 khZ possible, 8 Bit PCM. 
 
-The **8 LED segment bar on the right** is used to indicate the current / last byte transmitted from the CPC to LambdaSpeak (the last databus byte latched from IO port &FBEE). Each `out &fbee,byte` BASIC command will show the `byte` in binary on the LED segment. Moreover, by removing the LED segment bar from its socket, the socket can be used as General Purpose Digital Output controlled by the CPC; for example, a 8-Relay Module can be driven by these outputs to control home appliances or other devices from the CPC. It is not possible to do General Purpose Digital Input over these ports, but the CPC's joystick port could be used for that purpose. 
+The **8 LED segment bar on the right** is used to indicate the current / last byte transmitted from the CPC to LambdaSpeak (the last databus byte latched from IO port &FBEE). A `out &fbee,byte` BASIC command will show the `byte` in binary on the LED segment. Moreover, by removing the LED segment bar from its socket, the socket can be used as General Purpose Digital Output controlled by the CPC; for example, an 8-Relay Module can be driven by these outputs to control home appliances or other devices from the CPC. It is not possible to do General Purpose Digital Input over these ports, but the CPC's joystick port could be used for that purpose. 
 
 #### Overview of LambdaSpeak 3 Modes 
 
-The following automata gives an overview of the different modes and
-transitions between modes: 
+The following automaton gives an overview of the different modes and transitions between modes: 
 
 ![LS3 Modes](manuals/ls3-modes.png) 
 
 There is also [a PDF version of this image.](manuals/ls3-modes.pdf). 
 
-The default mode is the SSA-1 Emulation mode. This mode is enabled
-after a reset (via `&FF` or reset button), or after a power cycle, for example. 
+The default mode is the SSA-1 Emulation mode. This mode is enabled after a reset (via `&FF` or reset button), or after a power cycle, for example. 
 
-Referring to the table above, the EEPROM PCM Play mode is the
-autonomous PCM sample playback mode; sample / wave files are being
-played back from EEPROM.  Since this mode can also involve the
-SPO256-AL2 (addressed via Channel 10), the SPO LED is being lit as
-well in this mode. Moreover, to upload the PCM samples from the CPC
-into LambdaSpeak's EEPROM, the EEPROM PCM Upload mode is being used. 
+Referring to the table above, the EEPROM PCM Play mode is the autonomous PCM sample playback mode; sample / wave files are being played back from EEPROM.  Since this mode can also involve the SPO256-AL2 (addressed via Channel 10), the SPO LED is being lit as well in this mode. Moreover, to upload the PCM samples from the CPC into LambdaSpeak's EEPROM, the EEPROM PCM Upload mode is being used. 
 
-LambdaSpeak 3 is controlled by sending "control bytes" or "commands" -
-the different modes are enable and disabled by sending control
-bytes. In normal operation mode (i.e., the standard dispatcher loop is
-running), each byte being sent to IO port `&FBEE` > 127 is considered
-a control byte. All bytes smaller 128 are considered as content (phonemes,
-text, ...) for the speech synthesizer. This is the behavior of
-LambdaSpeak's normal control byte dispatcher / main mode listener
-loop.
+LambdaSpeak 3 is controlled by sending "control bytes" or "commands" - the different modes are enable and disabled by sending control bytes. In normal operation mode (i.e., the standard dispatcher loop is running), each byte being sent to IO port `&FBEE` > 127 is considered a control byte. All bytes smaller 128 are considered as content (phonemes, text, ...) for the speech synthesizer. This is the behavior of LambdaSpeak's normal control byte dispatcher / main mode listener loop.
 
-Moreover, the **Serial Mode / UART** has its own command dispatcher /
-listener loop, and follows different conventions. See below for an
-explanation of the Serial Mode. Other modes, such as the Amdrum
-Emulation mode, also do not interpret control / command bytes (each
-byte is considered a PCM sample).
+Moreover, the **Serial Mode / UART** has its own command dispatcher / listener loop, and follows different conventions. See below for an explanation of the Serial Mode. Other modes, such as the Amdrum Emulation mode, also do not interpret control / command bytes (each byte is considered a PCM sample).
 
-In addition, there are "sub" modes for setting the RTC (Real Time
-Clock) time and calendar. These modes do not have a dedicated LED
-pattern. Normal operation is resumed after the clock (resp. calendar)
-has been set. To set the time, invoke control byte / command `&DB`,
-and then send the hours, minutes, and seconds to the databus (port
-`&FBEE`), one byte at a time. Likewise, to set the calendar, invoke
-control byte `&DA`, and then send the year, month, date, and weekday
-(1 to 7 for Monday to Sunday) on the databus, one byte at a time. The
-set time and set calendar sub modes are 'modal' in the sense that
-normal operation of LambdaSpeak 3 is suspended until all requested
-parameters have been received. While the set time and set date
-commands are still requesting parameters, normal control byte
-dispatching is disabled, and LambdaSpeak returns to normal behavior
-(hence exiting the modal "sub" mode) after the clock (resp. calendar)
-has been set. There is no special LED pattern to indicate these set
-time and set calendar "sub" modes.
+In addition, there are "sub" modes for setting the RTC (Real Time Clock) time and calendar. These modes do not have a dedicated LED pattern. Normal operation is resumed after the clock (resp. calendar) has been set. To set the time, invoke control byte / command `&DB`, and then send the hours, minutes, and seconds to the databus (port `&FBEE`), one byte at a time. Likewise, to set the calendar, invoke control byte `&DA`, and then send the year, month, date, and weekday (1 to 7 for Monday to Sunday) on the databus, one byte at a time. The set time and set calendar sub modes are 'modal' in the sense that normal operation of LambdaSpeak 3 is suspended until all requested parameters have been received. While the set time and set date commands are still requesting parameters, normal control byte dispatching is disabled, and LambdaSpeak returns to normal behavior (hence exiting the modal "sub" mode) after the clock (resp. calendar) has been set. There is no special LED pattern to indicate these set time and set calendar "sub" modes.
 
-Another sub mode is the *echo test program* which runs an echo program
-of `&FBEE` until reset button or power cycle (see below).
+Another sub mode is the *echo test program* which runs an echo program of `&FBEE` until reset button or power cycle (see below).
 
-Note that, in the table above, `PC` stands for Power Cycle - the only
-way of quitting the Amdrum mode is to power cycle the CPC (and
-LambdaSpeak). This is of course always an option to quit any of the
-listed modes, but the Amdrum mode it is the only way of quitting
-it. `EOO` stands for `end of operation`; this means that normal
-control byte / command dispatching is resumed after all requested
-bytes have been received, so the mode terminates / quits itself and
-returns to LS 3 default mode.  `RB` stands for the LambdaSpeak Reset
-Button -- with the exception of the Amdrum mode, the Reset Button is
-of course always an option to leave the current mode, but it is listed
-for a mode in the table above if there is no other way of quitting
-this mode.
+Note that, in the table above, `PC` stands for Power Cycle - the only way of quitting the Amdrum mode is to power cycle the CPC (and LambdaSpeak). This is of course always an option to quit any of the listed modes, but the Amdrum mode it is the only way of quitting it. `EOO` stands for `end of operation`; this means that normal control byte / command dispatching is resumed after all requested bytes have been received, so the mode terminates / quits itself and returns to LS 3 default mode.  `RB` stands for the LambdaSpeak Reset Button -- with the exception of the Amdrum mode, the Reset Button is of course always an option to leave the current mode, but it is listed for a mode in the table above if there is no other way of quitting this mode.
     
 
 #### Schematics 
@@ -190,7 +129,7 @@ this mode.
 #### Printed Circuit Boards 
 
 LambdaSpeak 3 was made with [KiCad EDA v4.0.7](http://kicad-pcb.org/),
-and ``freeRouting.jar`` did the routing.
+and "freeRouting.jar" did the routing.
 
 ![PCB](images/ls3-pcb.jpg) 
 ![PCB Front](images/pcb-front.png) 
@@ -209,7 +148,7 @@ Please note that the resistor networks (`RN1`, `RN2`, `RN3`) are all 1k Ohm. All
 
 ![BOM2](images/bom2.jpg) 
 
-I recommend to use standard stackable Arduino Headers for J1 and J2 (instead of soldering the daugher board in permanently). A standard 2x25 angled IDC Box Header can then be used to plug LambdaSpeak into the **Mother X4 board** or [**LambdaBoard**](https://www.seeedstudio.com/LambdaBoard-Expansion-Board-Backplane-for-Amstrad-CPC-Computers-g-1143632). Or a 50 pin ribbon cable. For the CPC 464 and 664, there is also [my CPC 464 epansion port connector](https://oshpark.com/shared_projects/3yA33GYO) as an option.
+I recommend the use of standard stackable Arduino Headers for J1 and J2 (instead of soldering the daughter board in permanently). A standard 2x25 angled IDC Box Header can then be used to plug LambdaSpeak into the **Mother X4 board** or [**LambdaBoard**](https://www.seeedstudio.com/LambdaBoard-Expansion-Board-Backplane-for-Amstrad-CPC-Computers-g-1143632). Else, usa a 50 pin ribbon cable. For the CPC 464 and 664, there is also [my CPC 464 expansion port connector](https://oshpark.com/shared_projects/3yA33GYO) as an option.
 
 The form factors in the above BOM are **for illustration only.** Instead of ceramic disc capacitors, I have used ceramic multilayer capacitors mostly. I recommend using DIP sockets for all chips. 
 
@@ -224,7 +163,7 @@ Final breadboard prototype:
 
 ![Prototype Breadboard 2](images/DSC08419.JPG)
 
-First PCB with RTC and MP3 modules added when LambdaSpeak 3.0 was already "final", and "Zhulien" from the CPC Wiki Forum had suggested to add the UART MP3 module; and then I couldn't stand to leave the last 3 KBs of ATmega program memory unused, and added the I2C RTC: 
+First PCB with RTC and MP3 modules added when LambdaSpeak 3.0 was already "final", and "Zhulien" from the CPC Wiki Forum had suggested adding the UART MP3 module; and then I couldn't stand to leave the last 3 KBs of ATmega program memory unused, and added the I2C RTC – of course, this required on more PCB revision after this prototype worked: 
 
 ![LambdaSpeak with RTC and MP3 Modules](images/DSC08486.JPG)
 
@@ -264,26 +203,13 @@ Check of [the predecessors of LambdaSpeak 3.](https://github.com/lambdamikel/Lam
 
 ### The Modes of LambdaSpeak 3 and the LambdaSpeak Firmware 
 
-When LambdaSpeak 3 is turned on, or after a reset command (`&FF`), or after the reset button has been pressed, 
-it starts in the SSA1 Emulation mode (`&FD`). This mode was selected such that games that support the Amstrad
-SSA-1 speech synthesizer work out of the box without requiring further configuration of LambdaSpeak 3
-(e.g., "Roland in Space"). However, this mode does not produce the best speech or most natural sounding speech.
-The Epson and DECtalk modes are far superior in speech quality. 
+When LambdaSpeak 3 is turned on, or after a reset command (`&FF`), or after the reset button has been pressed, it starts in the SSA1 Emulation mode (`&FD`). This mode was selected such that games that support the Amstrad SSA-1 speech synthesizer work out of the box without requiring further configuration of LambdaSpeak 3 (e.g., "Roland in Space"). However, this mode does not produce the best speech or most natural sounding speech. The Epson and DECtalk modes are far superior in speech quality. 
 
-As mentioned previousl, with the exception of the SPO-based SSA1 and DKtronics modes, all speech content 
-is 7bit, hence byters < 128 are being buffered in a speech input buffer, and if within x milliseonds
-(a configurable flush delay time) no new content has been received, the buffer is spoken. Hence, speech 
-is asynchronous, and a slight delay is to be expected. Also, the speech input buffer has a limited size of 
-253 bytes, hence the buffer is also flushed and hence spoken if that limit is reached. 
+As mentioned previously, with the exception of the SPO-based SSA1 and DK’tronics modes, all speech content is 7bit, hence bytes < 128 are being buffered in a speech input buffer, and if within x milliseconds (a configurable flush delay time) no new content has been received, the buffer is spoken. Hence, speech is asynchronous, and a slight delay is to be expected. Also, the speech input buffer has a limited size of 253 bytes, hence the buffer is also flushed and hence spoken if that limit is reached. 
 
-Moreover, every byte with 8th bit set, hence bytes > 127, are consider command bytes or control bytes. 
-The bytes are used for setting various parameters (voice, volume, speak rate), and for chaning modes
-of LambdaSpeak 3. The table of command / control bytes is given below. 
+Moreover, every byte with 8th bit set, hence bytes > 127, are consider command bytes or control bytes. The bytes are used for setting various parameters (voice, volume, speak rate), and for changing modes of LambdaSpeak 3. The table of command / control bytes is given below. 
 
-Unlike the Epson-based speech modes (SSA1 Emu, DKtronics Emu, Epson mode, DECtalk mode), the SPO-based
-speech modes are not using buffered input, and speech is synchronous. Every byte < 128 is directly 
-sent and processed by the SPO256-AL2 speech chip. Also, most settings such as voice, volume, language 
-etc. only apply to the Epson-based speech synthesizer, not the SPO256-AL2. 
+Unlike the Epson-based speech modes (SSA1 Emu, DK’tronics Emu, Epson mode, DECtalk mode), the SPO-based speech modes are not using buffered input, and speech is synchronous. Every byte < 128 is directly  sent and processed by the SPO256-AL2 speech chip. Also, most settings such as voice, volume, language etc. only apply to the Epson-based speech synthesizer, not the SPO256-AL2. 
 
 This tables shows the command / control bytes recognized by LambdaSpeak: 
 
@@ -305,7 +231,7 @@ This tables shows the command / control bytes recognized by LambdaSpeak:
 | &EF  | Enable Epson Mode          | Natural sounding speech       |                X              |         X         | 
 | &EE  | Enable DECtalk Mode        | DECtalk is most advanced      |                X              |         X         |
 | &ED  | Enable SSA1 Emu Mode       | DECtalk-based SSA1 emulation  |                X              |         X         |
-| &EC  | Enable DKtronics Emu Mode  | DECtalk-based DKtronics emul. |                X              |         X         |
+| &EC  | Enable DK’tronics Emu Mode  | DECtalk-based DK’tronics emul. |                X              |         X         |
 | &EB  | Non Blocking Speech Mode   | Z80 not halted for speech     |                X              |                   | 
 | &EA  | Blocking Speech Mode       | Z80 halted for speech         |                X              |                   |
 | &E9  | Command Confirmation On    | Speak confirmations           |                X              |                   |
@@ -316,7 +242,7 @@ This tables shows the command / control bytes recognized by LambdaSpeak:
 | &E4  | Long Delay for Getters     | Getter bytes on databus 10 ms |                X              |                   | 
 | &E3  | Enable Amdrum Emu Mode     | Enable Amdrum, `out &FFxx,n`  |                X              |         X         | 
 | &E2  | Enable SSA1 SPO Mode       | Authentic SPO SSA1 mode       |                X              |         X         |
-| &E1  | Enable DKtronics SPO Mode  | Authentic SPO DKtronics mode  |                X              |         X         | 
+| &E1  | Enable DK’tronics SPO Mode  | Authentic SPO DK’tronics mode  |                X              |         X         | 
 | &DF  | ASYNCHRONOUS STOP SPEECH   | Stop speech immediately       |                X              |                   | 
 | &DE  | Flush Speech Buffer Now    | Flush buffered speech content |                X              |                   |  
 | &DD  | Speak RTC Time             | Speak current time (RTC req.) |                X              |                   |
@@ -356,8 +282,7 @@ This tables shows the command / control bytes recognized by LambdaSpeak:
 
 #### Epson Mode
 
-Same high speech quality as DECtalk mode, natural sounding English and
-Spanish speaking. Easy to program.  Check out the `ENGLISH.BAS` and
+Same high speech quality as DECtalk mode; natural sounding English and Spanish speaking. Easy to program.  Check out the `ENGLISH.BAS` and
 `SPANISH.BAS` example programs on [the
 `LS300.DSK`](cpc/lambda/LS300.dsk) to learn about the syntax of the
 Epson mode, and the [documentation of the Epson mode in ([the manual; see section on Epson Parser.](https://www.parallax.com/sites/default/files/downloads/30016-Emic-2-Text-To-Speech-Documentation-v1.2.pdf))
@@ -365,68 +290,44 @@ Epson mode, and the [documentation of the Epson mode in ([the manual; see sectio
 
 #### DECtalk Mode
 
-Very versatile and powerful speech synthesis - can even sing!  Check
-out the `WELCOME.BAS` and `DECSING.BAS` example programs on [the
+Very versatile and powerful speech synthesis - can even sing!  Check out the `WELCOME.BAS` and `DECSING.BAS` example programs on [the
 `LS300.DSK`](cpc/lambda/LS300.dsk) to learn about the syntax of the
 Epson mode, and the [documentation of the DECtalk
 mode](manuals/EpsonDECtalk501.pdf). 
 
 There is also a [repository of DECtalk songs](http://www.theflameofhope.co/SONGS.html). 
-Howver, most of these songs were written for an earlier version of DECTalk v2. Hence, 
-they require conversion. You can get an idea by running `DECSING.BAS` and
-either loading `BANNER` or `BDAY`. Also, there is a built-in song in LambdaSpeak 3, 
-which you can listen to via control byte `&C6`. 
+However, most of these songs were written for an earlier version of DECtalk v2 (and LambdaSpeak uses DECtalk v5). Hence, they require conversion. You can get an idea by running `DECSING.BAS` and by either loading `BANNER` or `BDAY`. Also, there is a built-in song in LambdaSpeak 3, which you can listen to via control byte `&C6`. 
 
 #### DECtalk-based SSA1 Mode (SSA1 Emulation)
 
-The DECtalk-based emulation of the classic Amstrad SSA1 speech synthesizer. 
-The emulation is faithful enough such that the SSA1 driver software, and classic 
-games such as `Roland in Space` will work in this mode. The speech sounds different from the original though, 
-since DECtalk is being used, and not the SPO256-AL2. Use the SPO-based SSA1 mode for 
-full authenticity and 100% faithful SSA1 speech. 
+This is the DECtalk-based emulation of the classic Amstrad SSA1 speech synthesizer. This emulation is faithful enough such that the SSA1 driver software, and classic games such as `Roland in Space` will work in this mode. The speech sounds different from the original though, since DECtalk is being used, and not the SPO256-AL2. Use the SPO-based SSA1 mode for full authenticity and 100% faithful SSA1 speech. 
 
-#### DECtalk-based DK'tronics Mode (DKtronics Emulation) 
+#### DECtalk-based DK'tronics Mode (DK’tronics Emulation) 
 
-The DECtalk-based emulation of the classic DKtronics speech synthesizer. 
-The emulation is faithful enough such that the DKtronics RSX driver software, and classic 
-games such as `Roland in Space` will work in this mode. The speech sounds different from the original though, 
-since DECtalk is being used, and not the SPO256-AL2. Use the SPO-based DKtronics mode for 
-full authenticity and 100% faithful DKtronics speech. 
+This is the DECtalk-based emulation of the classic DK’tronics speech synthesizer. The emulation is faithful enough such that the DK’tronics RSX driver software, and classic games such as `Roland in Space` will work in this mode. The speech sounds different from the original though, since DECtalk is being used, and not the SPO256-AL2. Use the SPO-based DK’tronics mode for full authenticity and 100% faithful DK’tronics speech. 
 
 #### Authentic SPO256-AL2-based SSA1 Mode (SSA1 Re-Implementation)
 
-A fully authentic re-implementation of the original classical Amstrad SSA1 speech synthesizer. 
+This is a fully authentic re-implementation of the original classical Amstrad SSA1 speech synthesizer. 
 
-#### Authentic SPO256-AL2-based DKtronics Mode (DKtronics Re-Implementation)
+#### Authentic SPO256-AL2-based DK’tronics Mode (DK’tronics Re-Implementation)
 
-A fully authentic re-implementation of the original classical DKtronics speech synthesizer. 
+This is a fully authentic re-implementation of the original classical DK’tronics speech synthesizer. 
 
 
 #### Amdrum Mode (Amdrum Emulation) 
 
-LambdaSpeak 3 offers a PCM sample-playing mode - it emulates the **Amdrum module**. In this mode, every byte sent to port `&FFxx` (xx = arbitrary) will immediatly be played as an 8bit PCM sample. The **Amdrum software** works out of the box in this mode, and sample quality is surprisingly good / high, given that no DAC chip is used, but the PCM conversion is implemented in software on the ATmega 644, using a fast timer. This mode can only be exited by power cycling LambdaSpeak. All ATmega interrupts are disabled, for maximimum processing speed and sample quality. Hence, even the reset button of LambdaSpeak is ineffective. Decoding of IO addresses &FFxx will only be active when the Amdrum mode is enabled. 
+LambdaSpeak 3 offers a PCM sample-playing mode - it emulates the **Amdrum module**. In this mode, every byte sent to port `&FFxx` (xx = arbitrary) will immediately be played as an 8bit PCM sample. The **Amdrum software** works out of the box in this mode, and sample quality is surprisingly good / high, considering that no DAC chip is being used; rather, the PCM conversion is implemented in software using a fast ATmega timer, and a simple RC filter is utilized. This mode can only be quit by power cycling LambdaSpeak. All ATmega interrupts are disabled, for maximum processing speed and sample quality (hence, even the reset button of LambdaSpeak is ineffective). Decoding of IO addresses &FFxx will only be active when the Amdrum mode is enabled. 
 
-Note that this mode is different from the autonomous PCM Playing mode,
-which uses the onboard SPI 128 KB EEPROM for storing PCM samples. The
-sound quality of the EEPROM PCM Playing mode is superiour to the
+Note that this mode is different from the autonomous PCM Playing mode, which uses the onboard SPI 128 KB EEPROM for storing PCM samples. The sound quality of the EEPROM PCM Playing mode is superior to the
 Amdrum mode and comes with zero CPU load, unlike the Amdrum mode. 
 
-However, the Amdrum mode allows you to use the awesome Amdrum
-software, and other CPC software that "streams" the PCM sample bytes
-over the databus.
+However, the Amdrum mode allows you to use the awesome Amdrum software, and other CPC software that "streams" the PCM sample bytes over the databus. 
 
 
 #### EEPROM PCM Upload Mode 
 
-The 128 KB SPI EEPROM used to store the PCM wave files / samples for
-the autonomous PCM Play Mode (not the Amdrum mode) is organized in
-pages. Wheras the SPI EEPROM has 512 pages of 256 bytes, in order to
-keep page addressing to one byte, LambdaSpeak uses pages of 512 bytes.
-There is no page 0 in LambdaSpeak / LambdaDrum. Hence, the first page
-starts at page address 1 and has 512 bytes. The last page has address
-255. Hence, there are 255 pages of 512 bytes. Each page can hold one
-PCM wave file / sample. However, a single PCM file can also span
-multiple pages. 
+The 128 KB SPI EEPROM, which is used to store the PCM wave files / samples for the autonomous PCM Play Mode (not the Amdrum mode), is organized in **pages.** Whereas the SPI EEPROM has 512 pages of 256 bytes, in order to keep page addressing to one byte, **LambdaSpeak uses pages of 512 bytes.** There is no page 0 in LambdaSpeak / LambdaDrum. Hence, the first page starts at page address 1 and has 512 bytes. The last page has address 255. Hence, **there are 255 pages of 512 bytes.**  Each page can hold one PCM wave file / sample. However, a single PCM file can also span multiple of these pages. 
 
 Pages are uploaded as a whole. In case a sample does not fill a whole
 page, the remaining bytes need to be filled with 127. 
@@ -438,35 +339,23 @@ Uploading a sample / wave file into the EEPROM is simple:
 3. Send the number of pages  (using `out &fbee,no-pages`). 
 4. Send no-page * 512 bytes to (using `out &fbee,byte`). 
 Note that 127 is used to fill the remaining bytes in the page until it is full.  
-5. After all bytes have been received, LambdaSpeak 3 returns to normal 
-operation (i.e., its previous mode). 
+5. After all bytes have been received, LambdaSpeak 3 returns to normal  operation (i.e., its previous mode). 
 
-Notice that the speech synthesizer will also speak instructions what
-kind of input is expected during the upload process (i.e., it will say
-"Send page number" for step 2., etc.) However, confirmations must be
-turned on for the spoken instructions. 
+Notice that the speech synthesizer will also speak instructions what kind of input is expected during the upload process (i.e., it will say 
+"Send page number" for step 2., etc.) However, confirmations must be enabled for these spoken instructions. 
 
-A couple of BASIC programs illustrate how to upload PCM samples into
-the EEPROM; check the `DRUMLOAD.BAS` program on the
+A couple of BASIC programs illustrate how to upload PCM samples into the EEPROM; check the `DRUMLOAD.BAS` program on the
 [`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk) disk. This uploads a drum
 set from the Boss DR660 drum computer in medium PCM sample quality (16
-kHz) into the EEPROM. Since this is a BASIC program, loading the whole
-drum set takes about 15 minutes. A machine code program should be able
-to upload this within seconds. 
+kHz) into the EEPROM. Since this is a BASIC program, loading the whole drum set takes about 15 minutes. A machine code program should be able to upload this within seconds. 
 
 
 #### EEPROM PCM Playback Mode
 
 To enter the EEPROM PCM Playback mode, use `&FA` for 1 PCM Channel,
-`&FB` for 2 PCM Channels, `&FC` for 3 PCM Channels, and `&FD` for 4
-Channels. The more channels, the worse the PCM quality. Also, pitch
-(playback speed) will only affect the PCM playback very coarsly the
-more channels are being used. Future firmware version might improve
-upon this. 
+`&FB` for 2 PCM Channels, `&FC` for 3 PCM Channels, and `&FD` for 4 channels. The more channels, the lower the PCM quality gets. Also, pitch control (playback speed) is less effective with more channels. Future firmware version might improve upon this. 
 
-Once samples are in the EEPROM, it is straightforward to trigger sample playing, using the
-play sample command. When LambdaSpeak 3 is in EEPROM PCM Playback Mode, it constantly listens
-to port `&FBEE` for play sample commands. A play sample command is simply a sequence of bytes: 
+Once samples are in the EEPROM, it is straightforward to trigger sample playing, using the "Play PCM Sample" command. When LambdaSpeak 3 is in EEPROM PCM Playback Mode, it constantly listens to port `&FBEE` for play sample commands. A "Play PCM Sample" command is simply a sequence of bytes: 
 
 1. Send 0
 2. Send channel: 1 to n. 
@@ -478,40 +367,18 @@ to port `&FBEE` for play sample commands. A play sample command is simply a sequ
 7. Send 0 
 8. Send the sample playback speed. That affects the pitch. 
 
-So, a play command is a sequence of 8 bytes. Note that LambdaSpeak
-constanty listents to incoming play PCM commands, even as samples are
-being played. The zero is being used as a synchronization byte. Note
-that all parameters are greater than 0. If a channel is being
-triggered which is still being used / still playing, then the new
-sample will start using the channel immediately and terminate the
-sample that was playing.
+So, a play command is a sequence of 8 bytes. Note that LambdaSpeak constantly listens to incoming play commands, even as samples are being played. The zero is being used as a synchronization byte. Note  that all parameters are greater than 0. If a channel is being triggered which is still being used / still playing, then the new sample will start playing, using the channel immediately, thus terminating the sample that was playing. 
 
-Notice that the speech synthesizer will also speak instructions when
-the mode is entered, in what order of sequence which parameters are
-expected for the Play PCM trigger command. However, confirmations must
-be turned on for the spoken instructions.
+Notice that the speech synthesizer will also speak instructions when the mode is entered, in what order of sequence which parameters are expected for the Play PCM trigger command. However, confirmations must be turned on for these spoken instructions.
 
-A couple of BASIC programs illustrate how to use the play command, for example, 
-`DRUMMER.BAS` on the [`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk) disk.
+A couple of BASIC programs illustrate how to use the play command, for example, `DRUMMER.BAS` on the [`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk) disk.
 
 
 #### Serial Mode (UART Mode) 
 
-In the serial mode, every byte that is sent to `&FBEE` is output
-directly to the UART (TX), if the serial interface is in direct mode,
-and otherwise the received bytes are buffered and the buffer is
-flushed with a command.  Bytes can be received (interupt-based) via
-RX, and they get buffered.  Since the send / receive buffer is shared,
-bytes should only be received after the buffer has been flushed in
-buffered mode, or the non-buffered (direct) mode should be used (in
-this case, the buffer is not being used for sending bytes, and can
-excusively used for receiving bytes). The send/receive buffer has a
-size of 256 + 268 bytes, and it will automatically overflow.
+In the serial mode, every byte that is sent to `&FBEE` is output directly to the UART (TX), if the serial interface is in direct mode, and otherwise the received bytes are buffered and the buffer is flushed with a command.  Bytes can be received (interrupt based) via RX, and they get buffered.  Since the send / receive buffer is shared, bytes should only be received after the buffer has been flushed in buffered mode, or the non-buffered (direct) mode should be used (in this case, the buffer is not being used for sending bytes, and can exclusively be used for receiving bytes). The send/receive buffer has a size of 256 + 268 bytes, and it will automatically overflow. 
 
-To control the UART interface, sequences of control bytes are used,
-and a control sequence starts with 255 / &FF. 255 can be be `escaped`
-by sending 255 and then 255 again (so, to transmit 255 as content
-byte, send 255 twice).
+To control the UART interface, sequences of control bytes are used, and a control sequence starts with 255 / &FF. 255 can be be `escaped` by sending 255 and then 255 again (so, to transmit 255 as content byte, send 255 twice).
 
 The following table lists the command bytes in Serial Mode:
 
@@ -535,7 +402,7 @@ The following table lists the command bytes in Serial Mode:
 | &FF, 12         | Set read cursor to 0                          | Does not erase the buffer         |  
 | &FF, 13         | Set read cursor to input cursor position -1   | Read cursor points to last byte   | 
 | &FF, 14         | Get mode - direct or buffered mode            | 1 = direct mode, 0 = buffered     | 
-| &FF, 15         | Speak mode (BAUD, Width, Parity, Stop Bits)   | Confirmations need to be enabed   | 
+| &FF, 15         | Speak mode (BAUD, Width, Parity, Stop Bits)   | Confirmations need to be enabled   | 
 | &FF, 16         | Direct mode on                                | No CPC input buffering, direct TX | 
 | &FF, 17         | Direct mode off                               | Buffer CPC input, then &FF, 2     | 
 | &FF, 20         | Quit and reset Serial Mode                    | Like Reset Button                 | 
@@ -547,35 +414,22 @@ The following table lists the command bytes in Serial Mode:
 | &FF, &F2        | Get Mode Descriptor Byte                      | Same &F2 as in speech modes       | 
 -------------------------------------------------------------------------------------------------------
 
-If the MP3 module is not soldered in directly, it is wise to use pin headers such 
-that an FTDI cable or RS232 MAX level converter with DSUB9 RS232 socket can be hooked
-up to LambdaSpeak 3 directly: 
+If the MP3 module is not soldered in directly, it is wise to use pin headers such that an FTDI cable or RS232 MAX level converter with DSUB9 RS232 socket can be hooked up to LambdaSpeak 3 directly: 
 
 ![RS232 Connector](images/DSC08534.jpg)
 
-There is a simple `SERIAL.BAS` terminal program. If you ony want to
-receive but not send, simply press Enter. Note that the input buffer
-size is 256 + 268 bytes only. The sender needs to pause and give the
-CPC time to read the received bytes via the read cursor from the
-buffer, otherwise received bytes will get lost.
+There is a simple `SERIAL.BAS` terminal program. If you only want to receive but not send, simply press Enter. Note that the input buffer size is 256 + 268 bytes only. The sender needs to pause and give the CPC time to read the received bytes via the read cursor from the buffer, otherwise received bytes will get lost.
 
 ##### The 4 $ Catalex MP3 Module 
 
 You can get it on Ebay for 4 USD. There is a demo program `MP3.BAS` on the 
 [`LS300.DSK`](cpc/lambda/LS300.dsk). 
 
-The MP3 directories and filenames on the micro SDCard to be played
-needs to follow certain conventions, check [the
-manual](manuals/Catalex_MP3_board.pdf). I successfully used it with an
-8 GB FAT32 formatted SD card with a single root directory "01" and a
-couple of MP3 files named "001xxx.mp3" to "009xxx.mp3". There are
-certainly more possibilities for naming, but that worked for me.
+The MP3 directories and filenames on the micro SDCard to be played needs to follow certain conventions, check [the manual](manuals/Catalex_MP3_board.pdf). I successfully used it with an 8 GB FAT32 formatted SD card with a single root directory "01" and a couple of MP3 files named "001xxx.mp3" to "009xxx.mp3". There are certainly more possibilities for naming, but that worked for me.
 
 #### I2C Mode 
 
-Currently, only the RTC module is supported. It is conceivable that an alternative firmware 
-will be supplied in the future such that the I2C interface can be opened up to the CPC, in 
-a generic way such that different I2C devices can be connected to LambdaSpeak 3 and hence the CPC. 
+Currently, only the RTC module is supported. It is conceivable that an alternative firmware will be supplied in the future such that the I2C interface can be opened up to the CPC, in a generic way such that different I2C devices can be connected to LambdaSpeak 3 and hence the CPC. 
 
 ##### The 6 $ DS3231 RTC (Battery Buffered Real Time Clock) 
 
@@ -595,19 +449,13 @@ Here are the firmware files:
 * [ATmega 644 Firmware](firmware/atmega644/lambdaspeak3-firmware.hex)
 
 For reference, the [Verilog](firmware/xc9572/lambdaspeak3.v) and
-[Constraint](firmware/xc9572/lambdaspeak3.ucf) files are provided as
-well.
+[Constraint](firmware/xc9572/lambdaspeak3.ucf) files are provided as well.
 
 I have used the [ISE
-WebPack](https://www.xilinx.com/products/design-tools/ise-design-suite/ise-webpack.html)
-under Ubuntu Linux and a generic Xilinx USB Platform Cable (clone) to
-program the CPLD. Note that LambdaSpeak 3 has JTAG headers on
-board. Power can be provided from the 5V jack (center polarity = +!) for programming. 
+WebPack](https://www.xilinx.com/products/design-tools/ise-design-suite/ise-webpack.html) under Ubuntu Linux and a generic Xilinx USB Platform Cable (clone) to program the CPLD. Note that LambdaSpeak 3 has JTAG headers on board. Power can be provided from the 5V jack (center polarity = +!) for programming. 
 
-The ATmega can be programmed with an EEPROM programmer such as the
-inexpensive USB TL866II which can be found on Ebay and/or Amazon for ~
-30 USD. The fuse settings required for LambdaSpeak's 20 MHz external
-clock are shown in the following picture:
+The ATmega can be programmed with an EPROM programmer such as the inexpensive USB TL866II which can be found on Ebay and/or Amazon for ~
+30 USD. The fuse settings required for LambdaSpeak's 20 MHz external clock are shown in the following picture:
 
 ![Fuse Settings](firmware/atmega644/atmega-flash-config.jpg)
  
@@ -625,8 +473,8 @@ The main disk is called [`LS300.DSK`](cpc/lambda/LS300.dsk):
 | Program   | Description                                   |
 |-----------|-----------------------------------------------|
 | DECSING   | Demo of DECtalk singing. Load BANNER or BDAY. |
-| ELISA-DK  | A German-speaking Eliza using DKtronics Emu.  | 
-| ELISASPO  | A German-speaking Eliza using DKTronics SPO.  | 
+| ELISA-DK  | A German-speaking Eliza using DK’tronics Emu.  | 
+| ELISASPO  | A German-speaking Eliza using DK’tronics SPO.  | 
 | ELIZA     | High-End English Eliza, Natural Epson Speech. | 
 | ENGLISH   | Demo of English-speaking Epson mode.          | 
 | MP3       | Simple MP3 play for the Catalex module.       | 
@@ -639,15 +487,12 @@ The main disk is called [`LS300.DSK`](cpc/lambda/LS300.dsk):
 | WELCOME   | Demonstrates Epson, DECtalk, Control Bytes.   | 
 ------------------------------------------------------------- 
 
-Notice that the Software Distribution provided by TFM contains more
-examples, also illustrating the RSX driver software.
+Notice that the Software Distribution provided by TFM contains more examples, also illustrating the RSX driver software.
 
 Then, there are also 2 sample disks demonstrating LambdaDrum / 
 the Autonomous PCM Playing Mode. 
 
-First, the [`HIDEFSEQ1.DSK`](cpc/lambda/hidefseq1.dsk) 
-contains hi quality PCM samples of the Boss DR660 drum computer
-and demo: 
+First, the [`HIDEFSEQ1.DSK`](cpc/lambda/hidefseq1.dsk) contains high  quality PCM samples of the Boss DR660 drum computer and demo: 
 
 ![High Definition Samples](images/hidefseq1-dsk.jpg)
 
@@ -660,8 +505,7 @@ and demo:
 | *.WAV     | Boss DR660 Wave Files (LARGE - High Quality). |
 ------------------------------------------------------------- 
 
-A larger set of drums in slightly lower PCM quality is on the disk
-[`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk):
+A larger set of drums in slightly lower PCM (medium) quality is on the disk [`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk):
 
 ![Medium Definition Samples](images/midefseq2-dsk.jpg)
 
@@ -680,11 +524,8 @@ I am using the following tool chain to prepare 8Bit PCM WAV files:
 
 1. Download WAV files from the internet, e.g. Boss DR660 drum files. 
 2. Load into Audacity. Normalize,  edit, cut, fade, ... 
-3. Use "Export...", select "Export as WAV". For file type, Select 
-"Other Uncompressed Format". Select "WAV" and "Unsigned 8-bit PCM". Save the file. 
-4. The WAV file still contains header information which, if played by LambdaSpeak, 
-causes hissing and other artefacts. To remove the header information from the file, 
-I found the program `riffstrip.exe` is doing a great job (a simple command line tool). 
+3. Use "Export...", select "Export as WAV". For file type, Select "Other Uncompressed Format". Select "WAV" and "Unsigned 8-bit PCM". Save the file. 
+4. The WAV file still contains header information which, if played by LambdaSpeak, causes hissing and other artefacts. To remove the header information from the file, I found the program `riffstrip.exe` is doing a great job (a simple command line tool). 
 5. Now simply drop the WAV files onto a CPC DSK (e.g., using Markus Hohmann's `DSKTool.jar`
 or similar). 
 
@@ -708,8 +549,7 @@ and check out his site for updates!**
 
 ### Maker Support 
 
-The Gerbers and Firmware and all specs (BOM, ...) are all open source and in principle you can build one
-yourself. However, if you require certain parts or a pre-programmed Xilinx CPLD, ATmega, or even a fully assembled
+The Gerbers and Firmware and all specs (BOM, ...) are all open source and in principle you can build one yourself. However, if you require certain parts or a pre-programmed Xilinx CPLD, ATmega, or even a fully assembled
 LambdaSpeak 3, please contact me. 
 
 ### Acknowledgements
