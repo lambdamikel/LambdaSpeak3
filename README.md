@@ -453,7 +453,7 @@ Check [the manual](manuals/DS3231.pdf).
 
 #### LambdaSpeak 3 Programming 
 
-Have a look at the BASIC programs. And here is a piece of Z80 Assembler that shows how to send a reset command to LambdaSpeak 3; see program `ASM.BAS` on the [`LS300.DSK`](cpc/lambda/LS300.dsk). 
+Have a look at the BASIC programs. And here is a piece of Z80 Assembler that shows how to send a reset command to LambdaSpeak 3; see program `ASM.BAS` on the [`LS300.DSK`](cpc/lambda/LS300.dsk).  The program returns when the Native Mode READY indiciator has been received (= 128), i.e., the reset completed: 
 
 ~~~~
 org #8000
