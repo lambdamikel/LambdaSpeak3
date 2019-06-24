@@ -205,6 +205,8 @@ Check of [the predecessors of LambdaSpeak 3.](https://github.com/lambdamikel/Lam
 
 When LambdaSpeak 3 is turned on, or after a reset command (`&FF`), or after the reset button has been pressed, it starts in the SSA1 Emulation mode (`&FD`). This mode was selected such that games that support the Amstrad SSA-1 speech synthesizer work out of the box without requiring further configuration of LambdaSpeak 3 (e.g., "Roland in Space"). However, this mode does not produce the best speech or most natural sounding speech. The Epson and DECtalk modes are far superior in speech quality. 
 
+**Please note that the latest version of the LambdaSpeak 3 firmware no longer produces the initial `LambdaSpeak initialize. SSA-1 mode.` spoken boot message. So LS3 will just remain silent if turned on or being reset. You can always check for correct operation and the current mode by using `out &fbee,&c3` - which will produce `SSA-1 mode.` after a reset. The startup message was removed because certain applications such as MP3 music playing require distraction- and confirmationless, silent mode changes . For a completely silent operation with no confirmations at all, turn off all confirmations immediately after power cycle or reset using `out &fbee, &e8`.**
+
 As mentioned previously, with the exception of the SPO-based SSA1 and DK’tronics modes, all speech content is 7bit, hence bytes < 128 are being buffered in a speech input buffer, and if within x milliseconds (a configurable flush delay time) no new content has been received, the buffer is spoken. Hence, speech is asynchronous, and a slight delay is to be expected. Also, the speech input buffer has a limited size of 253 bytes, hence the buffer is also flushed and hence spoken if that limit is reached. 
 
 Moreover, every byte with 8th bit set, hence bytes > 127, are consider command bytes or control bytes. The bytes are used for setting various parameters (voice, volume, speak rate), and for changing modes of LambdaSpeak 3. The table of command / control bytes is given below. 
@@ -349,6 +351,7 @@ A couple of BASIC programs illustrate how to upload PCM samples into the EEPROM;
 set from the Boss DR660 drum computer in medium PCM sample quality (16
 kHz) into the EEPROM. Since this is a BASIC program, loading the whole drum set takes about 15 minutes. A machine code program should be able to upload this within seconds. 
 
+**Note that on the same [`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk) disk, there is also a program `DRUMLD2.BAS` that uses the `|PCMUP` RSX command from TFM's LambdaSpeak 3 RSX Extension / ROM (see below). Using |PCMUP, the same WAV samples can be uploaded within seconds.** 
 
 #### EEPROM PCM Playback Mode
 
@@ -371,7 +374,9 @@ So, a play command is a sequence of 8 bytes. Note that LambdaSpeak constantly li
 
 Notice that the speech synthesizer will also speak instructions when the mode is entered, in what order of sequence which parameters are expected for the Play PCM trigger command. However, confirmations must be turned on for these spoken instructions.
 
-A couple of BASIC programs illustrate how to use the play command, for example, `DRUMMER.BAS` on the [`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk) disk.
+A couple of BASIC programs illustrate how to use the PCM play command, for example, `DRUMMER.BAS` on the [`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk) disk.
+
+**On the same [`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk) disk, there is also a program `DRUMMER2.BAS` which uses the `|PCMPLAY` RSX command from TFM's LambdaSpeak 3 RSX Extension / ROM (see below) for triggering the sample playing.** 
 
 
 #### Serial Mode (UART Mode) 
@@ -419,6 +424,10 @@ If the MP3 module is not soldered in directly, it is wise to use pin headers suc
 ![RS232 Connector](images/DSC08534.jpg)
 
 There is a simple `SERIAL.BAS` terminal program. If you only want to receive but not send, simply press Enter. Note that the input buffer size is 256 + 268 bytes only. The sender needs to pause and give the CPC time to read the received bytes via the read cursor from the buffer, otherwise received bytes will get lost.
+
+The Serial Mode is using the standard READY indicator - if `32` appears on port `&FBEE`, then this means that LS3 is ready to receive the next command, or the next command argument.  
+In order to receive data from LS3 in Serial Mode, a special protocol is being used: in order to send `<byte>` to the CPC, LS3 first puts <byte> on port `&FBEE`, then it waits for a bit (either 50 us or 10 ms, depending on whether fast getters or slow getters are being used), then `0` is put on `&FBEE`, for the same amount of waiting time, until 32 (for READY) appears again to signal that the next command can be received. Please have a look at the BASIC program `SERIAL.BAS` (a simple bi-directional terminal program in BASIC) on the `LS300.DSK` for an illustration of how to send and receive data with LS3 in Serial Mode. 
+
 
 ##### The 4 $ Catalex MP3 Module 
 
