@@ -205,7 +205,7 @@ Check of [the predecessors of LambdaSpeak 3.](https://github.com/lambdamikel/Lam
 
 When LambdaSpeak 3 is turned on, or after a reset command (`&FF`), or after the reset button has been pressed, it starts in the SSA1 Emulation mode (`&FD`). This mode was selected such that games that support the Amstrad SSA-1 speech synthesizer work out of the box without requiring further configuration of LambdaSpeak 3 (e.g., "Roland in Space"). However, this mode does not produce the best speech or most natural sounding speech. The Epson and DECtalk modes are far superior in speech quality. 
 
-**Please note that the latest version of the LambdaSpeak 3 firmware no longer produces the initial "LambdaSpeak initialize. SSA-1 mode." spoken boot message. So LS3 will just remain silent if turned on or being reset. You can always check for correct operation and the current mode by using `out &fbee,&c3`. The startup message was removed because certain applications such as MP3 music playing require distraction- and confirmationless, silent mode changes . For a completely silent operation with no confirmations at all, turn off all confirmations immediately after power cycle or reset using `out &fbee, &e8`.**
+**Please note that the latest version of the LambdaSpeak 3 firmware no longer produces the initial "LambdaSpeak initialized. SSA-1 mode." spoken boot message. So LS3 will just remain silent if turned on or being reset. You can always check for correct operation and the current mode by using `out &fbee,&c3`. The startup message was removed because certain applications such as MP3 music playing require distraction- and confirmationless "silent" mode changes. For a completely silent operation with no spoken confirmations at all, turn off all confirmations immediately after a power cycle or reset using `out &fbee, &e8`.**
 
 As mentioned previously, with the exception of the SPO-based SSA1 and DK’tronics modes, all speech content is 7bit, hence bytes < 128 are being buffered in a speech input buffer, and if within x milliseconds (a configurable flush delay time) no new content has been received, the buffer is spoken. Hence, speech is asynchronous, and a slight delay is to be expected. Also, the speech input buffer has a limited size of 253 bytes, hence the buffer is also flushed and hence spoken if that limit is reached. 
 
@@ -426,8 +426,10 @@ If the MP3 module is not soldered in directly, it is wise to use pin headers suc
 There is a simple `SERIAL.BAS` terminal program. If you only want to receive but not send, simply press Enter. Note that the input buffer size is 256 + 268 bytes only. The sender needs to pause and give the CPC time to read the received bytes via the read cursor from the buffer, otherwise received bytes will get lost.
 
 The Serial Mode is using the standard READY indicator - if `32` appears on port `&FBEE`, then this means that LS3 is ready to receive the next command, or the next command argument.  
-In order to receive data from LS3 in Serial Mode, a special protocol is being used: in order to send `<byte>` to the CPC, LS3 first puts <byte> on port `&FBEE`, then it waits for a bit (either 50 us or 10 ms, depending on whether fast getters or slow getters are being used), then `0` is put on `&FBEE`, for the same amount of waiting time, until 32 (for READY) appears again to signal that the next command can be received. Please have a look at the BASIC program `SERIAL.BAS` (a simple bi-directional terminal program in BASIC) on the `LS300.DSK` for an illustration of how to send and receive data with LS3 in Serial Mode. 
 
+In order to receive data from LS3 in Serial Mode, a special protocol is being used: in order to send `<byte>` to the CPC, LS3 first puts `<byte>` on port `&FBEE`, then either waits for 50 us or for 10 ms, depending on whether fast getters or slow getters are being used; next, `0` appears on `&FBEE`, for the same amount of waiting time, until a 32 (READY indication) signals that LS3 is ready to receive the next command. 
+
+Please have a look at the BASIC program `SERIAL.BAS` (a simple bi-directional terminal program in BASIC) on the `LS300.DSK` for an illustration of how to send and receive data with LS3 in Serial Mode. 
 
 ##### The 4 $ Catalex MP3 Module 
 
@@ -542,11 +544,7 @@ or similar).
 
 [TFM](http://futureos.cpc-live.com/pics/tfm_gr.jpg), well-known in the CPC Community for his [FutureOS operating system for the CPC](http://futureos.cpc-live.com/), has created an awesome |RSX driver for LambdaSpeak. It comes in two versions - as a ROM, and as a disc-based relocatable driver (loadable from BASIC). |RSX commands exists for all LambdaSpeak control bytes, and also some high-level functions are offered that do not directly correspond to LambdaSpeak control bytes. For example, a PCM sample `|play` command (and `|eplay` for playing from an extended memory extension) for LambdaSpeak's Amdrum mode is offered, as well as a `|speakscreen` screen reading and a `|speakfile` file reading function. 
 
-The disc version of the software is shown in the following picture:  
-
-![TFM's LambdaSpeak RSX Driver](images/tfm-rsx.jpg)
-
-Here is a picture of the LambdaSpeak ROM, `|lshelp` command: 
+Here is a picture of the LambdaSpeak 3 ROM; `|lshelp` command: 
 
 ![TFM's LambdaSpeak RSX ROM](images/tfm-rsx-rom.jpg)
 
