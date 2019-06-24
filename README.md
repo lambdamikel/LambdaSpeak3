@@ -387,7 +387,6 @@ To control the UART interface, sequences of control bytes are used, and a contro
 
 The following table lists the command bytes in Serial Mode:
 
-
 -------------------------------------------------------------------------------------------------------
 | Byte Sequence   | Explanation                                   | Note                              |
 |-----------------|-----------------------------------------------|-----------------------------------|
@@ -452,6 +451,23 @@ how to read negative temperatures though.
 
 Check [the manual](manuals/DS3231.pdf). 
 
+#### LambdaSpeak 3 Programming 
+
+Have a look at the BASIC programs. And here is a piece of Z80 Assembler that shows how to send a reset command to LambdaSpeak 3; see program `ASM.BAS` on the [`LS300.DSK`](cpc/lambda/LS300.dsk). 
+
+~~~~
+org #8000
+.start
+LD BC,#FBEE
+LD A,#FF 
+OUT (C),A
+.loop1
+IN A,(C) 
+CP 128
+JP NZ,loop1
+RET
+~~~~
+
 ### The LambdaSpeak 3 Firmware 
 
 Here are the firmware files:  
@@ -470,8 +486,6 @@ The ATmega can be programmed with an EPROM programmer such as the inexpensive US
 
 ![Fuse Settings](firmware/atmega644/atmega-flash-config.jpg)
  
-
-
 ### Software
 
 There are a couple of demo programs.
@@ -483,11 +497,15 @@ The main disk is called [`LS300.DSK`](cpc/lambda/LS300.dsk):
 -------------------------------------------------------------
 | Program   | Description                                   |
 |-----------|-----------------------------------------------|
+| ASM       | Send Reset Command from Z80 MC Program.       |
+| BANNER    | DECSING DECTalk Song.                         |
+| BDAY      | DECSING DECTalk Song.                         |
 | DECSING   | Demo of DECtalk singing. Load BANNER or BDAY. |
 | ELISA-DK  | A German-speaking Eliza using DK’tronics Emu.  | 
 | ELISASPO  | A German-speaking Eliza using DK’tronics SPO.  | 
 | ELIZA     | High-End English Eliza, Natural Epson Speech. | 
 | ENGLISH   | Demo of English-speaking Epson mode.          | 
+| JULIAN    | Simultaneous speech and MP3 music playing.    | 
 | MP3       | Simple MP3 play for the Catalex module.       | 
 | RTC       | Simple Real Time Clock; uses DS3231 module.   | 
 | SAYECHO   | Simple Epson-based "say what I type" program. | 
@@ -507,27 +525,30 @@ First, the [`HIDEFSEQ1.DSK`](cpc/lambda/hidefseq1.dsk) contains high  quality PC
 
 ![High Definition Samples](images/hidefseq1-dsk.jpg)
 
--------------------------------------------------------------
-| Program   | Description                                   |
-|-----------|-----------------------------------------------|
-| DRUMLOAD  | Load the PCM samples from disk into EEPROM.   |
-| DRUMPLAY  | A drum computer - use DRUMLOAD once first!    |
-| DRUMSEQ   | A simple patter-based drum computer.          | 
-| *.WAV     | Boss DR660 Wave Files (LARGE - High Quality). |
-------------------------------------------------------------- 
+---------------------------------------------------------------
+| Program   | Description                                     |
+|-----------|-------------------------------------------------|
+| DRUMLOAD  | Load the PCM samples from disk into EEPROM.     |
+| DRUMLD2   | Dito, but with MUCH FASTER |PCMUP from LS3 ROM. |
+| DRUMPLAY  | A drum computer - DRUMLOAD or DRUMLD2 first!    |
+| DRUMSEQ   | A simple patter-based drum computer.            | 
+| *.WAV     | Boss DR660 Wave Files (LARGE - High Quality).   |
+---------------------------------------------------------------  
 
 A larger set of drums in slightly lower PCM (medium) quality is on the disk [`MIDEFSEQ2.DSK`](cpc/lambda/midefseq2.dsk):
 
 ![Medium Definition Samples](images/midefseq2-dsk.jpg)
 
--------------------------------------------------------------
-| Program   | Description                                   |
-|-----------|-----------------------------------------------|
-| DRUMLOAD  | Load the PCM samples from disk into EEPROM.   |
-| DRUMMER   | A drum computer - use DRUMLOAD once first!    |
-| SEQUENC2  | A patter-based drum computer, with SPO track. | 
-| *.WAV     | Boss DR660 Wave Files (SMALL -Medium Quality).|
-------------------------------------------------------------- 
+---------------------------------------------------------------
+| Program   | Description                                     |
+|-----------|-------------------------------------------------|
+| DRUMLOAD  | Load the PCM samples from disk into EEPROM.     |
+| DRUMLD2   | Dito, but with MUCH FASTER |PCMUP from LS3 ROM. |
+| DRUMMER   | A drum computer - DRUMLOAD or DRUMLD2 first!    |
+| DRUMMER2  | Dito, but uses |PCMPLAY commands from LS3 ROM.  |
+| SEQUENC2  | A patter-based drum computer, with SPO track.   |  
+| *.WAV     | Boss DR660 Wave Files (SMALL -Medium Quality).  |
+---------------------------------------------------------------
 
 #### A Note on Preparing Sample (WAV) Files 
 
