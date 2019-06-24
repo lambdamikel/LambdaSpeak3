@@ -58,7 +58,7 @@
 // Master DATABUS MACRO 
 // 
 
-static volatile uint8_t synchro = 0; 
+// static volatile uint8_t synchro = 0; 
 
 #define DATA_TO_CPC(arg)    TO_CPC_INPUT = arg 
 #define DATA_FROM_CPC(arg)  arg = FROM_CPC_OUTPUT 
@@ -71,6 +71,8 @@ static volatile uint8_t synchro = 0;
 #define SBY  PA7  
 
 #define NATIVE_SBY  PA5
+// 2^PA5 = 32: 
+#define NATIVE_SBY_VAL 32  
 
 //
 // DKtronics Signals 
@@ -99,8 +101,10 @@ static volatile uint8_t synchro = 0;
 // In blocking mode, the CPC ist halted by pulling Z80 Wait to ground!
 // 
 
-#define speech_native_ready      synchro = 0; setBit(synchro, NATIVE_SBY); DATA_TO_CPC(synchro) 
-#define speech_native_busy       synchro = 0; DATA_TO_CPC(synchro) 
+//#define speech_native_ready      synchro = 0; setBit(synchro, NATIVE_SBY); DATA_TO_CPC(synchro) 
+#define speech_native_ready        DATA_TO_CPC(NATIVE_SBY_VAL) 
+//#define speech_native_busy       synchro = 0; DATA_TO_CPC(synchro) 
+#define speech_native_busy         DATA_TO_CPC(0) 
 
 //
 // CPC Data WRite - From Address Decoder! Trigger 
