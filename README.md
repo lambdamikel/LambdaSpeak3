@@ -542,17 +542,15 @@ or similar).
 
 #### LambdaSpeak |RSX Driver and ROM by Dr. Stefan Stumpferl (aka TFM, Gunhed)
 
-[TFM](http://futureos.cpc-live.com/pics/tfm_gr.jpg), well-known in the CPC Community for his [FutureOS operating system for the CPC](http://futureos.cpc-live.com/), has created an awesome |RSX driver for LambdaSpeak. It comes in two versions - as a ROM, and as a disc-based relocatable driver (loadable from BASIC). |RSX commands exists for all LambdaSpeak control bytes, and also some high-level functions are offered that do not directly correspond to LambdaSpeak control bytes. For example, a PCM sample `|play` command (and `|eplay` for playing from an extended memory extension) for LambdaSpeak's Amdrum mode is offered, as well as a `|speakscreen` screen reading and a `|speakfile` file reading function. 
+[TFM](http://futureos.cpc-live.com/pics/tfm_gr.jpg), well-known in the CPC Community for his [FutureOS operating system for the CPC](http://futureos.cpc-live.com/), has created an awesome |RSX driver for LambdaSpeak. It comes in two versions - as a ROM, and as a disc-based relocatable driver (loadable from BASIC). |RSX commands exists for all LambdaSpeak control bytes, and also some high-level functions are offered that do not directly correspond to LambdaSpeak control bytes. For example, a PCM sample `|play` command (and `|eplay` for playing from an extended memory extension) for LambdaSpeak's Amdrum mode is offered, as well as a `|speakscreen` screen reading and a `|speakfile` file reading function. There are also commands for the EEPROM-based PCM sample player, see `|pcmup`, `|pcmmode`, and `|pcmplay`. Moreover, the MP3 player module is supported with a whole bunch of commands, as well as the talking Real Time Clock!  
 
 Here is a picture of the LambdaSpeak 3 ROM; `|lshelp` command: 
 
 ![TFM's LambdaSpeak RSX ROM](images/tfm-rsx-rom.jpg)
 
-The latest version of the [LambdaSpeak driver software is hosted on TFM's home page](http://futureos.cpc-live.com/files/LambdaSpeak_RSX_by_TFM.zip). The zip file also contains a `README` and the `.dsk` file contains an extensive manual describing all features of the software. 
+The latest version of the [LambdaSpeak driver software is hosted on TFM's home page](http://futureos.cpc-live.com/files/LambdaSpeak_RSX_by_TFM.zip). The zip file also contains an extensive manual describing all features of the software, as well as the `LS3.ROM` file. 
 
-The RSX library was written for a previous version of LambdaSpeak. 
-**TFM is planning to up upgrade this library to also support the new features of LambdaSpeak 3 - stay tuned
-and check out his site for updates!** 
+**TFM is continuously updating this library - stay tuned and check out his site for updates! This is where you will also find the ROM and the documentation for this fantastic piece of CPC software! Again, many Cudos to TFM for making it!!** 
 
 ### Maker Support 
 
