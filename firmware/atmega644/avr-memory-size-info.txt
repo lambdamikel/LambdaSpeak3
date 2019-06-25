@@ -1,0 +1,4 @@
+To check the ATMega 644 memory size: 
+
+avr-size -C --mcu=atmega644 lambdaspeak3-firmware.elf
+
