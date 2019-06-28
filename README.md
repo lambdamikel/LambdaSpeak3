@@ -87,9 +87,9 @@ The **10 LED segment bar on the left** is used to indicate the current mode / st
     |  X  |     |     |  X  |   X  | Epson               |    &EF    | CM       | Natural Speech        |
     |  X  |     |     |     |      | DECtalk             |    &EE    | CM       | DECtalk can even sing | 
     |  X  |     |     |     |   X  | SSA1 Emulation      |    &ED    | CM       | **LS Default Mode**   | 
-    |  X  |     |     |  X  |      | DK’tronics Emulation |    &EC    | CM       | Better than SPO       | 
+    |  X  |     |     |  X  |      | DK’tronics Emulation|    &EC    | CM       | Better than SPO       | 
     |     |  X  |     |     |   X  | SSA1 SPO            |    &E2    | CM       | Re-Implementation     |
-    |     |  X  |     |  X  |      | DK’tronics SPO       |    &E1    | CM       | Re-Implementation     | 
+    |     |  X  |     |  X  |      | DK’tronics SPO      |    &E1    | CM       | Re-Implementation     | 
     |     |     |  X  |     |      | Amdrum Emulation    |    &E3    | PC       | Amdrum PCM Emulation  |
     |     |     |  X  |  X  |   X  | EEPROM PCM Upload   |    &FE    | EOM RB   | PCM Data to EEPROM    |
     |     |  X  |  X  |  X  |   X  | EEPROM PCM Play     | &FA - &FD | RB       | 1 to 4 Channel HQ PCM | 
@@ -237,7 +237,7 @@ This tables shows the command / control bytes recognized by LambdaSpeak:
 | &EF  | Enable Epson Mode          | Natural sounding speech       |                X              |         X         | 
 | &EE  | Enable DECtalk Mode        | DECtalk is most advanced      |                X              |         X         |
 | &ED  | Enable SSA1 Emu Mode       | DECtalk-based SSA1 emulation  |                X              |         X         |
-| &EC  | Enable DK’tronics Emu Mode  | DECtalk-based DK’tronics emul. |                X              |         X         |
+| &EC  | Enable DK’tronics Emu Mode | DECtalk-based DKtronics emul. |                X              |         X         |
 | &EB  | Non Blocking Speech Mode   | Z80 not halted for speech     |                X              |                   | 
 | &EA  | Blocking Speech Mode       | Z80 halted for speech         |                X              |                   |
 | &E9  | Command Confirmation On    | Speak confirmations           |                X              |                   |
@@ -248,7 +248,7 @@ This tables shows the command / control bytes recognized by LambdaSpeak:
 | &E4  | Long Delay for Getters     | Getter bytes on databus 10 ms |                X              |                   | 
 | &E3  | Enable Amdrum Emu Mode     | Enable Amdrum, `out &FFxx,n`  |                X              |         X         | 
 | &E2  | Enable SSA1 SPO Mode       | Authentic SPO SSA1 mode       |                X              |         X         |
-| &E1  | Enable DK’tronics SPO Mode  | Authentic SPO DK’tronics mode  |                X              |         X         | 
+| &E1  | Enable DK’tronics SPO Mode  | Authentic SPO DK’tronics mode|                X              |         X         | 
 | &DF  | ASYNCHRONOUS STOP SPEECH   | Stop speech immediately       |                X              |                   | 
 | &DE  | Flush Speech Buffer Now    | Flush buffered speech content |                X              |                   |  
 | &DD  | Speak RTC Time             | Speak current time (RTC req.) |                X              |                   |
@@ -402,6 +402,8 @@ In the serial mode, every byte that is sent to `&FBEE` is output directly to the
 
 To control the UART interface, sequences of control bytes are used, and a control sequence starts with 255 / &FF. 255 can be be `escaped` by sending 255 and then 255 again (so, to transmit 255 as content byte, send 255 twice).
 
+The listener / command processing loop uses the READY byte 32 on the IO port `&FBEE` to indicate that it is ready to receive the next command or byte. The byte 0 indicates that LambdaSpeak 3 is busy. 
+
 The following table lists the command bytes in Serial Mode:
 
 -------------------------------------------------------------------------------------------------------
@@ -423,7 +425,7 @@ The following table lists the command bytes in Serial Mode:
 | &FF, 12         | Set read cursor to 0                          | Does not erase the buffer         |  
 | &FF, 13         | Set read cursor to input cursor position -1   | Read cursor points to last byte   | 
 | &FF, 14         | Get mode - direct or buffered mode            | 1 = direct mode, 0 = buffered     | 
-| &FF, 15         | Speak mode (BAUD, Width, Parity, Stop Bits)   | Confirmations need to be enabled   | 
+| &FF, 15         | Speak mode (BAUD, Width, Parity, Stop Bits)   | Confirmations need to be enabled  | 
 | &FF, 16         | Direct mode on                                | No CPC input buffering, direct TX | 
 | &FF, 17         | Direct mode off                               | Buffer CPC input, then &FF, 2     | 
 | &FF, 20         | Quit and reset Serial Mode                    | Like Reset Button                 | 
@@ -485,6 +487,11 @@ JP NZ,loop1
 RET
 ~~~~
 
+#### Busy and Ready Indicators in the Different Modes
+
+
+
+
 ### The LambdaSpeak 3 Firmware 
 
 Here are the firmware files:  
@@ -518,15 +525,17 @@ The main disk is called [`LS300.DSK`](cpc/lambda/LS300.dsk):
 | BANNER    | DECSING DECTalk Song.                         |
 | BDAY      | DECSING DECTalk Song.                         |
 | DECSING   | Demo of DECtalk singing. Load BANNER or BDAY. |
-| ELISA-DK  | A German-speaking Eliza using DK’tronics Emu.  | 
-| ELISASPO  | A German-speaking Eliza using DK’tronics SPO.  | 
+| ELISA-DK  | A German-speaking Eliza using DK’tronics Emu. | 
+| ELISASPO  | A German-speaking Eliza using DK’tronics SPO. | 
 | ELIZA     | High-End English Eliza, Natural Epson Speech. | 
 | ENGLISH   | Demo of English-speaking Epson mode.          | 
+| EEPROM3   | Demo of EEPROM upload and download mode.      | 
 | JULIAN    | Simultaneous speech and MP3 music playing.    | 
 | MP3       | Simple MP3 play for the Catalex module.       | 
 | RTC       | Simple Real Time Clock; uses DS3231 module.   | 
 | SAYECHO   | Simple Epson-based "say what I type" program. | 
 | SERIAL    | Simple terminal prog. Use with FTDI or RS232. | 
+| SAYTEMP   | Speak the current temperature in C degrees.   | 
 | SPANISH   | Demo of Spanish-speaking Epson mode.          |
 | SPO-GERM  | SPO-based German "say what I type" program.   |
 | SPORAND   | Random SPO babbling. SPO test and sounds cool.|
