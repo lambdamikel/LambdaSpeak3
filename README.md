@@ -80,20 +80,22 @@ The **10 LED segment bar on the left** is used to indicate the current mode / st
   
   - the LEDs **EPS, SPO, AM, DK, SSA1** are used to indicate the current mode. 
 
-    -----------------------------------------------------------------------------------------------------
-    | EPS | SPO | AM  | DK  | SSA1 | Mode                | To Enter  | To Quit  |   Notes & Comments    |
-    |-----|-----|-----|---- |------|---------------------|-----------|----------|------------------------
-    |     |     |     |     |      | Serial Mode / UART  |    &F1    | &FF, &14 | For MP3, RS232, FTDI  | 
-    |  X  |     |     |  X  |   X  | Epson               |    &EF    | CM       | Natural Speech        |
-    |  X  |     |     |     |      | DECtalk             |    &EE    | CM       | DECtalk can even sing | 
-    |  X  |     |     |     |   X  | SSA1 Emulation      |    &ED    | CM       | **LS Default Mode**   | 
-    |  X  |     |     |  X  |      | DK’tronics Emulation|    &EC    | CM       | Better than SPO       | 
-    |     |  X  |     |     |   X  | SSA1 SPO            |    &E2    | CM       | Re-Implementation     |
-    |     |  X  |     |  X  |      | DK’tronics SPO      |    &E1    | CM       | Re-Implementation     | 
-    |     |     |  X  |     |      | Amdrum Emulation    |    &E3    | PC       | Amdrum PCM Emulation  |
-    |     |     |  X  |  X  |   X  | EEPROM PCM Upload   |    &FE    | EOM RB   | PCM Data to EEPROM    |
-    |     |  X  |  X  |  X  |   X  | EEPROM PCM Play     | &FA - &FD | RB       | 1 to 4 Channel HQ PCM | 
-    -----------------------------------------------------------------------------------------------------
+    ------------------------------------------------------------------------------------------------------------
+    | EPS | SPO | AM  | DK  | SSA1 | Mode                | To Enter  | To Quit     |   Notes & Comments        |
+    |-----|-----|-----|---- |------|---------------------|-----------|-------------|----------------------------
+    |     |     |     |     |      | Serial Mode / UART  |    &F1    | &FF, &14    | For MP3, RS232, FTDI      | 
+    |  X  |     |     |  X  |   X  | Epson               |    &EF    | CM          | Natural Speech            |
+    |  X  |     |     |     |      | DECtalk             |    &EE    | CM          | DECtalk can even sing     | 
+    |  X  |     |     |     |   X  | SSA1 Emulation      |    &ED    | CM          | **LS Default Mode**       | 
+    |  X  |     |     |  X  |      | DK’tronics Emulation|    &EC    | CM          | Better than SPO           | 
+    |     |  X  |     |     |   X  | SSA1 SPO            |    &E2    | CM          | SSA1 Re-Implementation    |
+    |     |  X  |     |  X  |      | DK’tronics SPO      |    &E1    | CM          | DKtr. Re-Implementation   | 
+    |     |     |  X  |     |      | Amdrum Emulation    |    &E3    | PC          | Amdrum PCM Emulation      |
+    |     |     |  X  |  X  |   X  | EEPROM PCM Upload   |    &FE    | EOM RB      | Send PCM Data to EEPROM   |
+    |     |  X  |  X  |  X  |   X  | EEPROM PCM Play     | &FA - &FD | Channel &FF | 1 to 4 Channel HQ PCM     | 
+    |     |     |  X  |  X  |   X  | EEPROM Data Upload  |    &F9    | EOM RB      | Send data to EEPROM       |
+    |     |  X  |  X  |  X  |   X  | EEPROM Get Data     |    &F7    | EOM RB      | Return when data received | 
+    ------------------------------------------------------------------------------------------------------------
 
     These different modes are going to be explained in more detail in the subsequent sections. 
     `PC` = Power Cycle, `RB` = Reset Button, `EOM` = `End of mode`, `CM` = `Change Mode` (means that the control bytes `To Enter` a different mode will be accepted in that mode), `&FF, &14` = sequence of command / control bytes in hexadecimal (first send 255 = &FF, then 20 = &14). `HQ PCM` = High Quality PCM (Pulse Code Modulation), > 18 khZ possible, 8 Bit PCM. 
