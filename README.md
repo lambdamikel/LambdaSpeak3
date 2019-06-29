@@ -404,7 +404,7 @@ In the serial mode, every byte that is sent to `&FBEE` is output directly to the
 
 To control the UART interface, sequences of control bytes are used, and a control sequence starts with 255 / &FF. 255 can be be `escaped` by sending 255 and then 255 again (so, to transmit 255 as content byte, send 255 twice).
 
-The listener / command processing loop uses the READY byte 32 on the IO port `&FBEE` to indicate that it is ready to receive the next command or byte. The byte 0 indicates that LambdaSpeak 3 is busy. 
+The listener / command processing loop uses the READY byte 16 on the IO port `&FBEE` to indicate that it is ready to receive the next command or byte. The byte 0 indicates that LambdaSpeak 3 is busy. 
 
 The following table lists the command bytes in Serial Mode:
 
@@ -491,7 +491,19 @@ RET
 
 #### Busy and Ready Indicators in the Different Modes
 
+READY Indicators: 
 
+--------------------------------------------------------------------------------------
+| DECTALK | EPSON | SSA1 EMU | DK EMU | SSA1 SPO | DK SPO | SERIAL | EEPROM GET DATA |
+|---------|-------|----------|--------|----------|--------|--------|-----------------|
+|     32  |   32  |    128   |    0   |    128   | 255    |   16   |       32        | 
+--------------------------------------------------------------------------------------
+
+Note: there is a difference for DKtronics EMU and DKtronics SPO mode -
+but the existing software does not care. Only the BUSY indicator
+matters. 
+
+BUSY Indicators: soon. 
 
 
 ### The LambdaSpeak 3 Firmware 
