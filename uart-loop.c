@@ -58,15 +58,17 @@ void usart_on0(uint8_t rate, uint8_t width, uint8_t parity, uint8_t stop_bits) {
 
 }
 
+
 void usart_mode_loop(void) {
 
+  serial_busy;  
   cli(); 
 
-  LEDS_ON;
+  // LEDS_ON;
+  TRANSMIT_ON;
+  READY_OFF; 
 
-  speech_native_busy;  
   command_confirm("Serial mode. Serial commands start with 255."); 
-  speech_native_ready;  
 
   z80_run; 
   
@@ -80,16 +82,29 @@ void usart_mode_loop(void) {
   
   CUR_MODE = SERIAL_M; 
 
+  uint8_t data = 0; 	    
+
   while (1) {
 
+    // use READY LED to indicate something is in the buffer!
+    if (usart_input_buffer_index > 0) {
+      READY_ON; 
+    } else {
+      READY_OFF; 
+    }
+
+    serial_ready;  
     READ_ARGUMENT_FROM_DATABUS(databus); 
-    
+    serial_busy;  
+
     if (databus == 255) {
 
       // command sent! 
       // receive command byte - what to do? 
 
+      serial_ready;  
       READ_ARGUMENT_FROM_DATABUS(databus); 
+      serial_busy;  
 
       if (databus == 255) {
 	
@@ -100,9 +115,11 @@ void usart_mode_loop(void) {
 	} else {
 
 	  if (from_cpc_input_buffer_index < SEND_BUFFER_SIZE) {
-	    send_msg[ from_cpc_input_buffer_index++ ] = databus; 
+	    send_msg[ from_cpc_input_buffer_index ] = databus; 
+	    from_cpc_input_buffer_index++;
 	  } else if ( (from_cpc_input_buffer_index - SEND_BUFFER_SIZE) < SPEECH_BUFFER_SIZE) {
-	    buffer[ from_cpc_input_buffer_index++  - SEND_BUFFER_SIZE] = databus; 
+	    buffer[ from_cpc_input_buffer_index  - SEND_BUFFER_SIZE] = databus; 
+	    from_cpc_input_buffer_index++;
 	  }
 
 	}
@@ -114,7 +131,10 @@ void usart_mode_loop(void) {
 
 	case 1 :  // write USART single byte 
 
+	  serial_ready;  
 	  READ_ARGUMENT_FROM_DATABUS(databus); 
+	  serial_busy;  
+
 	  USART_Transmit(databus); 
 
 	  break; 
@@ -159,60 +179,66 @@ void usart_mode_loop(void) {
 
 	case 8 : // get byte for CPC at current USART input buffer position
 
+	  data = 0; 	    
+
 	  if (cpc_read_cursor >= 0 && cpc_read_cursor < usart_input_buffer_index ) {
 
-	    uint8_t data = 0; 
-	    
 	    if ( cpc_read_cursor < SEND_BUFFER_SIZE) {
 	      data = send_msg[ cpc_read_cursor ]; 
 	    } else if ( (cpc_read_cursor - SEND_BUFFER_SIZE) < SPEECH_BUFFER_SIZE) {
-	      data = buffer[ from_cpc_input_buffer_index  - SEND_BUFFER_SIZE];
+	      data = buffer[ cpc_read_cursor - SEND_BUFFER_SIZE];
 	    }
+	  }
 
-	    SEND_TO_CPC_DATABUS( data); 
+	  SEND_TO_CPC_DATABUS( data); 
 	    
-	  } 
+	  break; 
 
 	case 9 : // get next byte for CPC in USART input buffer
 
+	  data = 0; 
+	  
 	  if (cpc_read_cursor >= 0 && cpc_read_cursor < usart_input_buffer_index ) {
-
-	    uint8_t data = 0; 
 	    
 	    if ( cpc_read_cursor < SEND_BUFFER_SIZE) {
-	      data = send_msg[ cpc_read_cursor++ ]; 
+	      data = send_msg[ cpc_read_cursor ]; 
+	      cpc_read_cursor++;
 	    } else if ( (cpc_read_cursor - SEND_BUFFER_SIZE) < SPEECH_BUFFER_SIZE) {
-	      data = buffer[ from_cpc_input_buffer_index++  - SEND_BUFFER_SIZE];
-	    }
-
-	    SEND_TO_CPC_DATABUS( data); 
-	    
+	      data = buffer[cpc_read_cursor - SEND_BUFFER_SIZE];
+	      cpc_read_cursor++;
+	    }	    
 	  } 
+
+	  SEND_TO_CPC_DATABUS( data); 
 
 	  break;
 
 	case 10 : // get previous byte for CPC in USART input buffer
+
+	  data = 0; 
 	  
 	  if (cpc_read_cursor >= 0  && cpc_read_cursor < usart_input_buffer_index ) {
-
-	    uint8_t data = 0; 
 	    
 	    if ( cpc_read_cursor < SEND_BUFFER_SIZE) {
-	      data = send_msg[ cpc_read_cursor-- ]; 
+	      data = send_msg[ cpc_read_cursor ]; 
+	      cpc_read_cursor--; 
 	    } else if ( (cpc_read_cursor - SEND_BUFFER_SIZE) < SPEECH_BUFFER_SIZE) {
-	      data = buffer[ from_cpc_input_buffer_index--  - SEND_BUFFER_SIZE];
+	      data = buffer[ cpc_read_cursor - SEND_BUFFER_SIZE];
+	      cpc_read_cursor--; 
 	    }
 
-	    SEND_TO_CPC_DATABUS( data); 
-	    
 	  } 
+
+	  SEND_TO_CPC_DATABUS( data); 	    
 
 	  break;
 
 	case 11 : // set cursor to given byte position 
 
+	  serial_ready;  
 	  READ_ARGUMENT_FROM_DATABUS(lo_byte); 
 	  READ_ARGUMENT_FROM_DATABUS(hi_byte); 
+	  serial_busy;  
 	  
 	  cpc_read_cursor = lo_byte + (hi_byte << 8); 
 	  	  
@@ -235,6 +261,7 @@ void usart_mode_loop(void) {
 	case 14 :  // check status 
 
 	  SEND_TO_CPC_DATABUS(direct_mode); 
+
 	  break; 
 
 	case 15 : // announce mode!
@@ -256,30 +283,40 @@ void usart_mode_loop(void) {
 	case 16 :  // turn on databus direct printing 
 
 	  direct_mode = 1;  
+
 	  break; 
 
 	case 17 :  // turn off databus direct printing  -> print to buffer! 
 
 	  from_cpc_input_buffer_index = 0; 
 	  direct_mode = 0; 
+
 	  break; 
 
 	case 20 : 
 	  
 	  usart_off(); 	   
 	  LAMBDA_EPSON_ON; 	  	    
-	  speech_native_busy;  
-	  BLOCKING = 1; 
-	  NON_BLOCK_CONFIRMATIONS = 0; 
+	  serial_busy;  
+
+	  // BLOCKING = 1; 
+	  // NON_BLOCK_CONFIRMATIONS = 0; 
 	  command_confirm("Quitting serial mode."); 
-	  process_reset(); 
+
+	  DATA_TO_CPC(0);   
+	  CUR_MODE = START_OVER_SAME_MODE; 
+	  // process_reset(); 
 
 	  return; 
+
 	  break;  
 
 	case 30 : // set BAUDRATE
-	  
+
+	  serial_ready;  	  
 	  READ_ARGUMENT_FROM_DATABUS(SERIAL_BAUDRATE); 
+	  serial_busy;  	  
+
 	  usart_off(); 
 	  usart_on(); 
 
@@ -287,7 +324,10 @@ void usart_mode_loop(void) {
 
 	case 31 : // set WIDTH
 	  
+	  serial_ready;  	  
 	  READ_ARGUMENT_FROM_DATABUS(SERIAL_WIDTH); 
+	  serial_busy;  	  
+
 	  usart_off(); 
 	  usart_on(); 
 
@@ -295,7 +335,10 @@ void usart_mode_loop(void) {
 
 	case 32 : // set PARITY
 	  
+	  serial_ready;  	  
 	  READ_ARGUMENT_FROM_DATABUS(SERIAL_PARITY); 
+	  serial_busy;  	  
+
 	  usart_off(); 
 	  usart_on(); 
  
@@ -303,7 +346,10 @@ void usart_mode_loop(void) {
 
 	case 33 : // set STOP_BITS
 	  
+	  serial_ready;  	  
 	  READ_ARGUMENT_FROM_DATABUS(SERIAL_STOP_BITS); 
+	  serial_busy;  	  
+
 	  usart_off(); 
 	  usart_on(); 
 
@@ -315,6 +361,7 @@ void usart_mode_loop(void) {
 	  LAMBDA_EPSON_ON; 	  	    
 	  announce_cur_mode(); 
 	  SERIAL_ON; 
+
 	  break; 
 
 	}
@@ -331,10 +378,14 @@ void usart_mode_loop(void) {
       } else
 
 	if (from_cpc_input_buffer_index < SEND_BUFFER_SIZE) {
-	  send_msg[ from_cpc_input_buffer_index++ ] = databus; 
+	  send_msg[ from_cpc_input_buffer_index ] = databus; 
+	  from_cpc_input_buffer_index++; 
 	} else if ( (from_cpc_input_buffer_index - SEND_BUFFER_SIZE) < SPEECH_BUFFER_SIZE) {
-	  buffer[ from_cpc_input_buffer_index++  - SEND_BUFFER_SIZE] = databus; 
+	  buffer[ from_cpc_input_buffer_index  - SEND_BUFFER_SIZE] = databus; 
+	  from_cpc_input_buffer_index++; 
 	}    
     }   
   }
 }
+
+
