@@ -570,6 +570,7 @@ The main disk is called [`LS300.DSK`](cpc/lambda/LS300.dsk):
 | ENGLISH   | Demo of English-speaking Epson mode.          | 
 | EEPROM3   | Demo of EEPROM upload and download mode.      | 
 | JULIAN    | Simultaneous speech and MP3 music playing.    | 
+| MIDI      | Simple random note MIDI demo. More to come.   | 
 | MP3       | Simple MP3 play for the Catalex module.       | 
 | RTC       | Simple Real Time Clock; uses DS3231 module.   | 
 | SAYECHO   | Simple Epson-based "say what I type" program. | 
