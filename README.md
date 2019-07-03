@@ -83,6 +83,7 @@ The **10 LED segment bar on the left** is used to indicate the current mode / st
     ------------------------------------------------------------------------------------------------------------
     | EPS | SPO | AM  | DK  | SSA1 | Mode                | To Enter  | To Quit     |   Notes & Comments        |
     |-----|-----|-----|---- |------|---------------------|-----------|-------------|----------------------------
+    |  x  |  x  |     |  x  |   x  | NO-OP Data to LEDs  |    &F0    | Send byte   | Show byte on LED Outputs  | 
     |     |     |     |     |      | Serial Mode / UART  |    &F1    | &FF, &14    | For MP3, RS232, FTDI      | 
     |  X  |     |     |  X  |   X  | Epson               |    &EF    | CM          | Natural Speech            |
     |  X  |     |     |     |      | DECtalk             |    &EE    | CM          | DECtalk can even sing     | 
@@ -245,6 +246,7 @@ This tables shows the command / control bytes recognized by LambdaSpeak:
 | &F3  | Blocking Confirmations     | Z80 halted for confirmations  |                X              |         X         |
 | &F2  | Get Mode Descriptor Byte   | Return numeric code for mode  |                X              |         X         | 
 | &F1  | Enable Serial Mode         | Use UART commands             |                X              |         X         |
+| &F0  | Send next byte to LEDs     | To show byte on LEDs / output |                X              |         X         |
 | &EF  | Enable Epson Mode          | Natural sounding speech       |                X              |         X         | 
 | &EE  | Enable DECtalk Mode        | DECtalk is most advanced      |                X              |         X         |
 | &ED  | Enable SSA1 Emu Mode       | DECtalk-based SSA1 emulation  |                X              |         X         |
