@@ -37,6 +37,7 @@ void process_control(uint8_t control_byte) {
     case 0xF3 : blocking_confirmations(); break;  
     case 0xF2 : get_full_mode(); break; 
     case 0xF1 : usart_mode_loop(); break; 
+    case 0xF0 : next_byte_to_LEDs(); break; 
 #endif 
 
     case 0xEF : native_mode_epson(); break; 
@@ -83,6 +84,7 @@ void process_control(uint8_t control_byte) {
     case 0xF3 : blocking_confirmations(); break;  
     case 0xF2 : get_full_mode(); break; 
     case 0xF1 : usart_mode_loop(); break; 
+    case 0xF0 : next_byte_to_LEDs(); break; 
 #endif 
 
     case 0xEF : native_mode_epson(); break; 
