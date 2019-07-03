@@ -1,5 +1,5 @@
 # LambdaSpeak 3
-## A Modern-Vintage Speech Synthesizer, PCM Sample Player, Drum Computer, Serial Interface, MP3 Player, and Real Time Clock for the Amstrad / Schneider CPC  
+## A Modern-Vintage Speech Synthesizer, PCM Sample Player, Drum Computer, Serial Interface, MP3 Player, MIDI Interface, and Real Time Clock for the Amstrad / Schneider CPC  
 #### Hardware Design & LambdaSpeak Firmware: [Michael Wessel](https://www.michael-wessel.info/) 
 #### LambdaSpeak CPC ROM and RSX: [Dr. Stefan Stumpferl (TFM)](http://futureos.cpc-live.com) 
 #### Technical Guidance: Bryce from the [CPC Wiki Board](http://www.cpcwiki.eu/forum/index.php)
