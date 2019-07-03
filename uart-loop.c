@@ -1,4 +1,3 @@
- 
 void usart_on0(uint8_t rate, uint8_t width, uint8_t parity, uint8_t stop_bits) {
 
   SERIAL_BAUDRATE = rate; 
@@ -14,16 +13,17 @@ void usart_on0(uint8_t rate, uint8_t width, uint8_t parity, uint8_t stop_bits) {
   case 3 : UBRR0L = 86; SERIAL_RATE = 14400; break;  // 14400 
   case 4 : UBRR0L = 64; SERIAL_RATE = 19200; break;  // 19200
   case 5 : UBRR0L = 42; SERIAL_RATE = 28800; break;  // 28800
-  case 6 : UBRR0L = 32; SERIAL_RATE = 38400; break;  // 38400 
-  case 7 : UBRR0L = 21; SERIAL_RATE = 57600; break;  // 57600 
-  case 8 : UBRR0L = 15; SERIAL_RATE = 76800; break;  // 76800 
-  case 9 : UBRR0L = 10; SERIAL_RATE = 115200; break;  // 115200 
-  case 10 : UBRR0L = 5; SERIAL_RATE = 208333; break;  // 208333
-  case 11 : UBRR0L = 4; SERIAL_RATE = 250000; break;  // 250000
-  case 12 : UBRR0L = 3; SERIAL_RATE = 312500; break;  // 312500
-  case 13 : UBRR0L = 2; SERIAL_RATE = 416667; break;  // 416667
-  case 14 : UBRR0L = 1; SERIAL_RATE = 625000; break;  // 625000
-  case 15 : UBRR0L = 0; SERIAL_RATE = 1250000; break;  // 1250000
+  case 6 : UBRR0L = 39; SERIAL_RATE = 31250; break;  // 31250 MIDI 
+  case 7 : UBRR0L = 32; SERIAL_RATE = 38400; break;  // 38400 
+  case 8 : UBRR0L = 21; SERIAL_RATE = 57600; break;  // 57600 
+  case 9 : UBRR0L = 15; SERIAL_RATE = 76800; break;  // 76800 
+  case 10 : UBRR0L = 10; SERIAL_RATE = 115200; break;  // 115200 
+  case 11 : UBRR0L = 5; SERIAL_RATE = 208333; break;  // 208333
+  case 12 : UBRR0L = 4; SERIAL_RATE = 250000; break;  // 250000
+  case 13 : UBRR0L = 3; SERIAL_RATE = 312500; break;  // 312500
+  case 14 : UBRR0L = 2; SERIAL_RATE = 416667; break;  // 416667
+  case 15 : UBRR0L = 1; SERIAL_RATE = 625000; break;  // 625000
+  // case 15 : UBRR0L = 0; SERIAL_RATE = 1250000; break;  // 1250000 disabled 
 
   default :  UBRR0L = 129; SERIAL_RATE = 9600; // 9600 
   }
@@ -57,7 +57,7 @@ void usart_on0(uint8_t rate, uint8_t width, uint8_t parity, uint8_t stop_bits) {
   UCSR0B = (1 << TXEN0) | (1 << RXEN0) | (1 << RXCIE0);  
 
 }
-
+ 
 
 void usart_mode_loop(void) {
 

@@ -462,12 +462,21 @@ In order to receive data from LS3 in Serial Mode, a special protocol is being us
 
 Please have a look at the BASIC program `SERIAL.BAS` (a simple bi-directional terminal program in BASIC) on the `LS300.DSK` for an illustration of how to send and receive data with LS3 in Serial Mode. 
 
+The supported BAUD rates and configurations can be found [here.](uart-loop.c).  
+
 ##### The 4 $ Catalex MP3 Module 
 
 You can get it on Ebay for 4 USD. There is a demo program `MP3.BAS` on the 
 [`LS300.DSK`](cpc/lambda/LS300.dsk). 
 
 The MP3 directories and filenames on the micro SDCard to be played needs to follow certain conventions, check [the manual](manuals/Catalex_MP3_board.pdf). I successfully used it with an 8 GB FAT32 formatted SD card with a single root directory "01" and a couple of MP3 files named "001xxx.mp3" to "009xxx.mp3". There are certainly more possibilities for naming, but that worked for me.
+
+Please note that TX-RX and RX-TX is required for the Catalex MP3 Module. 
+
+##### MIDI Boards  
+
+I have successfully connected the 8 $ [ubld.it Midi Breakout board](https://ubld.it/products/midi-breakout-board/), and other MIDI boards should work without problems as well.
+Please note that TX-TX and RX-RX is required for the ubld.it board.  LambdaSpeak 3 supports BAUD mode 6, which configures it for 31250 BAUDs as required for MIDI (and 8N1 is standard setting already). Please have a look at the `MIDI.BAS` program on the [`LS300.DSK`](cpc/lambda/LS300.dsk). 
 
 #### I2C Mode 
 
