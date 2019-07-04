@@ -1,5 +1,5 @@
 # LambdaSpeak 3
-## A Modern-Vintage Speech Synthesizer, PCM Sample Player, Drum Computer, Serial Interface, MP3 Player, and Real Time Clock for the Amstrad / Schneider CPC  
+## A Modern-Vintage Speech Synthesizer, PCM Sample Player, Drum Computer, Serial Interface, MP3 Player, MIDI Interface, and Real Time Clock for the Amstrad / Schneider CPC  
 #### Hardware Design & LambdaSpeak Firmware: [Michael Wessel](https://www.michael-wessel.info/) 
 #### LambdaSpeak CPC ROM and RSX: [Dr. Stefan Stumpferl (TFM)](http://futureos.cpc-live.com) 
 #### Technical Guidance: Bryce from the [CPC Wiki Board](http://www.cpcwiki.eu/forum/index.php)
@@ -478,6 +478,11 @@ Please note that TX-RX and RX-TX is required for the Catalex MP3 Module.
 I have successfully connected the 8 $ [ubld.it Midi Breakout board](https://ubld.it/products/midi-breakout-board/), and other MIDI boards should work without problems as well.
 Please note that TX-TX and RX-RX is required for the ubld.it board.  LambdaSpeak 3 supports BAUD mode 6, which configures it for 31250 BAUDs as required for MIDI (and 8N1 is standard setting already). Please have a look at the `MIDI.BAS` program on the [`LS300.DSK`](cpc/lambda/LS300.dsk). 
 
+![MIDI with LambdaSpeak 3](images/midi-cpc1.JPG)
+
+![MIDI with LambdaSpeak 3](images/midi-cpc2.JPG)
+
+
 #### I2C Mode 
 
 Currently, only the RTC module is supported. It is conceivable that an alternative firmware will be supplied in the future such that the I2C interface can be opened up to the CPC, in a generic way such that different I2C devices can be connected to LambdaSpeak 3 and hence the CPC. 
@@ -565,6 +570,7 @@ The main disk is called [`LS300.DSK`](cpc/lambda/LS300.dsk):
 | ENGLISH   | Demo of English-speaking Epson mode.          | 
 | EEPROM3   | Demo of EEPROM upload and download mode.      | 
 | JULIAN    | Simultaneous speech and MP3 music playing.    | 
+| MIDI      | Simple random note MIDI demo. More to come.   | 
 | MP3       | Simple MP3 play for the Catalex module.       | 
 | RTC       | Simple Real Time Clock; uses DS3231 module.   | 
 | SAYECHO   | Simple Epson-based "say what I type" program. | 
