@@ -499,7 +499,9 @@ After a call to retrieve a value (seconds, minutes, hours, ...) from the clock, 
 3. after 20 ms, 50 us, or 10 us (depending on whether slow getters, medium, or fast getters are being used - see control bytes `&E4`, `&E0`, and `&E5`, resp.), the value 255 appears on the databus. This byte 255 acts as a synchronization byte. Since none of the clock registers can ever have the value 255, applications are supposed to sample the CPC data bus to realize that when 255 has been seen, the PREVIOUS byte on the databus was the actual requested value (e.g., the last value on the databus immediately BEFORE 255 was the number of seconds if `&D5` had been sent).     
 4. after 20 ms, 50 us, or 10 us, 255 is replaced by 0, and LambdaSpeak 3 returns to its previous mode, indicating ready by putting 32 on the databus. 
 
-The timing (repeatedly sampling the databus to check for 255 and remembering the previous value) is extremeley delicate, an even with slow getters (when the bytes appear for 20 ms on the databus) impossible to do from BASIC. Please have a look at `ASMCLOCK.BAS` or use TFMs RSX commands `|gettime`, `|getdate`, `|gettemp`, and the wonderful `|bigwatch` instead. 
+The timing (repeatedly sampling of the databus to check for the byte 255 and remembering the previous databus value for the actual result) is extremely delicate, and even with slow getters (when the bytes appear for 20 ms on the databus) probably impossible to get right reliably with BASIC. Please have a look at `ASMCLOCK.BAS` or use TFM's RSX commands `|gettime`, `|getdate`, `|gettemp`, and the wonderful `|bigwatch` instead. 
+
+The `RTC.BAS` BASIC program will be updated soon as well, by using a piece of Z80 assembler to retrieve the clock registers. 
 
 
 ##### The 6 $ DS3231 RTC (Battery Buffered Real Time Clock) 
