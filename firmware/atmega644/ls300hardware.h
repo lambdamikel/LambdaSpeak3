@@ -46,7 +46,6 @@
 
 #define FROM_CPC_OUTPUT PIND 
 #define TO_CPC_INPUT    PORTA 
-#define CPC_READ_DELAY  FAST_CPC_GETTERS ? _delay_us(50) :  _delay_ms(10) 
 
 // all output 
 #define CONFIGURE_TO_CPC_INPUT     DDRA  = 0b11111111 
@@ -70,9 +69,11 @@
 #define _LRQ PA6 
 #define SBY  PA7  
 
-#define NATIVE_SBY  PA5
-// 2^PA5 = 32: 
+// #define NATIVE_SBY  PA5
+// 2^PA5 = 32: &20
 #define NATIVE_SBY_VAL 32  
+
+#define SERIAL_SBY_VAL 16 
 
 //
 // DKtronics Signals 
@@ -103,8 +104,10 @@
 
 //#define speech_native_ready      synchro = 0; setBit(synchro, NATIVE_SBY); DATA_TO_CPC(synchro) 
 #define speech_native_ready        DATA_TO_CPC(NATIVE_SBY_VAL) 
+#define serial_ready               DATA_TO_CPC(SERIAL_SBY_VAL) 
 //#define speech_native_busy       synchro = 0; DATA_TO_CPC(synchro) 
 #define speech_native_busy         DATA_TO_CPC(0) 
+#define serial_busy                DATA_TO_CPC(0) 
 
 //
 // CPC Data WRite - From Address Decoder! Trigger 
