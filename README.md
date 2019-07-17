@@ -492,11 +492,11 @@ Have a look at the control bytes / commands for retrieving the values of the dif
 
 Notice that the clock functions can only be called from the Epson or DECtalk mode. 
 
-After a call to retrieve a value (seconds, hours, minutes, ...) from the clock, say after a call to `&D5` to retrieve the seconds, the following happens:
+After a call to retrieve a value (seconds, minutes, hours, ...) from the clock, say after a call to `&D5` to retrieve the seconds, the following happens:
 
-1. 0 appears on the databus, indicating that LambdaSpeak 3 is busy calculating the result
-2. after a (non-deterministic, variable) few microseconds, the value of the RTC register appears on the databus, e.g., the seconds 
-3. after 20 ms, 50 us, or 10 us (depending on whether slow getters, medium, or fast getters are being used - see control bytes `&E5`, `&E0`, `&E4`, resp.), the value 255 appears on the databus. This byte 255 acts as a synchronization byte. Since none of the clock registers can ever have the value 255, applications are supposed to sample the CPC data bus to realize that when 255 has been seen, the PREVIOUS byte on the databus was the actual requested value (e.g., the last value on the databus immediately BEFORE 255 was the number of seconds if `&D5` had been sent).     
+1. 0 appears on the databus, indicating that LambdaSpeak 3 is busy calculating / retrieving the result from the RTC module. 
+2. after a (non-deterministic, variable) few microseconds, the value of the RTC register appears on the databus, e.g., the requested number of seconds (minutes, hours, ...). 
+3. after 20 ms, 50 us, or 10 us (depending on whether slow getters, medium, or fast getters are being used - see control bytes `&E4`, `&E0`, and `&E5`, resp.), the value 255 appears on the databus. This byte 255 acts as a synchronization byte. Since none of the clock registers can ever have the value 255, applications are supposed to sample the CPC data bus to realize that when 255 has been seen, the PREVIOUS byte on the databus was the actual requested value (e.g., the last value on the databus immediately BEFORE 255 was the number of seconds if `&D5` had been sent).     
 4. after 20 ms, 50 us, or 10 us, 255 is replaced by 0, and LambdaSpeak 3 returns to its previous mode, indicating ready by putting 32 on the databus. 
 
 The timing (repeatedly sampling the databus to check for 255 and remembering the previous value) is extremeley delicate, an even with slow getters (when the bytes appear for 20 ms on the databus) impossible to do from BASIC. Please have a look at `ASMCLOCK.BAS` or use TFMs RSX commands `|gettime`, `|getdate`, `|gettemp`, and the wonderful `|bigwatch` instead. 
