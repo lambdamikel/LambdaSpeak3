@@ -488,9 +488,16 @@ Please note that TX-TX and RX-RX is required for the ubld.it board.  LambdaSpeak
 
 Currently, only the RTC module is supported. It is conceivable that an alternative firmware will be supplied in the future such that the I2C interface can be opened up to the CPC, in a generic way such that different I2C devices can be connected to LambdaSpeak 3 and hence the CPC. 
 
-Have a look at the control bytes / commands for retrieving the values of the different RTC register, i.e., `&D3` to `&D9`, and for retrieving the temperature via `&D2`. Reading out the clock registers is not easy though, and almost impossible from BASIC. Please have a look at the Z80 MAXAM Assembler program `ASMCLOCK.BAS` (required MAXAM ROM) for an illustration / demo of how to read out the clock registers reliably without glitches. 
 
-Notice that the clock functions can only be called from the Epson or DECtalk mode. 
+##### The 6 $ DS3231 RTC (Battery Buffered Real Time Clock) 
+
+You can get it on Ebay for 6 USD. The RTC also features a temperature sensor, in (C) degrees.  Not sure how to read negative temperatures though. Please check [the manual](manuals/DS3231.pdf). 
+
+The LambdaSpeak 3 firmware supports the RTC directly. Designing a more generic way of accessing and controlling arbitrary I2C devices, and corresponding I2C functions in the firmware, is still future work. 
+
+Have a look at the control bytes / commands for retrieving the values of the different RTC register, i.e., `&D3` to `&D9`, and for retrieving the temperature via `&D2`. Reading out the clock registers is not easy though, and almost impossible from BASIC. Please have a look at the Z80 MAXAM Assembler program `ASMCLOCK.BAS` (required MAXAM ROM) for an illustration / demo of how to read out the clock registers reliably without glitches. There is also a BASIC program `RTC.BAS` which is still under construction and currently does not run reliably, because a piece of Z80 MC is missing for reading the RTC registers reliably. Will be updated soon. Read further for additional options to retrieve the time. 
+
+**Please note that the clock functions can only be called from the Epson or DECtalk mode; if called from different modes, they will act as NO-OPs.**
 
 After a call to retrieve a value (seconds, minutes, hours, ...) from the clock, say after a call to `&D5` to retrieve the seconds, the following happens:
 
@@ -501,18 +508,6 @@ After a call to retrieve a value (seconds, minutes, hours, ...) from the clock, 
 
 The timing (repeatedly sampling of the databus to check for the byte 255 and remembering the previous databus value for the actual result) is extremely delicate, and even with slow getters (when the bytes appear for 20 ms on the databus) probably impossible to get right reliably with BASIC. Please have a look at `ASMCLOCK.BAS` or use TFM's RSX commands `|gettime`, `|getdate`, `|gettemp`, and the wonderful `|bigwatch` instead. 
 
-The `RTC.BAS` BASIC program will be updated soon as well, by using a piece of Z80 assembler to retrieve the clock registers. 
-
-
-##### The 6 $ DS3231 RTC (Battery Buffered Real Time Clock) 
-
-You can get it on Ebay for 6 USD. There is a demo program `RTC.BAS` 
-on the [`LS300.DSK`](cpc/lambda/LS300.dsk). 
-
-The RTC also features a temperature sensor, in (C) degrees.  Not sure
-how to read negative temperatures though. 
-
-Check [the manual](manuals/DS3231.pdf). 
 
 #### LambdaSpeak 3 Programming 
 
