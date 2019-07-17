@@ -257,25 +257,26 @@ This tables shows the command / control bytes recognized by LambdaSpeak:
 | &E8  | Command Confirmations Off  | Don't speak confirmations     |                X              |                   |
 | &E7  | English Mode On            | English Mode Epson / DECtalk  |                X              |                   | 
 | &E6  | Castilian Spanish Mode On  | Spanish Mode Epson / DECtalk  |                X              |                   | 
-| &E5  | Short Delay for Getters    | Getter bytes on databus 50 us |                X              |                   | 
-| &E4  | Long Delay for Getters     | Getter bytes on databus 10 ms |                X              |                   | 
+| &E5  | Short Delay for Getters    | Value on databus for 10 us    |                X              |                   | 
+| &E4  | Long Delay for Getters     | Value on databus for 20 ms (BASIC) |                X              |                   | 
 | &E3  | Enable Amdrum Emu Mode     | Enable Amdrum, `out &FFxx,n`  |                X              |         X         | 
 | &E2  | Enable SSA1 SPO Mode       | Authentic SPO SSA1 mode       |                X              |         X         |
-| &E1  | Enable DK’tronics SPO Mode  | Authentic SPO DK’tronics mode|                X              |         X         | 
+| &E1  | Enable DK’tronics SPO Mode | Authentic SPO DK’tronics mode |                X              |         X         | 
+| &E0  | Medium Delay for Getters   | Value on databus for 50 us    |                X              |         X         | 
 | &DF  | ASYNCHRONOUS STOP SPEECH   | Stop speech immediately       |                X              |                   | 
 | &DE  | Flush Speech Buffer Now    | Flush buffered speech content |                X              |                   |  
 | &DD  | Speak RTC Time             | Speak current time (RTC req.) |                X              |                   |
 | &DC  | Speak RTC Date             | Speak current date (RTC req.) |                X              |                   |
 | &DB  | Set RTC Time               | Send hours, minutes, seconds  |                X              |                   | 
 | &DA  | Set RTC Calendar           | Send day, date, month, year   |                X              |                   | 
-| &D9  | Get RTC Weekday            | 1 = Monday, 7 = Sunday        |                X              |                   |
-| &D8  | Get RTC Date               | Read 1 to 31 from `&FBEE`     |                X              |                   |
-| &D7  | Get RTC Month              | Read 1 to 12 from `&FBEE`     |                X              |                   |
-| &D6  | Get RTC Year (20xx)        | Read 00 to 99 from `&FBEE`    |                X              |                   |
-| &D5  | Get RTC Seconds            | Read 0 to 59 from `&FBEE`     |                X              |                   |
-| &D4  | Get RTC Minutes            | Read 0 to 59 from `&FBEE`     |                X              |                   |
-| &D3  | Get RTC Hours              | Read 0 to 23 from `&FBEE`     |                X              |                   |
-| &D2  | Get RTC Temperature (C)    | Read 0 to ?? (C) from `&FBEE` |                X              |                   |
+| &D9  | Get RTC Weekday            | 1 = Monday, 7 = Sunday        |     Epson & DECtalk only      |                   |
+| &D8  | Get RTC Date               | Read 1 to 31 from `&FBEE`     |     Epson & DECtalk only      |                   |
+| &D7  | Get RTC Month              | Read 1 to 12 from `&FBEE`     |     Epson & DECtalk only      |                   |
+| &D6  | Get RTC Year (20xx)        | Read 00 to 99 from `&FBEE`    |     Epson & DECtalk only      |                   |
+| &D5  | Get RTC Seconds            | Read 0 to 59 from `&FBEE`     |     Epson & DECtalk only      |                   |
+| &D4  | Get RTC Minutes            | Read 0 to 59 from `&FBEE`     |     Epson & DECtalk only      |                   |
+| &D3  | Get RTC Hours              | Read 0 to 23 from `&FBEE`     |     Epson & DECtalk only      |                   |
+| &D2  | Get RTC Temperature (C)    | Read 0 to ?? (C) from `&FBEE` |     Epson & DECtalk only      |                   |
 | &D1  | Speak RTC Temperature (C)  | Speak temperature degrees C.  |                X              |                   |
 | &CF  | Get Mode (LS1.95 Compat.)  | Read (Old) Mode from `&FBEE`  |                X              |                   |
 | &CE  | Get Volume                 | Read Volume from `&FBEE`      |                X              |                   | 
@@ -433,7 +434,7 @@ The following table lists the command bytes in Serial Mode:
 | &FF, 7          | Check if another byte can be read from buffer | 1 if read cursor < input cursor   | 
 | &FF, 8          | Get byte from buffer at read cursor position  | Byte will appear on databus       | 
 | &FF, 9          | Get byte at read cursor position, inc. cursor | Read receive buffer byte by byte  | 
-| &FF, 10         | Get byte at read cursor position, dec. cursor | Read buffer from end byte by byte |         
+| &FF, 10         | SERIAL MONITOR FOR MIDI IN ETC.               | Under development, stay tuned...  |         
 | &FF, 11, lo, hi | Set read cursor to position hi*256 + lo       | Use &FF, 8 to read byte at pos    | 
 | &FF, 12         | Set read cursor to 0                          | Does not erase the buffer         |  
 | &FF, 13         | Set read cursor to input cursor position -1   | Read cursor points to last byte   | 
@@ -458,7 +459,7 @@ There is a simple `SERIAL.BAS` terminal program. If you only want to receive but
 
 The Serial Mode is using the standard READY indicator - if `32` appears on port `&FBEE`, then this means that LS3 is ready to receive the next command, or the next command argument.  
 
-In order to receive data from LS3 in Serial Mode, a special protocol is being used: in order to send `<byte>` to the CPC, LS3 first puts `<byte>` on port `&FBEE`, then either waits for 50 us or for 10 ms, depending on whether fast getters or slow getters are being used; next, `0` appears on `&FBEE`, for the same amount of waiting time, until a 32 (READY indication) signals that LS3 is ready to receive the next command. 
+In order to receive data from LS3 in Serial Mode, a special protocol is being used: in order to send `<byte>` to the CPC, LS3 first puts `<byte>` on port `&FBEE`, then either waits for 10 us, 50 us, or for 20 ms, depending on whether fast getters, medium getters, or slow getters are being used (see table below); next, `0` appears on `&FBEE`, for the same amount of waiting time, until a 32 (READY indication) signals that LS3 is ready to receive the next command. 
 
 Please have a look at the BASIC program `SERIAL.BAS` (a simple bi-directional terminal program in BASIC) on the `LS300.DSK` for an illustration of how to send and receive data with LS3 in Serial Mode. 
 
