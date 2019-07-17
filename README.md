@@ -562,6 +562,7 @@ The main disk is called [`LS300.DSK`](cpc/lambda/LS300.dsk):
 | Program   | Description                                   |
 |-----------|-----------------------------------------------|
 | ASM       | Send Reset Command from Z80 MC Program.       |
+| ASMCLOCK  | Z80 Clock - read RTC registers / show protcol.|
 | BANNER    | DECSING DECTalk Song.                         |
 | BDAY      | DECSING DECTalk Song.                         |
 | DECSING   | Demo of DECtalk singing. Load BANNER or BDAY. |
@@ -569,7 +570,9 @@ The main disk is called [`LS300.DSK`](cpc/lambda/LS300.dsk):
 | ELISASPO  | A German-speaking Eliza using DK’tronics SPO. | 
 | ELIZA     | High-End English Eliza, Natural Epson Speech. | 
 | ENGLISH   | Demo of English-speaking Epson mode.          | 
-| EEPROM3   | Demo of EEPROM upload and download mode.      | 
+| EEPROM2   | Test of EEPROM upload and download mode.      | 
+| EEPROM3   | Test of EEPROM upload and download mode.      | 
+| EEPROM4   | Test of EEPROM upload and download mode.      | 
 | JULIAN    | Simultaneous speech and MP3 music playing.    | 
 | MIDI      | Simple random note MIDI demo. More to come.   | 
 | MP3       | Simple MP3 play for the Catalex module.       | 
