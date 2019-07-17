@@ -488,6 +488,20 @@ Please note that TX-TX and RX-RX is required for the ubld.it board.  LambdaSpeak
 
 Currently, only the RTC module is supported. It is conceivable that an alternative firmware will be supplied in the future such that the I2C interface can be opened up to the CPC, in a generic way such that different I2C devices can be connected to LambdaSpeak 3 and hence the CPC. 
 
+Have a look at the control bytes / commands for retrieving the values of the different RTC register, i.e., `&D3` to `&D9`, and for retrieving the temperature via `&D2`. Reading out the clock registers is not easy though, and almost impossible from BASIC. Please have a look at the Z80 MAXAM Assembler program `ASMCLOCK.BAS` (required MAXAM ROM) for an illustration / demo of how to read out the clock registers reliably without glitches. 
+
+Notice that the clock functions can only be called from the Epson or DECtalk mode. 
+
+After a call to retrieve a value (seconds, hours, minutes, ...) from the clock, say after a call to `&D5` to retrieve the seconds, the following happens:
+
+1. 0 appears on the databus, indicating that LambdaSpeak 3 is busy calculating the result
+2. after a (non-deterministic, variable) few microseconds, the value of the RTC register appears on the databus, e.g., the seconds 
+3. after 20 ms, 50 us, or 10 us (depending on whether slow getters, medium, or fast getters are being used - see control bytes `&E5`, `&E0`, `&E4`, resp.), the value 255 appears on the databus. This byte 255 acts as a synchronization byte. Since none of the clock registers can ever have the value 255, applications are supposed to sample the CPC data bus to realize that when 255 has been seen, the PREVIOUS byte on the databus was the actual requested value (e.g., the last value on the databus immediately BEFORE 255 was the number of seconds if `&D5` had been sent).     
+4. after 20 ms, 50 us, or 10 us, 255 is replaced by 0, and LambdaSpeak 3 returns to its previous mode, indicating ready by putting 32 on the databus. 
+
+The timing (repeatedly sampling the databus to check for 255 and remembering the previous value) is extremeley delicate, an even with slow getters (when the bytes appear for 20 ms on the databus) impossible to do from BASIC. Please have a look at `ASMCLOCK.BAS` or use TFMs RSX commands `|gettime`, `|getdate`, `|gettemp`, and the wonderful `|bigwatch` instead. 
+
+
 ##### The 6 $ DS3231 RTC (Battery Buffered Real Time Clock) 
 
 You can get it on Ebay for 6 USD. There is a demo program `RTC.BAS` 
