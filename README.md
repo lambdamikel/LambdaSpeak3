@@ -652,7 +652,13 @@ Here is a picture of the LambdaSpeak 3 ROM; `|lshelp` command:
 
 The latest version of the [LambdaSpeak driver software is hosted on TFM's home page](http://futureos.cpc-live.com/files/LambdaSpeak_RSX_by_TFM.zip). The zip file also contains an extensive manual describing all features of the software, as well as the `LS3.ROM` file. 
 
-**TFM is continuously updating this library - stay tuned and check out his site for updates! This is where you will also find the ROM and the documentation for this fantastic piece of CPC software! Again, many Cudos to TFM for making it!!** 
+TFM also created a [documentation page on the German CPC Wiki for the LS3 ROM!](http://www.cpcwiki.eu/index.php/LambdaSpeak_III_ROM) 
+
+**TFM is continuously updating his library and documentation - stay
+tuned, and frequently check his site and the German CPC Wiki for
+updates!  This is where you will also find the ROM and the
+documentation for this fantastic piece of CPC software! Again, many
+Cudos to TFM for making it!!**
 
 ### Maker Support 
 
