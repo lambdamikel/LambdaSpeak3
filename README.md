@@ -14,13 +14,14 @@ It offers:
 
   1. **DECtalk-based Text-to-Speech (TTS) synthesis:** the **Epson S1V30120 TTS** chip on the utilized mikroBUS "TextToSpeech Click!" daughterboard from MikroElektronika implements DECtalk v5 -- a natural sounding speech synthesizer for English and Spanish, with different voices. DECtalk can even sing. The DECtalk mode is very powerful and versatile, but the DECtalk control language can be difficult to program. Hence, a simplified control language for the S1V30120 is offered as well, the so-called Epson mode. The DECtalk mode is used to implement two Amstrad CPC-specific modes: LambdaSpeak offers a DECtalk-based emulation of the Amstrad SSA-1 Speech Synthesizer, and an emulation of the DK'tronics Speech Synthesizer as well. These retro speech synthesizers from ~ 1985 used the SPO256-AL2 from General Instruments. The emulation is faithful enough such that software that supports these speech synthesizers (e.g., games such as "Roland in Space" from Amsoft) works. However, the DECtalk-based speech sounds different from the original SPO256 AL2-based speech. For higher authenticity, LambdaSpeak can optionally be fitted with a SPO256-AL2 as well, see next. 
 
-  2. **Optional GI SPO256-AL2 speech synthesis:** this chip was used in the official Amstrad CPC SSA-1 speech synthesizer as well as the D'tronics speech synthesizer for the CPC. With fitted SPO256-AL2, LambdaSpeak 3 offers a modern re-implementation of these historic speech synthesizers that sound just like the originals from ano 1985. 
+  2. **Optional GI SP0256-AL2 speech synthesis:** this chip was used in the official Amstrad CPC SSA-1 speech synthesizer as well as the D'tronics speech synthesizer for the CPC. With fitted SP0256-AL2, LambdaSpeak 3 offers a modern re-implementation of these historic speech synthesizers that sound just like the originals from ano 1985. 
 
   3. **PCM Sample Playing Capability / Amdrum emulation:** the Amdrum was a digital sample player / drum computer for the CPC. It consisted of a simple Digital-to-Analog (DAC) converter connected to the CPC databus. Bytes transmitted to the DAC would be turned into PCM audio. Hence, the PCM sample data has to be "streamed" from the CPC over the databus to Amdrum to play a PCM sample. The Amdrum supports 3 channels of 8 Bit audio in a decent quality; the mixing of PCM channels is done in software by the CPC / Z80 though, in real time, to achieve polyphony. LambdaSpeak 3's Amdrum emulation sounds just as good as the original (if not better). 
 
   4. **High Quality Polyphonous Autonomous PCM Sample Playing Capability:** unlike the Amdrum mode, which requires the CPC to send the PCM sample bytes in real time over the databus to the Amdrum DAC, this mode offers "autonomous" sample playing. LambdaSpeak 3 is equipped with a 128 KB SPI EEPROM, which serves as a persistent memory for PCM samples. Samples can be uploaded into the EEPROM memory from the CPC, and played back by sending a "Play PCM" command. This mode offers up to 4 channels of PCM polyphony, and > 16 kHz bandwith is possible. Of course, higher quality PCM samples / WAV files will take up more space on the EEPROM. Moreover, since no real time streaming of PCM sample bytes is required from the CPC for sample playback, the automous EEPROM PCM sample playback can be triggered even from a BASIC program. The playback mode offers up to 4 channels of PCM audio, and the pitch / sample playback speed can be controlled to some extent as well. A sample can be as large as 128 KBs. The resulting PCM quality can be much higher than with the Amdrum mode. 
 
-  5. **An UART / Serial Interface:**  this versatile general purpose UART / Serial Interface offers flexible BAUD rates, 5 to 8 bits per frame, and different parity bit and number of stop bit configurations. The UART Interface can either be offered via a PIN header on the LambdaSpeak 3 PCB such that a FTDI cable or RS232 TTL serial converter can be hooked up directly via DuPont cables, or an UART module can be soldered in permanently. The 4 $ MP3 UART Module from Catalex is a good choice for such a module - it offers MP3 playback from a MicroSD card. See below.  
+  5. **An UART / Serial Interface:**  this versatile general purpose UART / Serial Interface offers flexible BAUD rates, 5 to 8 bits per frame, and different parity bit and number of stop bit configurations. The UART Interface can either be offered via a PIN header on the LambdaSpeak 3 PCB such that a FTDI cable or RS232 TTL serial converter can be hooked up directly via DuPont cables, or an UART module can be soldered in permanently. The 4 $ MP3 UART Module from Catalex is a good choice for such a module - it offers MP3 playback from a MicroSD card. In addition, the 
+MIDI Breakout Board from ubld.it is a great choice for MIDI IN/OUT. See below.  
 
   6. **An I2C Interface:** this interface is currently used for a **Real Time Clock (RTC) module**. LambdaSpeak 3 can be fitted with an optional DS3231 RTC module, a 6 $ module. At the time of this writing, the LambdaSpeak 3 firmware only supports the DS3231 RTC, but it is conceivable that additional I2C modules will be supported in the future as well. The DS3231 also contains a **Temperature Sensor**. 
   
@@ -54,27 +55,27 @@ The audio sources processed and routed via the DIP switch are the following. The
 
 From left to right, the DIP switches 1 to 5 and 6 to 10 are: 
 
-  - **MIX (1 = left, 6 = right):** MIX is the output of LambdaSpeak's OP amp. The OP amp is a summing OP amp with Gain control that amplifies and recovers the mono PCM output generated by the ATmega (PCM Sample Playing), and the sound generated by the SPO256-AL2 vintage speech chip. The corresponding DIP switch determines if the OP amp's output is routed to the left and/or right output channel (or turned off completely). Notice that using an OP amp always results in some degradation of the audio quality. Hence, it is also possible to exclusively route the PCM output or exclusively route the SPO256-AL2 output to the left or right channel (see switches SPO and AT below). If no SPO256-AL2 is being used, then there is no need for the MIX output, and the switch should be in the off position. 
+  - **MIX (1 = left, 6 = right):** MIX is the output of LambdaSpeak's OP amp. The OP amp is a summing OP amp with Gain control that amplifies and recovers the mono PCM output generated by the ATmega (PCM Sample Playing), and the sound generated by the SP0256-AL2 vintage speech chip. The corresponding DIP switch determines if the OP amp's output is routed to the left and/or right output channel (or turned off completely). Notice that using an OP amp always results in some degradation of the audio quality. Hence, it is also possible to exclusively route the PCM output or exclusively route the SP0256-AL2 output to the left or right channel (see switches SPO and AT below). If no SP0256-AL2 is being used, then there is no need for the MIX output, and the switch should be in the off position. 
 
   - **EPS (2 = left, 7 = right):** Turn on or off routing of the stereo audio signal received over LambdaSpeak's stereo audio input jack (the right stero jack on the board). Usually, this connects to the output output jack of the Epson click daughter board. The output of the Epson speech board is mono, but heard on the left and right channel. The TTS click daughterboard is already equipped with an audio amplifier, so it also possible to directly connect a loudspeaker or audio amplifier to the audio socket of the daughterboard itself. In the case, LambdaSpeak's stereo input jack is available to receive either the audio output generated by the  CPC, using the audio stereo output jack of the CPC (and left or right channels will be routed accordingly), or to the output of the MP3 module can be used (see below). In any way, the left or right channels will be routed accordingly (i.e., left to left and right to right). Note that EPS input is not amplified by the internal OP amp. 
 
-  - **AT (3 = left, 8 = right):** the raw PCM output from the ATmega; used for the Amdrum mode and the autonomous PCM Sample Playing mode. This signal has higher quality than the MIX output. If no SPO256-AL2 is being used, then there is no need for the MIX output, and the AT raw PCM output achieves higher PCM quality and bandwidth. 
+  - **AT (3 = left, 8 = right):** the raw PCM output from the ATmega; used for the Amdrum mode and the autonomous PCM Sample Playing mode. This signal has higher quality than the MIX output. If no SP0256-AL2 is being used, then there is no need for the MIX output, and the AT raw PCM output achieves higher PCM quality and bandwidth. 
 
-  - **SPO (4 = left, 9 = right):** the raw speech output from the optional SPO256-AL2 chip; used for the SPO-based SSA1 and DK’tronics modes. This signal has higher quality than the MIX output. If no SPO256-AL2 is being used, then this switch should be in the off position. 
+  - **SPO (4 = left, 9 = right):** the raw speech output from the optional SP0256-AL2 chip; used for the SPO-based SSA1 and DK’tronics modes. This signal has higher quality than the MIX output. If no SP0256-AL2 is being used, then this switch should be in the off position. 
 
   - **CPC (5 = left, 10 = right):** determines if the left (resp. right) output channel of LambdaSpeak's stereo output jack should be routed into the CPC's internal audio amplifier and speaker. Please note that the assignment of the left and right output of LambdaSpeak's stereo jack is determined by the DIP switches 1 to 5, and 6 to 9, resp., as just explained. This does not work on the Plus line of CPC computers, so these switches should be in the off position for a CPC Plus computer. 
  
-A *reasonable default configuration* for a LambdaSpeak 3 *with SPO256-AL2* is `10001-01001`. Hence, MIX on the left output channel, and Epson speech on the right output channel. Moreover, both are being heard in the CPC's internal speaker as well, so no need for an external amplifier. 
+A *reasonable default configuration* for a LambdaSpeak 3 *with SP0256-AL2* is `10001-01001`. Hence, MIX on the left output channel, and Epson speech on the right output channel. Moreover, both are being heard in the CPC's internal speaker as well, so no need for an external amplifier. 
 
-A *reasonable default configuration* for a LambdaSpeak 3 *without SPO256-AL2* is `00101-01001`, resulting in raw ATmega PCM audio on the left channel, and Epson speech on the right. Moreover, the CPC speaker is turned on. 
+A *reasonable default configuration* for a LambdaSpeak 3 *without SP0256-AL2* is `00101-01001`, resulting in raw ATmega PCM audio on the left channel, and Epson speech on the right. Moreover, the CPC speaker is turned on. 
 
 A *reasonable default configuration* for an Amdrum / PCM Sample Playing session could be `00101-00101`, giving raw ATmega PCM audio on the left and right channel, and no speech output at all. However, an extra cable and external mixer and amplifier or dedicated loudspeaker could still be used for Epson speech (use the daughterboard’s own stero jack). 
 
 The **10 LED segment bar on the left** is used to indicate the current mode / status of LambdaSpeak 3. The LEDs have the following meaning:
 
   - **VCC:** Power LED. 
-  - **SBY:** If fitted with a SPO256-AL2, the status of the SBY pin ("Standby"). 
-  - **LRQ:** If fitted with a SPO256-AL2, the status of the LRQ pin ("Load Request"). 
+  - **SBY:** If fitted with a SP0256-AL2, the status of the SBY pin ("Standby"). 
+  - **LRQ:** If fitted with a SP0256-AL2, the status of the LRQ pin ("Load Request"). 
   - **RDY**: Mostly used to indicate that LambdaSpeak is ready to accept input; however, the LED is also used for other purposes.
   - **TR**: Mostly used to indicate that LambdaSpeak is transmitting data to the Epson daughterboard (that it is speaking); however, the LED is also used for other purposes.  
   
@@ -113,7 +114,7 @@ There is also [a PDF version of this image.](manuals/ls3-modes.pdf).
 
 The default mode is the SSA-1 Emulation mode. This mode is enabled after a reset (via `&FF` or reset button), or after a power cycle, for example. 
 
-Referring to the table above, the EEPROM PCM Play mode is the autonomous PCM sample playback mode; sample / WAV files are being played back from EEPROM.  Since this mode can also involve the SPO256-AL2 (addressed via Channel 8), the SPO LED is being lit as well in this mode. Moreover, to upload the PCM samples from the CPC into LambdaSpeak's EEPROM, the EEPROM PCM Upload mode is being used. 
+Referring to the table above, the EEPROM PCM Play mode is the autonomous PCM sample playback mode; sample / WAV files are being played back from EEPROM.  Since this mode can also involve the SP0256-AL2 (addressed via Channel 8), the SPO LED is being lit as well in this mode. Moreover, to upload the PCM samples from the CPC into LambdaSpeak's EEPROM, the EEPROM PCM Upload mode is being used. 
 
 The **EEPROM Data Upload** mode is identical to the EEPROM PCM Upload mode, with the difference that the PCM Samples are not being played after upload (for PCM testing), as the data is not necessarily PCM data. The data from the EEPROM can also be retrieved, using the **EEPROM Get Data** mode; note that 2 EEPROM Data Upload and EEPROM Get Data is not shown in the automaton diagram. 
 
@@ -197,7 +198,7 @@ LambdaSpeak 3 plugged into my **LambdaBoard** CPC expansion backplane:
 #### Some YouTube Videos of LambdaSpeak 3 in Action
 
 - [Amdrum Emulation Testing with early Breadboard Prototype](https://youtu.be/VLRJbIvIBPY?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx)
-- [SPO256-AL2 Testing](https://youtu.be/09xEWBEMHK0?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx) 
+- [SP0256-AL2 Testing](https://youtu.be/09xEWBEMHK0?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx) 
 - [Driving Relays / Home Automation with the CPC?](https://youtu.be/FM8kbuwGmSI?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx)
 - [LambdaDrum Early PCM Test](https://youtu.be/BKLnTiDfbk8?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx)
 - [LambdaDrum PCM Test](https://youtu.be/9VoMoj8Qr0s?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx)
@@ -225,7 +226,7 @@ As mentioned previously, with the exception of the SPO-based SSA1 and DK’troni
 
 Moreover, every byte with 8th bit set, hence bytes > 127, are consider command bytes or control bytes. The bytes are used for setting various parameters (voice, volume, speak rate), and for changing modes of LambdaSpeak 3. The table of command / control bytes is given below. 
 
-Unlike the Epson-based speech modes (SSA1 Emu, DK’tronics Emu, Epson mode, DECtalk mode), the SPO-based speech modes are not using buffered input, and speech is synchronous. Every byte < 128 is directly  sent and processed by the SPO256-AL2 speech chip. Also, most settings such as voice, volume, language etc. only apply to the Epson-based speech synthesizer, not the SPO256-AL2. 
+Unlike the Epson-based speech modes (SSA1 Emu, DK’tronics Emu, Epson mode, DECtalk mode), the SPO-based speech modes are not using buffered input, and speech is synchronous. Every byte < 128 is directly  sent and processed by the SP0256-AL2 speech chip. Also, most settings such as voice, volume, language etc. only apply to the Epson-based speech synthesizer, not the SP0256-AL2. 
 
 This tables shows the command / control bytes recognized by LambdaSpeak: 
 
@@ -321,17 +322,17 @@ However, most of these songs were written for an earlier version of DECtalk v2 (
 
 #### DECtalk-based SSA1 Mode (SSA1 Emulation)
 
-This is the DECtalk-based emulation of the classic Amstrad SSA1 speech synthesizer. This emulation is faithful enough such that the SSA1 driver software, and classic games such as `Roland in Space` will work in this mode. The speech sounds different from the original though, since DECtalk is being used, and not the SPO256-AL2. Use the SPO-based SSA1 mode for full authenticity and 100% faithful SSA1 speech. 
+This is the DECtalk-based emulation of the classic Amstrad SSA1 speech synthesizer. This emulation is faithful enough such that the SSA1 driver software, and classic games such as `Roland in Space` will work in this mode. The speech sounds different from the original though, since DECtalk is being used, and not the SP0256-AL2. Use the SPO-based SSA1 mode for full authenticity and 100% faithful SSA1 speech. 
 
 #### DECtalk-based DK'tronics Mode (DK’tronics Emulation) 
 
-This is the DECtalk-based emulation of the classic DK’tronics speech synthesizer. The emulation is faithful enough such that the DK’tronics RSX driver software, and classic games such as `Roland in Space` will work in this mode. The speech sounds different from the original though, since DECtalk is being used, and not the SPO256-AL2. Use the SPO-based DK’tronics mode for full authenticity and 100% faithful DK’tronics speech. 
+This is the DECtalk-based emulation of the classic DK’tronics speech synthesizer. The emulation is faithful enough such that the DK’tronics RSX driver software, and classic games such as `Roland in Space` will work in this mode. The speech sounds different from the original though, since DECtalk is being used, and not the SP0256-AL2. Use the SPO-based DK’tronics mode for full authenticity and 100% faithful DK’tronics speech. 
 
-#### Authentic SPO256-AL2-based SSA1 Mode (SSA1 Re-Implementation)
+#### Authentic SP0256-AL2-based SSA1 Mode (SSA1 Re-Implementation)
 
 This is a fully authentic re-implementation of the original classical Amstrad SSA1 speech synthesizer. 
 
-#### Authentic SPO256-AL2-based DK’tronics Mode (DK’tronics Re-Implementation)
+#### Authentic SP0256-AL2-based DK’tronics Mode (DK’tronics Re-Implementation)
 
 This is a fully authentic re-implementation of the original classical DK’tronics speech synthesizer. 
 
@@ -391,11 +392,11 @@ Once samples are in the EEPROM, it is straightforward to trigger sample playing,
 1. Send 0
 2. Send channel: 1 to n. 
    Note that n cannot be higher than the max number of Channels that has been selected. 
-   **Channel 8** addresses the SPO256-AL2.  
+   **Channel 8** addresses the SP0256-AL2.  
    Use **Channel 255 to exit** this mode, which resets LambdaSpeak 3.  
 3. Send 0 
 4. Send PCM address = the EEPROM start page of the wave file / sample. 
-   In case of channel 8, this argument specifies the SPO256-AL2 allophone number. 
+   In case of channel 8, this argument specifies the SP0256-AL2 allophone number. 
 5. Send 0 
 6. Send the length of the wave file / sample, in EEPROM pages. 
 7. Send 0 
@@ -434,7 +435,7 @@ The following table lists the command bytes in Serial Mode:
 | &FF, 7          | Check if another byte can be read from buffer | 1 if read cursor < input cursor   | 
 | &FF, 8          | Get byte from buffer at read cursor position  | Byte will appear on databus       | 
 | &FF, 9          | Get byte at read cursor position, inc. cursor | Read receive buffer byte by byte  | 
-| &FF, 10         | SERIAL MONITOR FOR MIDI IN ETC.               | Under development, stay tuned...  |         
+| &FF, 10         | SERIAL MONITOR FOR MIDI IN ETC.               | Realtime monitoring of Serial In  |         
 | &FF, 11, lo, hi | Set read cursor to position hi*256 + lo       | Use &FF, 8 to read byte at pos    | 
 | &FF, 12         | Set read cursor to 0                          | Does not erase the buffer         |  
 | &FF, 13         | Set read cursor to input cursor position -1   | Read cursor points to last byte   | 
@@ -482,6 +483,10 @@ Please note that TX-TX and RX-RX is required for the ubld.it board.  LambdaSpeak
 ![MIDI with LambdaSpeak 3](images/midi-cpc1.JPG)
 
 ![MIDI with LambdaSpeak 3](images/midi-cpc2.JPG)
+
+Whereas MIDI OUT is easy to achieve either using the Serial Direct Mode or the Buffered Mode, and possible from BASIC, MIDI IN requires a machine code program. A special mode is used for MIDI IN processing - the so-called "Serial Monitor". It is enabled using `&FF`, `10`. The mode is optimized for maximal performance of incoming Serial Messages (MIDI IN). The idea is that a CPC (machine code) application can subsequently scan / poll port `&FBEE`. If no Serial Byte has been buffered since the last call, then 0 is found on the port. However, if the buffer is non-empty, then `1` is on the port, and the application then has to request and read the next byte from the buffer by using a simple handshaking protocol: first, send some arbitrary byte `out &fbee,<arbitrary>`. Next, LambdaSpeak 3 will respond by putting the next byte from the serial input buffer on the databus. The CPC application can then read that byte. Once that byte has been read, the CPC application can signal the acknowledgment handshake "byte received!" by sending another arbitrary byte `out &fbee,<arbitrary>`. LambdaSpeak 3 will then continue to indicate 0 if no subsequent byte is available, and will signal 1 again when the next byte has been buffered. This continues until LambdaSpeak 3 is reset.  
+
+There is a simple (monophonic) MIDI IN Synthesizer demo program `MIDISYN.BAS` on the [`LS300.DSK`](cpc/lambda/LS300.dsk) that demonstrates this protocol - here, the CPC receives incoming MIDI Note On/Off Messages using the Serial Monitor mode, and play the corresponding sound / note using the CPC's AY-3-8912 soundchip. 
 
 
 #### I2C Mode 
@@ -585,7 +590,8 @@ The main disk is called [`LS300.DSK`](cpc/lambda/LS300.dsk):
 | EEPROM3   | Test of EEPROM upload and download mode.      | 
 | EEPROM4   | Test of EEPROM upload and download mode.      | 
 | JULIAN    | Simultaneous speech and MP3 music playing.    | 
-| MIDI      | Simple random note MIDI demo. More to come.   | 
+| MIDI      | Simple random note MIDI OUT demo.             | 
+| MIDISYN   | MAXAM Z80 CPC MIDI IN Synthesizer demo.       | 
 | MP3       | Simple MP3 play for the Catalex module.       | 
 | RTC       | Simple Real Time Clock; uses DS3231 module.   | 
 | SAYECHO   | Simple Epson-based "say what I type" program. | 
@@ -674,6 +680,8 @@ Julian ("zhulien" from the CPC Wiki Forum) for suggesting the Amdrum mode, incor
 Bryce, for guiding and pushing me into the right direction - Xilinx CPLD instead of GAL22V10, Verilog instead of WinCupl, countless discussions, etc.  
 
 ChinnyVision, for [reviwing a previous version of LambdaSpeak on his YouTube channel.](https://youtu.be/yAZAAMu1DfA)
+
+And, last but not least, the CPC users that have purchased  LambdaSpeak cards and hence made the development of LambdaSpeak 3 possible! 
 
 Thanks to all of you, long live the CPC! 
 
