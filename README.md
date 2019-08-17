@@ -486,7 +486,7 @@ Please note that TX-TX and RX-RX is required for the ubld.it board.  LambdaSpeak
 
 Whereas MIDI OUT is easy to achieve either using the Serial Direct Mode or the Buffered Mode, and possible from BASIC, MIDI IN requires a machine code program. A special mode is used for MIDI IN processing - the so-called "Serial Monitor". It is enabled using `&FF`, `10`. The mode is optimized for maximal performance of incoming Serial Messages (MIDI IN). The idea is that a CPC (machine code) application can subsequently scan / poll port `&FBEE`. If no Serial Byte has been buffered since the last call, then 0 is found on the port. However, if the buffer is non-empty, then `1` is on the port, and the application then has to request and read the next byte from the buffer by using a simple handshaking protocol: first, send some arbitrary byte `out &fbee,<arbitrary>`. Next, LambdaSpeak 3 will respond by putting the next byte from the serial input buffer on the databus. The CPC application can then read that byte. Once that byte has been read, the CPC application can signal the acknowledgment handshake "byte received!" by sending another arbitrary byte `out &fbee,<arbitrary>`. LambdaSpeak 3 will then continue to indicate 0 if no subsequent byte is available, and will signal 1 again when the next byte has been buffered. This continues until LambdaSpeak 3 is reset.  
 
-There is a simple (monophonic) MIDI IN Synthesizer demo program `MIDISYN.BAS` on the [`LS300.DSK`](cpc/lambda/LS300.dsk) that demonstrates this protocol - here, the CPC receives incoming MIDI Note On/Off Messages from the Serial Monitor, and then plays the corresponding sound / note using the CPC's AY-3-8912 soundchip. 
+There is a simple (monophonic) MIDI IN Synthesizer demo program `MIDISYN.BAS` on the [`LS300.DSK`](cpc/lambda/LS300.dsk) that demonstrates this protocol - here, the CPC receives incoming MIDI Note On/Off Messages from the Serial Monitor, and then plays the corresponding sound / note using the CPC's AY-3-8912 soundchip. Also have a look at the MIDI Message Monitor - see program `MIDIMON.BAS`. Both programs are written in Z80 MAXAM assembler. 
 
 
 #### I2C Mode 
@@ -591,6 +591,8 @@ The main disk is called [`LS300.DSK`](cpc/lambda/LS300.dsk):
 | EEPROM4   | Test of EEPROM upload and download mode.      | 
 | JULIAN    | Simultaneous speech and MP3 music playing.    | 
 | MIDI      | Simple random note MIDI OUT demo.             | 
+| MIDIOUT   | Simple random note MIDI OUT demo.             | 
+| MIDIMON   | MAXAM Z80 CPC MIDI IN Monitor program.        | 
 | MIDISYN   | MAXAM Z80 CPC MIDI IN Synthesizer demo.       | 
 | MP3       | Simple MP3 play for the Catalex module.       | 
 | RTC       | Simple Real Time Clock; uses DS3231 module.   | 
