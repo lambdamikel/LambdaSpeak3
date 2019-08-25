@@ -488,13 +488,13 @@ Whereas MIDI OUT is easy to achieve either using the Serial Direct Mode or the B
 
 The "Serial Monitor" mode supports high speed send and receive of Serial Messages, using the following protocol: 
 
-1. the CPC sends a <byte> it wants to transmit via the UART using `out &fbee,<byte>`
-2. LambdaSpeak 3 processes this <byte>. 
-   - If the <byte> is 255, then this indicates a command byte, and a second byte is expected by LambdaSpeak 3. 
-   -- The CPC sends <byte2>, and if <byte2> is 255, then 255 is transmitted via UART TX. 
+1. the CPC sends a `<byte>` it wants to transmit via the UART using `out &fbee,`<byte>`
+2. LambdaSpeak 3 processes this `<byte>`. 
+   - If the `<byte>` is 255, then this indicates a command byte, and a second byte is expected by LambdaSpeak 3. 
+   -- The CPC sends `<byte2>`, and if `<byte2>` is 255, then 255 is transmitted via UART TX. 
    -- If this byte is 20, then the Serial Monitor sub-mode exits, returning to the normal Serial Mode.   
-   -- Else, the <byte2> is being ignored. 
-3. If <byte> is not 255, then <byte> is being transmitted via UART TX. 
+   -- Else, the `<byte2>` is being ignored. 
+3. If `<byte>` is not 255, then `<byte>` is being transmitted via UART TX. 
 4. Next, LambdaSpeak 3 indicates if there is a byte available in the UART receive buffer. 
    -- The CPC reads from port `&FBEE`, and if 1 is found, then a byte is available. 
    --- The CPC now *has to* request and retrieve that byte from LambdaSpeak 3, by sending an arbitrary byte to output port `&FBEE`. 
