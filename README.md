@@ -703,7 +703,7 @@ Julian ("zhulien" from the CPC Wiki Forum) for suggesting the Amdrum mode, incor
 
 Bryce, for guiding and pushing me into the right direction - Xilinx CPLD instead of GAL22V10, Verilog instead of WinCupl, countless discussions, etc.  
 
-ChinnyVision, for [reviwing a previous version of LambdaSpeak on his YouTube channel.](https://youtu.be/yAZAAMu1DfA)
+ChinnyVision, for [reviewing a previous version of LambdaSpeak on his YouTube channel.](https://youtu.be/yAZAAMu1DfA)
 
 And, last but not least, the CPC users that have purchased  LambdaSpeak cards and hence made the development of LambdaSpeak 3 possible! 
 
