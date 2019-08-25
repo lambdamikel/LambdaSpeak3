@@ -484,9 +484,9 @@ Please note that TX-TX and RX-RX is required for the ubld.it board.  LambdaSpeak
 
 ![MIDI with LambdaSpeak 3](images/midi-cpc2.JPG)
 
-Whereas MIDI OUT is easy to achieve either using the Serial Direct Mode or the Buffered Mode, and possible from BASIC, MIDI IN requires a machine code program. A special mode is used for MIDI IN processing - the so-called "Serial Monitor". It is enabled using `&FF`, `10`. 
+Whereas MIDI OUT is easy to achieve either using the Serial Direct Mode or the Buffered Mode, and possible from BASIC, MIDI IN requires a machine code program. A special mode is used for MIDI IN processing - the so-called "Serial Monitor". It is enabled by sending the sequence `&FF`, `10` *while being already in Serial Mode. Hence, the Serial Monitor is a special sub-mode of the Serial Mode. *
 
-The "Serial Monitor" mode supports high speed sending and receiving of Serial Messages, using the following protocol: 
+The "Serial Monitor" mode supports high speed send and receive of Serial Messages, using the following protocol: 
 
 1. the CPC sends a <byte> it wants to transmit via the UART using `out &fbee,<byte>`
 2. LambdaSpeak 3 processes this <byte>. 
