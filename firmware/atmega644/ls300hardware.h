@@ -147,25 +147,8 @@
 #define READY_LED    PC0
 #define TRANSMIT_LED PC1
 
-//
-//
-// 
-
-#define SRX     PC0     
-#define SRXPIN  PINC
-
-#define STX     PC1     
-#define STXDDR  DDRC
-
-#define SERIAL_OUTPUT PORTC
-#define SERIAL_INPUT  PINC
-
-#define RX  PC0  // like READY_LED 
-#define TX  PC1  // like TRANSMIT_LED 
-
-
 // Status flags für CPLD - 2 bit decoder -> 4 LEDs 
-// PC2 = Amdrum ON, PC5 = SPO256 ON, 
+// PC2 = Amdrum ON, PC5 = SP0256 ON, 
 // PC4 = SSA1_MODE, PC3 = DK_MODE  
 // 
 
@@ -174,7 +157,7 @@
 // 1 = OUTPUT 
 
 #define CONFIGURE_LEDS DDRC = 0b00111111 
-#define CONFIGURE_SPO  DDRC = 0b00111111 
+#define CONFIGURE_SP0  DDRC = 0b00111111 
 
 //
 // PCM AUDIO 
@@ -191,17 +174,17 @@
 #define AMDRUM_ENABLED PC2 
 
 //
-// SPO256 IN/OUT
+// SP0256 IN/OUT
 // 
 
-// to CPLD AND SPO256 CHIP: 
-#define SPO256_ENABLE_PORT  PORTC 
-// hardware enable for SPO256 
-#define SPO256_ENABLED      PC5 
+// to CPLD AND SP0256 CHIP: 
+#define SP0256_ENABLE_PORT  PORTC 
+// hardware enable for SP0256 
+#define SP0256_ENABLED      PC5 
 
 //
 // GENERAL MODE FLAG - TO CPLD, SSA1 or DK 
-// THIS APPLIES BOTH THE SPO256 AND EPSON BASED MODES!!
+// THIS APPLIES BOTH THE SP0256 AND EPSON BASED MODES!!
 // 
 
 // to CPLD: 
@@ -212,22 +195,22 @@
 
 //
 // CPLD LEDS:
-// SSA1 DKTRONICS SPO256 AMDRUM 
-// 3-to-4 DECODER (SSA1_MODE, DK_MODE, SPO256_ENABLED, AMDRUM_ENABLED 
+// SSA1 DKTRONICS SP0256 AMDRUM 
+// 3-to-4 DECODER (SSA1_MODE, DK_MODE, SP0256_ENABLED, AMDRUM_ENABLED 
 //
 
 // 
-// SPO256 DATA PORT
+// SP0256 DATA PORT
 // 
 
-#define SPO256_DATA_PORT    PORTA 
+#define SP0256_DATA_PORT    PORTA 
 
 //
 //
 //
 
-#define DATA_TO_SPO(arg)      SPO256_DATA_PORT = arg 
-#define STATUS_FROM_SPO(arg)  arg = SPO256_INPUT_PIN 
+#define DATA_TO_SP0(arg)      SP0256_DATA_PORT = arg 
+#define STATUS_FROM_SP0(arg)  arg = SP0256_INPUT_PIN 
 
 //
 //
