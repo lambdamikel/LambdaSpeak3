@@ -1,21 +1,14 @@
-static volatile uint8_t usart_ring_buffer = 0; 
-static volatile uint16_t usart_input_buffer_index = 0; // receive input from USART
-static volatile uint16_t from_cpc_input_buffer_index = 0;  // input from CPC to send to USART
-static volatile uint16_t cpc_read_cursor = 0;  // reading USART received buffer from CPC 
+
+#ifdef LS300
+
+#define READ_ARGUMENT_FROM_DATABUS(databus) { serial_ready; loop_until_bit_is_set(IOREQ_PIN, IOREQ_WRITE); serial_busy; LAMBDA_EPSON_ON; loop_until_bit_is_clear(IOREQ_PIN, IOREQ_WRITE); delay_us(3); DATA_FROM_CPC(databus); SERIAL_ON; }
+
+#define SEND_TO_CPC_DATABUS(byte) { DATA_TO_CPC(byte); CPC_READ_DELAY; DATA_TO_CPC(0); CPC_READ_DELAY; }
+
 
 //
 //
 // 
-
-#define READ_ARGUMENT_FROM_DATABUS(databus) { LEDS_ON; loop_until_bit_is_clear(IOREQ_PIN, IOREQ_WRITE); loop_until_bit_is_set(IOREQ_PIN, IOREQ_WRITE); cli(); LAMBDA_EPSON_ON; delay_us(3); DATA_FROM_CPC(databus); SERIAL_ON; LEDS_OFF; sei(); z80_run; }
-
-#define READ_ARGUMENT_FROM_DATABUS_NO_LEDS(databus) { loop_until_bit_is_clear(IOREQ_PIN, IOREQ_WRITE); loop_until_bit_is_set(IOREQ_PIN, IOREQ_WRITE); LAMBDA_EPSON_ON; delay_us(3); DATA_FROM_CPC(databus); SERIAL_ON; }
-
-#define SEND_TO_CPC_DATABUS(byte) { DATA_TO_CPC(byte); CPC_READ_DELAY; DATA_TO_CPC(0); CPC_READ_DELAY; }
-
-//
-//
-//
  
 void usart_on0(uint8_t rate, uint8_t width, uint8_t parity, uint8_t stop_bits) {
 
@@ -73,62 +66,75 @@ void usart_on0(uint8_t rate, uint8_t width, uint8_t parity, uint8_t stop_bits) {
 
   }
 
-  UCSR0B = (1 << TXEN0) | (1 << RXEN0) | (1 << RXCIE0);  
-
+  UCSR0B = 0; 
+  
 }
 
-
 //
 //
 //
-
-void usart_on(void) {
-  usart_on0(SERIAL_BAUDRATE, SERIAL_WIDTH, SERIAL_PARITY, SERIAL_STOP_BITS); 
-}
 
 void usart_off(void) {    
-
-  UBRR0H = 0;    
-  UBRR0L = 0;             
   UCSR0B = 0;
-  UCSR0C = 0;   
+}
+
+void usart_init(void) {
+  usart_off(); 
+  usart_on0(SERIAL_BAUDRATE, SERIAL_WIDTH, SERIAL_PARITY, SERIAL_STOP_BITS); 
+
+  UCSR0B |= (1 << RXEN0) | (1 << RXCIE0) | (1 << TXEN0); 
 
 }
 
 //
-//
+// RX ISR Receive / Buffered
 //
 
 ISR(USART0_RX_vect) {  
-
-  if (usart_input_buffer_index < SEND_BUFFER_SIZE) {
-    send_msg[usart_input_buffer_index] = UDR0; 
-    usart_input_buffer_index++;
-  } else if ( usart_input_buffer_index < TOTAL_BUFFER_SIZE) {
-    buffer[usart_input_buffer_index - SEND_BUFFER_SIZE] = UDR0; 
-    usart_input_buffer_index++; // might be full now, TOTAL_BUFFER_SIZE reched, further input not buffered until flushed!     
-    if (usart_ring_buffer && ( usart_input_buffer_index == TOTAL_BUFFER_SIZE)) 
+  
+  uint8_t data = UDR0; 
+  
+  if (usart_ring_buffer) {
+    if (usart_input_buffer_index >= SEND_BUFFER_SIZE) {
       usart_input_buffer_index = 0; 
+    }    
+    send_msg[usart_input_buffer_index] = data; 
+    usart_input_buffer_index++;    
+
+  } else {
+    
+    // normal operation 
+
+    if (usart_input_buffer_index < SEND_BUFFER_SIZE) {
+      send_msg[usart_input_buffer_index] = data; 
+      usart_input_buffer_index++;
+    } else if ( usart_input_buffer_index < TOTAL_BUFFER_SIZE) {
+      buffer[usart_input_buffer_index - SEND_BUFFER_SIZE] = data; 
+      usart_input_buffer_index++; // might be full now, TOTAL_BUFFER_SIZE reched, further input not buffered until flushed!     
+    }
   }
 }
  
-void USART_Transmit( unsigned char data ){
+//
+// TX Transmit
+// 
 
-  READY_ON; 
+
+void USART_Transmit1( unsigned char data ){
+   while ( !( UCSR0A & (1<<UDRE0)) ) {  }; 
+   UDR0 = data;   
+ } 
+
+void USART_Transmit( unsigned char data ){
 
   usart_input_buffer_index = 0; 
   cpc_read_cursor = 0;
-
-   while ( !( UCSR0A & (1<<UDRE0)) ) {  }; 
-   UDR0 = data; 
-
-  READY_OFF; 
+  USART_Transmit1(data); 
+  // while ( !( UCSR0A & (1<<TXC0)) ) {  }; 
 
 } 
 
 void USART_sendBuffer(uint16_t length) {
-
-  READY_ON; 
   
   usart_input_buffer_index = 0; 
   cpc_read_cursor = 0;
@@ -138,33 +144,34 @@ void USART_sendBuffer(uint16_t length) {
     while ( !( UCSR0A & (1<<UDRE0)) ) { }; 
     if (i < SEND_BUFFER_SIZE) {
       UDR0 = send_msg[i]; 
-    } else if ( i < TOTAL_BUFFER_SIZE) {
+    } else if ( (i - SEND_BUFFER_SIZE) < SPEECH_BUFFER_SIZE) {
       UDR0 = buffer[i - SEND_BUFFER_SIZE]; 
     }
   }
 
-  READY_OFF; 
-
 }
 
-void USART_printString(char myString[]) {
+//
+//
+//
 
-  READY_ON;   
+void USART_ISR_Transmit( unsigned char data ){
+  databus2 = data;
+  UCSR0B |= (1<<UDRIE0); // enable UDRE interrupt  
+}  
 
-  usart_input_buffer_index = 0; 
-  cpc_read_cursor = 0;
-
-  uint16_t i = 0;
-  while (myString[i]) {
-    // while ( !( UCSR0A & (1<<UDRE0)) ) { if (bit_is_set(IOREQ_PIN, IOREQ_WRITE)) return; }  
-    while ( !( UCSR0A & (1<<UDRE0)) ) { }; 
-    UDR0 = myString[i];
-    i++;
-  }
-
-  READY_OFF;   
-
+ISR(USART0_UDRE_vect) {
+  UCSR0B &= ~(1<<UDRIE0); // disable UDRE interrupt
+  UDR0 = databus2; 
 }
+
+
+/* 
+ISR(USART0_TX_vect) {
+  // called when transmission is complete - disable TX! 
+  usart_isr_tx_off(); 
+} 
+*/ 
 
 //
 //
@@ -172,10 +179,7 @@ void USART_printString(char myString[]) {
 
 void usart_mode_loop(void) {
 
-  uint8_t lo_byte = 0; 
-  uint8_t hi_byte = 0; 
   uint8_t direct_mode = 0;  
-  uint8_t data = 0; 
   
   usart_ring_buffer = 0; 
 
@@ -186,38 +190,48 @@ void usart_mode_loop(void) {
   command_confirm("Serial mode. Serial commands start with 255."); 
 
   usart_input_buffer_index = 0; 
+  from_cpc_input_buffer_index = 0; 
   cpc_read_cursor = 0; 
  
   z80_run; 
   sei(); 
   
-  usart_on(); 
+  usart_init(); 
+
   SERIAL_ON; 
   
   CUR_MODE = SERIAL_M; 
 
+  stop_timer;
+
   while (1) {
 
-    if (cpc_read_cursor != usart_input_buffer_index ) {
-      TRANSMIT_ON;
-    } else {
-      TRANSMIT_OFF; 
-    }
+    serial_busy;   
 
-    READY_ON; 
-    serial_ready;  
-    READ_ARGUMENT_FROM_DATABUS_NO_LEDS(databus); 
-    READY_OFF; 
-    serial_busy;  
+    while ( !( UCSR0A & (1<<UDRE0)) ) { }; 
+
+    READY_ON;
+    READ_ARGUMENT_FROM_DATABUS(databus); 
+
+    // z80_halt;
 
     if (databus == 255) {
 
       // command sent! 
       // receive command byte - what to do? 
 
-      serial_ready;  
-      READ_ARGUMENT_FROM_DATABUS_NO_LEDS(databus); 
-      serial_busy;  
+      // z80_run;
+
+      // sei(); 
+
+      TRANSMIT_ON;
+      READ_ARGUMENT_FROM_DATABUS(databus); 
+      LEDS_OFF; 
+
+      serial_busy;   
+
+      // cli(); 
+      // z80_halt;
 
       if (databus == 255) {
 	
@@ -242,53 +256,170 @@ void usart_mode_loop(void) {
 	// dispatch, decode command byte
 	switch (databus) {
 
-	case 10 : // USART MONITOR
+	case 10 : // USART MONITOR OLD - CANNOT TAKE COMMANDS FROM CPC 
 
 	  usart_ring_buffer = 1;  // wrap around! 
 
 	  usart_input_buffer_index = 0; 
-	  cpc_read_cursor = 0; 
+	  SERIAL_ON; 
+
+	  usart_init(); 
+
+	  cpc_read_cursor = 0;  
+	  LEDS_OFF; 
 
 	  while (1) {
-
-	    data = cpc_read_cursor != usart_input_buffer_index;
-	    DATA_TO_CPC(data); 
 	    
-	    if (data) {
-
-	      loop_until_bit_is_clear(IOREQ_PIN, IOREQ_WRITE); 
-	      loop_until_bit_is_set(IOREQ_PIN, IOREQ_WRITE); 
-	      
-	      if ( cpc_read_cursor < SEND_BUFFER_SIZE) {
-		data = send_msg[ cpc_read_cursor ]; 
-		cpc_read_cursor++;
-	      } else if ( cpc_read_cursor < TOTAL_BUFFER_SIZE) {
-		data = buffer[cpc_read_cursor - SEND_BUFFER_SIZE];
-		cpc_read_cursor++; 
-		if ( cpc_read_cursor == TOTAL_BUFFER_SIZE) 
-		  // wrap around, ring buffer here 
-		  cpc_read_cursor = 0; 
-	      }
-
-	      SEND_TO_CPC_DATABUS( data); 	      
-	      
-	    }
-	    
-	    loop_until_bit_is_clear(IOREQ_PIN, IOREQ_WRITE); 
+	    TRANSMIT_ON; 
 	    loop_until_bit_is_set(IOREQ_PIN, IOREQ_WRITE); 
+	    loop_until_bit_is_clear(IOREQ_PIN, IOREQ_WRITE); 
+	    TRANSMIT_OFF; 
 
-	    // have to figure out how to leave this mode... 
-	  } // end while
+	    cli(); 
+
+	    databus = cpc_read_cursor != usart_input_buffer_index;
+	    DATA_TO_CPC(databus); 
+	    	    
+	    if (databus) {
+	    
+	      z80_halt;
+
+	      if ( cpc_read_cursor >= SEND_BUFFER_SIZE) 
+		cpc_read_cursor = 0; 
+
+	      databus = send_msg[ cpc_read_cursor ]; 
+	      cpc_read_cursor++;
+
+	      z80_run;
+	    
+	      READY_ON; 
+	      loop_until_bit_is_set(IOREQ_PIN, IOREQ_WRITE); 
+	      loop_until_bit_is_clear(IOREQ_PIN, IOREQ_WRITE); 	      
+	      DATA_TO_CPC(databus); 
+	      READY_OFF; 
+
+	      // SOFT MIDI THROUGH: 
+	      USART_Transmit1(databus); 
+	    	      
+	    }	 
+
+	    sei(); 
+
+	  } // end while - cannot exit here! 
 
 	  usart_ring_buffer = 0; 
 	  
 	  break;	  
+
+	case 50 : // USART MONITOR NEW - WITH COMMANDS FROM CPC 
+
+	  usart_ring_buffer = 1;  // wrap around! 
+
+	  usart_input_buffer_index = 0; 
+	  SERIAL_ON; 
+
+	  usart_init(); 
+
+	  cpc_read_cursor = 0;  
+	  LEDS_OFF; 
+
+	  direct_mode = 0; // used for sending / buffering! 
+	  databus1 = 0; // used for sending / buffering! 
+
+	  while (1) {	  
+
+	    TRANSMIT_ON;  
+	    SERIAL_ON; 
+
+	    if (direct_mode) {
+	      USART_Transmit1(databus1);	       
+	      direct_mode = 0; 
+	      // wait for transmit to finish: 
+	      // TXC0 becomes 1 when Transmission Complete
+	      while ( !( UCSR0A & (1<<TXC0)) ) {  }; 
+	      _delay_us(500); 
+	    }
+
+	    z80_run;
+	    
+	    loop_until_bit_is_set(IOREQ_PIN, IOREQ_WRITE); 	    
+	    loop_until_bit_is_clear(IOREQ_PIN, IOREQ_WRITE); 	      
+
+	    cli(); // protect from interrupts 
+	    LAMBDA_EPSON_ON; 
+	    DATA_FROM_CPC(databus); 
+	    SERIAL_ON;  
+	    sei(); 
+
+	    TRANSMIT_OFF; 
+
+	    if (databus == 255) {
+
+	      // read second byte... 255 is escape symbol 
+	      READY_ON; 
+
+	      loop_until_bit_is_set(IOREQ_PIN, IOREQ_WRITE); 
+	      loop_until_bit_is_clear(IOREQ_PIN, IOREQ_WRITE); 	      
+
+	      z80_halt;
+
+	      cli(); 
+	      LAMBDA_EPSON_ON; 
+	      DATA_FROM_CPC(databus); 
+	      SERIAL_ON;  
+	      sei(); 
+
+	      READY_OFF; 	      
+
+	      if (databus == 20) {
+		z80_run;
+		break; 
+	      } else if (databus == 255) {
+		direct_mode = 1; 
+		databus1 = 255; 
+	      } else {
+		// do nothing 
+	      }
+	    } else {
+	      direct_mode = 1; 
+	      databus1 = databus; 
+	    }
+
+	    databus = cpc_read_cursor != usart_input_buffer_index;
+	    DATA_TO_CPC(databus); 
+	    	    
+	    if (databus) {
+	    
+	      if ( cpc_read_cursor >= SEND_BUFFER_SIZE) 
+		cpc_read_cursor = 0; 
+
+	      databus = send_msg[ cpc_read_cursor ]; 
+	      cpc_read_cursor++;
+
+	      z80_run;
+
+	      READY_ON; 
+	      loop_until_bit_is_set(IOREQ_PIN, IOREQ_WRITE); 
+	      loop_until_bit_is_clear(IOREQ_PIN, IOREQ_WRITE); 	      
+	      DATA_TO_CPC(databus); 
+	      READY_OFF; 
+
+	    }	 
+	    
+	  } // end while - cannot exit here! 
+
+	  usart_ring_buffer = 0; 
 	  
+	  break;	  
+
+
 	case 1 :  // write USART single byte 
 
-	  serial_ready;  
-	  READ_ARGUMENT_FROM_DATABUS_NO_LEDS(databus); 
-	  serial_busy;  
+	  // z80_run;
+
+	  READ_ARGUMENT_FROM_DATABUS(databus); 
+
+	  // z80_halt; 
 
 	  USART_Transmit(databus); 
 
@@ -336,52 +467,54 @@ void usart_mode_loop(void) {
 
 	case 8 : // get byte for CPC at current USART input buffer position
 
-	  data = 0; 	    
+	  databus = 0; 	    
 
 	  // if (cpc_read_cursor >= 0 && cpc_read_cursor < buffer_index ) {
 
 	  if (cpc_read_cursor != usart_input_buffer_index ) {
 
 	    if ( cpc_read_cursor < SEND_BUFFER_SIZE) {
-	      data = send_msg[ cpc_read_cursor ]; 
+	      databus = send_msg[ cpc_read_cursor ]; 
 	    } else if ( cpc_read_cursor < TOTAL_BUFFER_SIZE) {
-	      data = buffer[ cpc_read_cursor - SEND_BUFFER_SIZE];
+	      databus = buffer[ cpc_read_cursor - SEND_BUFFER_SIZE];
 	    }
 	  }
 
-	  SEND_TO_CPC_DATABUS( data); 
+	  SEND_TO_CPC_DATABUS( databus); 
 	    
 	  break; 
 
 	case 9 : // get next byte for CPC in USART input buffer
 
-	  data = 0; 
+	  databus = 0; 
 	  
 	  // if (cpc_read_cursor >= 0 && cpc_read_cursor < buffer_index ) {
 
 	  if (cpc_read_cursor != usart_input_buffer_index ) {
 	    
 	    if ( cpc_read_cursor < SEND_BUFFER_SIZE) {
-	      data = send_msg[ cpc_read_cursor ]; 
+	      databus = send_msg[ cpc_read_cursor ]; 
 	      cpc_read_cursor++;
 	    } else if ( cpc_read_cursor < TOTAL_BUFFER_SIZE) {
-	      data = buffer[cpc_read_cursor - SEND_BUFFER_SIZE];
+	      databus = buffer[cpc_read_cursor - SEND_BUFFER_SIZE];
 	      cpc_read_cursor++;
 	    }
 	  }
 
-	  SEND_TO_CPC_DATABUS( data); 
+	  SEND_TO_CPC_DATABUS( databus); 
 
 	  break;
 
 	case 11 : // set cursor to given byte position 
 
-	  serial_ready;  
-	  READ_ARGUMENT_FROM_DATABUS_NO_LEDS(lo_byte); 
-	  READ_ARGUMENT_FROM_DATABUS_NO_LEDS(hi_byte); 
-	  serial_busy;  
+	  // z80_run;
+
+	  READ_ARGUMENT_FROM_DATABUS(databus); 
+	  READ_ARGUMENT_FROM_DATABUS(databus1); 
+
+	  // z80_halt; 
 	  
-	  cpc_read_cursor = lo_byte + (hi_byte << 8); 
+	  cpc_read_cursor = databus + (databus1 << 8); 
 	  	  
 	  break;
 
@@ -436,6 +569,8 @@ void usart_mode_loop(void) {
 
 	case 20 : 
 	  
+	  // z80_run; 
+
 	  usart_off(); 	   
 	  LAMBDA_EPSON_ON; 	  	    
 	  serial_busy;  
@@ -454,46 +589,57 @@ void usart_mode_loop(void) {
 
 	case 30 : // set BAUDRATE
 
-	  serial_ready;  	  
-	  READ_ARGUMENT_FROM_DATABUS_NO_LEDS(SERIAL_BAUDRATE); 
-	  serial_busy;  	  
+	  // z80_run;
 
-	  usart_off(); 
-	  usart_on(); 
+	  READ_ARGUMENT_FROM_DATABUS(SERIAL_BAUDRATE); 
+
+	  // z80_halt;
+
+	  usart_init(); 
 
 	  break; 
 
 	case 31 : // set WIDTH
-	  
-	  serial_ready;  	  
-	  READ_ARGUMENT_FROM_DATABUS_NO_LEDS(SERIAL_WIDTH); 
-	  serial_busy;  	  
 
-	  usart_off(); 
-	  usart_on(); 
+	  // z80_run; 
+
+	  READ_ARGUMENT_FROM_DATABUS(SERIAL_WIDTH); 
+
+	  // z80_halt; 
+
+	  usart_init(); 
 
 	  break; 
 
 	case 32 : // set PARITY
-	  
-	  serial_ready;  	  
-	  READ_ARGUMENT_FROM_DATABUS_NO_LEDS(SERIAL_PARITY); 
-	  serial_busy;  	  
 
-	  usart_off(); 
-	  usart_on(); 
+	  // z80_run; 
+	  
+	  READ_ARGUMENT_FROM_DATABUS(SERIAL_PARITY); 
+
+	  // z80_halt; 
+
+	  usart_init(); 
  
 	  break; 
 
 	case 33 : // set STOP_BITS
+
+	  // z80_run; 
 	  
-	  serial_ready;  	  
-	  READ_ARGUMENT_FROM_DATABUS_NO_LEDS(SERIAL_STOP_BITS); 
-	  serial_busy;  	  
+	  READ_ARGUMENT_FROM_DATABUS(SERIAL_STOP_BITS); 
 
-	  usart_off(); 
-	  usart_on(); 
+	  // z80_halt;
 
+	  usart_init(); 
+
+	  break; 
+
+	case 55 : // TEST  
+	  
+	  READ_ARGUMENT_FROM_DATABUS(databus); 
+	  DATA_TO_CPC(databus);  
+	  
 	  break; 
 
 	case 0xF2 : get_full_mode(); break; 
@@ -504,7 +650,7 @@ void usart_mode_loop(void) {
 	  SERIAL_ON; 
 
 	  break; 
-
+ 
 	}
       }
 
@@ -528,3 +674,6 @@ void usart_mode_loop(void) {
     }   
   }
 }
+
+#endif 
+
