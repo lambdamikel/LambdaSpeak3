@@ -479,7 +479,7 @@ Please note that TX-RX and RX-TX is required for the Catalex MP3 Module.
 ##### MIDI Boards  
 
 I have successfully connected the 8 $ [ubld.it Midi Breakout board](https://ubld.it/products/midi-breakout-board/), and other MIDI boards should work without problems as well.
-Please note that TX-TX and RX-RX is required for the ubld.it board.  LambdaSpeak 3 supports BAUD mode 6, which configures it for 31250 BAUDs as required for MIDI (and 8N1 is standard setting already). Please have a look at the `MIDI.BAS` program on the [`LS300.DSK`](cpc/lambda/LS300.dsk). 
+Please note that TX-TX and RX-RX is required for the ubld.it board.  LambdaSpeak 3 supports BAUD mode 6, which configures it for 31250 BAUDs as required for MIDI (and 8N1 is standard setting already). 
 
 ![MIDI with LambdaSpeak 3](images/midi-cpc1.JPG)
 
