@@ -488,7 +488,7 @@ Please note that TX-TX and RX-RX is required for the ubld.it board.  LambdaSpeak
 
 MIDI OUT is easy to achieve either using the Serial Direct Mode, or the Buffered Mode, and even BASIC is sufficient. For simple MIDI OUT message sending from BASIC, please have a look at the `MIDIOUT.BAS` program on the [`LS300.DSK`](cpc/lambda/LS300.dsk) disk. 
 
-However, for MIDI IN, an assembler / Z80  machine code program is required, and LambdaSpeak 3 offers two special high-speed serial sub-modes for realtime processing of serial / MIDI messages. These sub-modes are 
+However, for MIDI IN, an assembler / Z80  machine code program is required, and **LambdaSpeak 3 offers two special high-speed serial sub-modes for realtime processing of serial / MIDI messages.** These sub-modes are 
   - sub-mode 10 and 
   - sub-mode 50. 
 
