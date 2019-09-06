@@ -492,7 +492,7 @@ However, for MIDI IN, an assembler / Z80  machine code program is required, and 
   - sub-mode 10 and 
   - sub-mode 50. 
 
-These sub-modes are enabled from **within** the serial mode by by sending the sequence `&FF`, `10` and `&FF`, `50`, respectively. **When enabled, these modes run their own message dispatching / listener loops, which are different from the serial mode loop, and also different from the main loop. ** 
+These sub-modes are enabled from **within** the serial mode by by sending the sequence `&FF`, `10` and `&FF`, `50`, respectively. **When enabled, these modes run their own message dispatching / listener loops, which are different from the serial mode loop, and also different from the main loop.** 
 
 Sub-mode 10 is for serial (MIDI IN) input only, whereas sub-mode 50 works in both directions -- input and output (full duplex; MIDI IN / MIDI OUT). 
 The former sub-mode runs slightly faster, and the communication protocol with the CPC is less complicated. 
