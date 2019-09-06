@@ -435,7 +435,7 @@ The following table lists the command bytes in Serial Mode:
 | &FF, 7          | Check if another byte can be read from buffer | 1 if read cursor < input cursor   | 
 | &FF, 8          | Get byte from buffer at read cursor position  | Byte will appear on databus       | 
 | &FF, 9          | Get byte at read cursor position, inc. cursor | Read receive buffer byte by byte  | 
-| &FF, 10         | SERIAL MONITOR FOR MIDI IN ETC.               | Realtime monitoring of Serial In  |         
+| &FF, 10         | SERIAL MONITOR SUB MODE FOR RX / SERIAL IN    | For example, realtime MIDI IN     |         
 | &FF, 11, lo, hi | Set read cursor to position hi*256 + lo       | Use &FF, 8 to read byte at pos    | 
 | &FF, 12         | Set read cursor to 0                          | Does not erase the buffer         |  
 | &FF, 13         | Set read cursor to input cursor position -1   | Read cursor points to last byte   | 
@@ -448,6 +448,7 @@ The following table lists the command bytes in Serial Mode:
 | &FF, 31, width  | Set word width: width = 5...8                 | Default 8 bits                    | 
 | &FF, 32, par.   | Set parity: 0, 1, 2                           | 0=No (Default), 1=Odd, 2=Even     | 
 | &FF, 33, stop   | Set number of stop bits: 1, 2                 | 1 = Default                       | 
+| &FF, 50         | SERIAL MONITOR SUB MODE RX AND TX (SERIAL IO) | For example, realtime MIDI IN/OUT |         
 | &FF, &C3        | Speak Current Mode Info                       | Same &C3 as in speech modes       | 
 | &FF, &F2        | Get Mode Descriptor Byte                      | Same &F2 as in speech modes       | 
 -------------------------------------------------------------------------------------------------------
@@ -484,9 +485,33 @@ Please note that TX-TX and RX-RX is required for the ubld.it board.  LambdaSpeak
 
 ![MIDI with LambdaSpeak 3](images/midi-cpc2.JPG)
 
-Whereas MIDI OUT is easy to achieve either using the Serial Direct Mode or the Buffered Mode, and possible from BASIC, MIDI IN requires a machine code program. A special mode is used for MIDI IN processing - the so-called "Serial Monitor". It is enabled by sending the sequence `&FF`, `10` **while being already in Serial Mode. Hence, the Serial Monitor is a special sub-mode of the Serial Mode.**
 
-The "Serial Monitor" mode supports high speed send and receive of Serial Messages, using the following protocol: 
+MIDI OUT is easy to achieve either using the Serial Direct Mode, or the Buffered Mode, and even BASIC is sufficient. For simple MIDI OUT message sending from BASIC, please have a look at the `MIDIOUT.BAS` program on the [`LS300.DSK`](cpc/lambda/LS300.dsk) disk. 
+
+However, for MIDI IN, an assembler / Z80  machine code program is required, and LambdaSpeak 3 offers two special high-speed serial sub-modes for realtime processing of serial / MIDI messages. These sub-modes are 
+  - sub-mode 10 and 
+  - sub-mode 50. 
+
+These sub-modes are enabled from **within** the serial mode by by sending the sequence `&FF`, `10` and `&FF`, `50`, respectively. **When enabled, these modes run their own message dispatching / listener loops, which are different from the serial mode loop, and also different from the main loop. ** 
+
+Sub-mode 10 is for serial (MIDI IN) input only, whereas sub-mode 50 works in both directions -- input and output (full duplex; MIDI IN / MIDI OUT). 
+The former sub-mode runs slightly faster, and the communication protocol with the CPC is less complicated. 
+
+The **protocol for sub-mode 10** works as follows: 
+
+1. The CPC sends an arbitrary `<byte>` via `OUT &fbee,<byte>`. The `<byte>` does not matter here and is only used as a  a synchronization and handshake signal. 
+2. LambdaSpeak 3 indicates if a byte is available in the UART receive buffer (i.e., something has been received via UART RX which has not been transmitted to the CPC yet), by either putting `0` or `1` on the databus. The CPC now reads from port `&FBEE` via `INP(&fbee)`: 
+   - If `1` is found, then a byte is available: 
+     - The CPC must now request / retrieve the byte from LambdaSpeak 3, by sending another arbitrary byte to port `&FBEE`. 
+     - The next available byte from the receive buffer will now become available at port `&FBEE` for the CPC to read using `INP(&FBEE)`.  
+     - Goto 1. 
+   - Else, `0` is found. No byte is available. 
+     - Goto 1. 
+
+The protocol is best understood by looking at the provided example MAXAM assembler / machine code programs on the [`LS300.DSK`](cpc/lambda/LS300.dsk) disk: 
+the MAXAM assembler / machine code program `MIDISYN.BAS` implements a simple MIDI IN CPC Synthesizer that turns received MIDI NOTE ON / NOTE OFF messages into CPC sounds / notes being played by the CPC's GI AY-3-8912 soundchip. So, you turn the CPC into a MIDI sound module that can be played from any standard MIDI keyboard. 
+
+The **protocol for sub-mode 50** is a bit more involved, as it requires bi-directional communication. This mode uses the following communication protocol: 
 
 1. The CPC sends a `<byte>` for serial transmission via the UART TX / MIDI OUT, using `OUT &fbee,<byte>`. In case it has nothing to transmit, the CPC can send the sequence `255`, `0`. 
 2. LambdaSpeak 3 processes the received `<byte>`. 
@@ -504,13 +529,16 @@ The "Serial Monitor" mode supports high speed send and receive of Serial Message
    - Else, `0` is found. No byte is available.
      - Goto 1. 
 
-The protocol seems a bit involved and this is due to the fact that LambdaSpeak 3 only decodes one IO port. In order to run this protocol fast enough, a Machine Code program is required on the CPC side. BASIC will not be sufficient; the `OUT` and `INP` BASIC commands only act as place holders in the description above. 
+Again, the protocol is best understood by looking at the provided
+example MAXAM assembler programs on the
+[`LS300.DSK`](cpc/lambda/LS300.dsk) disk; the MAXAM assembler /
+machine code program `MIDISYNX.BAS` is an extension of the CPC MIDI
+synthesizer discussed above. In addition to playing the sounds /
+notes, it will also use the protocol above to "echo back" the received
+MIDI IN messages to the TX pin, hence MIDI OUT messages. This
+implements a "soft" MIDI THRU, where the CPC implements the MIDI THRU
+functionality over the MIDI OUT (TX) port. 
 
-The protocol is best understood by looking at the provided example Machine Code programs on the [`LS300.DSK`](cpc/lambda/LS300.dsk) disk:
-- The program `MIDISYNX.BAS` implements a simple MIDI IN CPC Synthesizer. MIDI note on/off messages are received via UART RX / MIDI IN, and are being turned into sound, using the CPC's internal AY-3-8912 sound chip. The MIDI message is also `echoed` back immediately over the UART TX / MIDI OUT port. Hence, this program implements a simple CPC Synthesizer with a "MIDI OUT Soft Thru" feature, illustrating the above protocol and how it can be used for realtime processing of MIDI IN / MIDI OUT messages.  
-- The program `MIDISYN.BAS` is identical, but does not echo back over MIDI OUT. Hence, it only illustrates real time processing of MIDI IN messages. 
-
-Both programs are written in Z80 MAXAM assembler.  
 
 #### I2C Mode 
 
