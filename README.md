@@ -210,6 +210,8 @@ LambdaSpeak 3 plugged into my **LambdaBoard** CPC expansion backplane:
 - [UART MP3 Player](https://youtu.be/NtUVlTJrOkU?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx) 
 - [RS232 Serial Interface Test](https://youtu.be/uKeZEkyIqtg?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx)
 - [FTDI USB Cable Serial Interface Test](https://youtu.be/8MZMzynYyxI?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx)
+- [MIDI IN CPC Synthesizer](https://youtu.be/QzyooJ6n_CE?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx)
+- [MIDI IN CPC Synthesizer & Soft MIDI THROUGH](https://youtu.be/6QqvawZSxjA?list=PLvdXKcHrGqhclo29whlfaO76ge2d-chmx)
 
 #### Older Versions
 
