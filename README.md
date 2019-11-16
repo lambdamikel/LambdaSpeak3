@@ -29,8 +29,7 @@ MIDI Breakout Board from ubld.it is a great choice for MIDI IN/OUT. See below.
 
 ### LambdaSpeak 3 in the Headlines 
 
-LambdaSpeak 3 got a mention in the **Computer Shopper December 2019** issue. 
-I got permission from the chief editor to upload the [excerpt here - check it out!](images/Computer_Shopper_-_December_2019-LS3.pdf) 
+LambdaSpeak 3 got a mention in the **ComputerShopper December 2019** magazine UK issue. I got permission from the editor-in-chief, Madeline Bennett, to upload a brief PDF [excerpt here - check it out!](images/Computer_Shopper_-_December_2019-LS3.pdf) 
 
 ### CPC Connection 
 
