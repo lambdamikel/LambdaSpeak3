@@ -31,6 +31,8 @@ MIDI Breakout Board from ubld.it is a great choice for MIDI IN/OUT. See below.
 
 LambdaSpeak 3 got a mention in the **ComputerShopper December 2019** magazine UK issue. I got permission from the editor-in-chief, Madeline Bennett, to upload a brief PDF [excerpt here - check it out!](images/Computer_Shopper_-_December_2019-LS3.pdf) 
 
+![ComputerShoppper LambdaSpeak 3 featured 12/2019](images/computershopper-ls3.jpg)
+
 ### CPC Connection 
 
 LambdaSpeak 3 is a MX4-compatible IO extension board. To connect it to the CPC, it either requires a cable (edge connector / male Centronics to 50 pin female IDC connector), or a CPC expansion port extender / backplane, such as the "Mother4X" or the "LambdaBoard".
