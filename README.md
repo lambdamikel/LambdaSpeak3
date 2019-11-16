@@ -27,6 +27,10 @@ MIDI Breakout Board from ubld.it is a great choice for MIDI IN/OUT. See below.
   
   7. **General purpose EEPROM Data Storage:** the 128 KBs of EEPROM memory can also be used to store arbitrary data (not only PCM data). Data can be uploaded, stored persistently, and retrieved back via the databus. 128 KBs can be exchanged in 5 seconds. 
 
+### LambdaSpeak 3 in the Headlines 
+
+LambdaSpeak 3 got a mention in the **Computer Shopper December 2019** issue. 
+I got permission from the chief editor to upload the [excerpt here - check it out!](images/Computer_Shopper_-_December_2019-LS3.pdf) 
 
 ### CPC Connection 
 
@@ -719,6 +723,7 @@ tuned, and frequently check his site and the German CPC Wiki for
 updates!  This is where you will also find the ROM and the
 documentation for this fantastic piece of CPC software! Again, many
 Cudos to TFM for making it!!**
+
 
 ### Maker Support 
 
