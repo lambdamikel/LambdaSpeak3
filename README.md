@@ -22,9 +22,7 @@ By using this code, you are also bound to the [Epson license terms for the S1V30
 This project was developed using
 [WinAVR.](http://winavr.sourceforge.net/) In addition, the [AVR
 Programming Libraries](https://github.com/hexagon5un/AVR-Programming)
-from Elliot Williams' book "Make: AVR Programming" are being used. A
-copy of the library is also included in the [src folder of this
-project.](src/atmega8535/)
+from Elliot Williams' book "Make: AVR Programming" are being used. 
 
 ### Building and Maker Support 
 
