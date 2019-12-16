@@ -17,6 +17,24 @@ from the [TextToSpeech click board library from MikroElektronika released under 
 https://github.com/MikroElektronika/Click_TextToSpeech_S1V30120) 
 By using this code, you are also bound to the [Epson license terms for the S1V30120 firmware.](https://global.epson.com/products_and_drivers/semicon/products/speech/voice/sla/s1v30120_init_data.html)  
 
+
+## Requirements 
+
+This project was developed using
+[WinAVR.](http://winavr.sourceforge.net/) In addition, the [AVR
+Programming Libraries](https://github.com/hexagon5un/AVR-Programming)
+from Elliot Williams' book "Make: AVR Programming" are being used. A
+copy of the library is also included in the [src folder of this
+project.](src/atmega8535/)
+
+## Building and Maker Support 
+
+I am able to provide Speak&SID as a kit, or only pre-programmed components (CPLD, ATMega), or even a fully assembled version inlcuding
+a connection cable and/or LambdaBoard expansion board backplane. Send me a mail if you are interrested. Or, just download the sources and build it from the [provided Gerbers](gerbers/speak&sid.zip) and [BOM](schematics/bom.jpg). 
+
+To build the [firmware from source,](src/atmega8535/speaksid/speaksid.c) use `make` and the [provided `Makefile`.](src/atmega8535/speaksid/Makefile) The makefile template is again from Elliot Williams' "AVR Programming" book. See below (Acknowledgements). 
+
+
 ### Introduction
 
 LambdaSpeak 3 is a versatile hardware extension for the Amstrad / Schneider CPC 464 (Plus), 664, and 6128 (Plus) home computer, with a focus on speech synthesis and PCM sample playing. 
