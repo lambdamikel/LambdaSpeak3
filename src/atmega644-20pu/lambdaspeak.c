@@ -35,6 +35,17 @@
 // https://www.michael-wessel.info
 // 
 
+/*
+IMPORTANT LICENSE INFORMATION: 
+LambdaSpeak uses GPL 3. 
+This code uses the Epson S1V30120 firmware image from the TextToSpeech 
+click board library from MikroElektronika released under GPL2: 
+https://github.com/MikroElektronika/Click_TextToSpeech_S1V30120/blob/master/library/include/text_to_speech_img.h
+
+By using this code, you are also bound to the Epson license terms for the S1V30120 firmware:
+https://global.epson.com/products_and_drivers/semicon/products/speech/voice/sla/s1v30120_init_data.html
+*/ 
+
 #include "25LC1024.h" 
 
 #include <avr/pgmspace.h>
