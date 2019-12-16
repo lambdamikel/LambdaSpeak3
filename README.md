@@ -6,6 +6,10 @@
 #### Additional Ideas: Zhulien from the [CPC Wiki Board](http://www.cpcwiki.eu/forum/index.php)
 #### License: GPL 3
 
+### News
+
+I have decided to publish [the WinAVR C sources for LambdaSpeak 3](src/atmega644-20pu/). The  [main C firmware file](src/atmega644-20pu/lambdaspeak.c) is shared among LambdaSpeak 1.95, LambdaSpeak 1.99, and LambdaSpeak 3, so please make sure to have `#define LS300` defined. 
+
 ### Introduction
 
 LambdaSpeak 3 is a versatile hardware extension for the Amstrad / Schneider CPC 464 (Plus), 664, and 6128 (Plus) home computer, with a focus on speech synthesis and PCM sample playing. 
@@ -732,6 +736,13 @@ The Gerbers and Firmware and all specs (BOM, ...) are all open source and in pri
 LambdaSpeak 3, please contact me. 
 
 ### Acknowledgements
+
+Thanks to [Teodor Costachioiuo](https://electronza.com/about-me/) for
+the [Talking Clock Tutorial with the Mikroelektronika Text to Speech
+Clock Board](https://electronza.com/wp-content/uploads/2017/09/talking_clock-1.zip);
+I have rewritten this (Arduino) code and ported it to WinAVR.
+
+Elliot Wiliams for his book "Make: AVR Programming" and [corresponding sources /AVR Programming Libraries.](https://github.com/hexagon5un/AVR-Programming).
 
 TFM (Dr. Stefan Stumpferl) for the RSX driver and CPC ROM, ideas, enthusiasm, friendship! 
 

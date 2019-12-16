@@ -1,0 +1,110 @@
+NET "i_IORQ"    LOC = "p75" ;
+NET "i_WR"      LOC = "p77" ;
+NET "i_RD"      LOC = "p76" ; 
+
+//
+// 4 Status Bits for Mode Selection
+// Also controlls the OUTPUT CPLD STATUS LEDS! 
+// 
+
+NET "i_AMDRUM_OR_EPSON_ON"    LOC = "p32" ; 
+NET "i_SPO256_ON"             LOC = "p26" ; 
+
+NET "i_SSA1_MODE"      LOC = "p36" ; 
+NET "i_DKTRONICS_MODE" LOC = "p34" ; 
+
+//
+//
+
+NET "i_EPSON_SLAVE_OUT"   LOC = "p79" ; 
+NET "o_EPSON_SLAVE_OUT"   LOC = "p81" ; 
+
+//
+//
+//
+
+NET "i_CHIP_SELECT"   LOC = "p25" ; 
+
+NET "o_EPSON_SELECT"  LOC = "p23" ; 
+NET "o_EEPROM_SELECT" LOC = "p24" ; 
+
+//
+//
+// 
+
+NET "i_SPO256_SBY"   LOC = "p56" ; 
+NET "i_SPO256__LRQ"  LOC = "p55" ;  
+
+NET "iADR<0>"   LOC = "p1" ; 
+NET "iADR<1>"   LOC = "p2" ; 
+NET "iADR<2>"   LOC = "p3" ; 
+NET "iADR<3>"   LOC = "p4" ; 
+NET "iADR<4>"   LOC = "p5" ; 
+NET "iADR<5>"   LOC = "p6" ; 
+NET "iADR<6>"   LOC = "p7" ; 
+NET "iADR<7>"   LOC = "p9" ; 
+NET "iADR<8>"   LOC = "p10" ; 
+NET "iADR<9>"   LOC = "p11" ; 
+NET "iADR<10>"   LOC = "p12" ; 
+NET "iADR<11>"   LOC = "p13" ; 
+NET "iADR<12>"   LOC = "p14" ; 
+NET "iADR<13>"   LOC = "p15" ; 
+NET "iADR<14>"   LOC = "p17" ; 
+NET "iADR<15>"   LOC = "p18" ; 
+
+NET "oSPEECH_WRITE" LOC = "p31" ; 
+
+NET "ioCPC_DATA<0>"   LOC = "p65" ; 
+NET "ioCPC_DATA<1>"   LOC = "p66" ; 
+NET "ioCPC_DATA<2>"   LOC = "p67" ; 
+NET "ioCPC_DATA<3>"   LOC = "p68" ; 
+NET "ioCPC_DATA<4>"   LOC = "p69" ; 
+NET "ioCPC_DATA<5>"   LOC = "p70" ; 
+NET "ioCPC_DATA<6>"   LOC = "p80" ;  // !!!!
+NET "ioCPC_DATA<7>"   LOC = "p72" ; 
+
+NET "iATMEGA_DATA<0>"   LOC = "p53" ; 
+NET "iATMEGA_DATA<1>"   LOC = "p52" ; 
+NET "iATMEGA_DATA<2>"   LOC = "p51" ; 
+NET "iATMEGA_DATA<3>"   LOC = "p50" ; 
+NET "iATMEGA_DATA<4>"   LOC = "p48" ; 
+NET "iATMEGA_DATA<5>"   LOC = "p46" ; 
+NET "iATMEGA_DATA<6>"   LOC = "p44" ; 
+NET "iATMEGA_DATA<7>"   LOC = "p40" ; 
+
+
+NET "oATMEGA_DATA<0>"   LOC = "p33" ; 
+NET "oATMEGA_DATA<1>"   LOC = "p35" ; 
+NET "oATMEGA_DATA<2>"   LOC = "p37" ; 
+NET "oATMEGA_DATA<3>"   LOC = "p39" ; 
+NET "oATMEGA_DATA<4>"   LOC = "p41" ; 
+NET "oATMEGA_DATA<5>"   LOC = "p43" ; 
+NET "oATMEGA_DATA<6>"   LOC = "p45" ; 
+NET "oATMEGA_DATA<7>"   LOC = "p47" ; 
+
+
+//
+//
+// from CPLD to ATMega - "o" feeds into ATMega input, and vice versa 
+// 
+
+NET "oSERIAL_RX" LOC = "p61" ;  // goes to ATMega RX0 = PD0 = ATMega Serial Input
+NET "iSERIAL_TX" LOC = "p62" ;  // goes to ATMega TX0 = PD1 = ATMega Serial Output
+
+//
+// ... and these go to the outside world then, SERIAL IO HEADER ON BOARD: 
+// 
+
+NET "iRX" LOC = "p82" ;  // CPLD Serial RX -> routing -> ATMega Serial RX Input 
+NET "oTX" LOC = "p83" ;  // CPLD Serial TX -> routing -> ATMega Serial TX Output
+
+//
+// LEDs 
+// 
+
+NET "oEPSON_ON"  LOC = "p57" ; 
+NET "oSPO256_ON" LOC = "p58" ; 
+NET "oAMDRUM_ON" LOC = "p54" ; 
+NET "oSSA1_MODE" LOC = "p19" ; 
+NET "oDK_MODE"   LOC = "p20" ; 
+
