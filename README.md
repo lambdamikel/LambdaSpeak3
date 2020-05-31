@@ -10,6 +10,12 @@
 
 I have decided to publish [the WinAVR C sources for LambdaSpeak 3](src/atmega644-20pu/). The  [main C firmware file](src/atmega644-20pu/lambdaspeak.c) is shared among LambdaSpeak 1.95, LambdaSpeak 1.99, and LambdaSpeak 3, so please make sure to have `#define LS300` defined. 
 
+#### It is end of May 2020, and the last LambdaSpeak 3 "deluxe edition" has been sold and goes to Germany!  It started making and selling them a year ago, and during that time I managed to sell 20 of them. Due to the labor-intensive assembly process - it takes me about 5 to 6 hours to assemble and test one LambdaSpeak 3 --, and because of its rather high price point, I have stopped LambdaSpeak 3 production now. This should not stop you to try for yourself to assemble one, though - everything you need is in this GitHub! 
+
+So, here is a picture of **the last LambdaSpeak 3**:
+
+![The Last LambdaSpeak 3](images/last-one.jpg)
+
 ### Important License Information
 
 LambdaSpeak uses GPL 3. This code uses the [Epson S1V30120 firmware image]( https://github.com/MikroElektronika/Click_TextToSpeech_S1V30120/blob/master/library/include/text_to_speech_img.h)
