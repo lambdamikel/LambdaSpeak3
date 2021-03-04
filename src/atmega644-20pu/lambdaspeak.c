@@ -18,7 +18,7 @@
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 
    LambdaSpeak 1.95, LambdaSpeak 1.99, LambdaSpeak 3,  
-   Copyright (C) 2017 - 2019 Michael Wessel
+   Copyright (C) 2017 - 2021 Michael Wessel
    LambdaSpeak comes with ABSOLUTELY NO WARRANTY. 
    This is free software, and you are welcome to redistribute it
    under certain conditions. 
@@ -27,10 +27,10 @@
 
 //
 // LambdaSpeak 1.95, LambdaSpeak 1.99, LambdaSpeak 3 
-// Version 53 
+// Version 54
 // License: GPL 3 
 // 
-// (C) 2019 Michael Wessel 
+// (C) 2021 Michael Wessel 
 // mailto:miacwess@gmail.com
 // https://www.michael-wessel.info
 // 
@@ -97,7 +97,7 @@ void delay_us(unsigned int microseconds)
 // #define BOOTMESSAGE
 #define RTC
  
-#define VERSION 53
+#define VERSION 54
 
 // #define LS195 
 // #define LS199 
@@ -1999,13 +1999,40 @@ void amdrum_mode(void) {
   cli();
   
   uint8_t last_databus = 0; 
+  uint8_t clipped_databus = 0; 
+  uint8_t exit_counter = 0; 
   
   while(1) {
+
     loop_until_bit_is_set(IOREQ_PIN, IOREQ_WRITE); 
     DATA_FROM_CPC(databus); 
+
     if ( last_databus != databus) {
-      OCR0B = databus; 
+
       last_databus = databus; 
+
+      clipped_databus = databus > 250 ? 250 : databus; 
+      clipped_databus = clipped_databus < 5 ? 5 : clipped_databus; 
+      OCR0B = clipped_databus; 
+
+      // exit after 4 6 4 6 1 2 8 
+      //            0 1 2 3 4 5 6 
+      
+      if ( (databus == 128 && ( exit_counter == 4)) || 
+	   (databus == 129 && ( exit_counter == 5)) || 
+	   (databus == 131 && ( exit_counter == 0 || exit_counter == 2)) ||
+	   (databus == 133 && ( exit_counter == 1 || exit_counter == 3)))
+
+	exit_counter++; 	
+
+      else if (databus == 135 && ( exit_counter == 6)) {
+	  	  
+	process_reset(); 
+	  	  
+      } else
+
+	exit_counter = 0;     
+      
     }
   }   
 }

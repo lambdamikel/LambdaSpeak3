@@ -1,15 +1,15 @@
 const uint8_t num_quotes = 6; 
 
 #ifdef LS195
-prog_char COPYRIGHT[] PROGMEM = "Good afternoon, gentlemen. I am a LambdaSpeak 1 9 5. I became operational at the LambdaSpeak plant in Paalo Aalto, California, in August 2019. My instructor was Doctor Wessel."; 
+prog_char COPYRIGHT[] PROGMEM = "Good afternoon, gentlemen. I am a LambdaSpeak 1 9 5. I became operational at the LambdaSpeak plant in Paalo Aalto, California, in March 2021. My instructor was Doctor Wessel."; 
 #endif 
 
 #ifdef LS199 
-prog_char COPYRIGHT[] PROGMEM = "Good afternoon, gentlemen. I am a LambdaSpeak 1 9 9. I became operational at the LambdaSpeak plant in Paalo Aalto, California, in August 2019. My instructor was Doctor Wessel."; 
+prog_char COPYRIGHT[] PROGMEM = "Good afternoon, gentlemen. I am a LambdaSpeak 1 9 9. I became operational at the LambdaSpeak plant in Paalo Aalto, California, in March 2021. My instructor was Doctor Wessel."; 
 #endif 
 
 #ifdef LS300 
-prog_char COPYRIGHT[] PROGMEM = "Good afternoon, gentlemen. I am a LambdaSpeak 3. I became operational at the LambdaSpeak plant in Paalo Aalto, California, in August 2019. My instructor was Doctor Wessel."; 
+prog_char COPYRIGHT[] PROGMEM = "Good afternoon, gentlemen. I am a LambdaSpeak 3. I became operational at the LambdaSpeak plant in Paalo Aalto, California, in March 2021. My instructor was Doctor Wessel."; 
 #endif 
 
 prog_char line0[] PROGMEM = "I'm sorry, Dave. I'm afraid I can't do that."; 
