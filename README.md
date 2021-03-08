@@ -8,7 +8,7 @@
 
 ### News 
 
-You know you are on the right track with your OpenSource project when it gets picked up by some third party "manufacturer! Thanks to [https://chipkin.ru/](https://chipkin.ru/product/pechatnaya-plata-14/] for manufacturing my LambdaSpeak 3 PCB and distributing it on eBay and in Russia! These guys have a strong tradition of retro computer homebrews (think of all the Speccy clones... even back in the 80s). I have no idea what the website says, but here you go - enjoy: 
+You know you are on the right track with your OpenSource project when it gets picked up by some third party "manufacturer! Thanks to [https://chipkin.ru/](https://chipkin.ru/product/pechatnaya-plata-14/) for manufacturing my LambdaSpeak 3 PCB and distributing it on eBay and in Russia! These guys have a strong tradition of retro computer homebrews (think of all the Speccy clones... even back in the 80s). I have no idea what the website says, but here you go - enjoy: 
 
 ![The Last LambdaSpeak 3](images/chipkinru.jpg)
 
