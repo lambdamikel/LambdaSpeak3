@@ -6,7 +6,16 @@
 #### Additional Ideas: Zhulien from the [CPC Wiki Board](http://www.cpcwiki.eu/forum/index.php)
 #### License: GPL 3
 
-### News
+### News 
+
+You know you are on the right track with your OpenSource project when it gets picked up by some third party "manufacturer! Thanks to [https://chipkin.ru/](https://chipkin.ru/product/pechatnaya-plata-14/] for manufacturing my LambdaSpeak 3 PCB and distributing it on eBay and in Russia! These guys have a strong tradition of retro computer homebrews (think of all the Speccy clones... even back in the 80s). I have no idea what the website says, but here you go - enjoy: 
+
+![The Last LambdaSpeak 3](images/chipkinru.jpg)
+
+I really wish somebody would manufacture the complete board though! Anybody? :-) 
+
+
+### Older News
 
 I have decided to publish [the WinAVR C sources for LambdaSpeak 3](src/atmega644-20pu/). The  [main C firmware file](src/atmega644-20pu/lambdaspeak.c) is shared among LambdaSpeak 1.95, LambdaSpeak 1.99, and LambdaSpeak 3, so please make sure to have `#define LS300` defined. 
 
