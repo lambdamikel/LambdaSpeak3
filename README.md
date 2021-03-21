@@ -8,16 +8,44 @@
 
 ### News 
 
+Here is a [great demo video by Manfred Gross, showing LambdaSpeak 3 and
+Speak&SID in action!](https://youtu.be/c94lG-UYBnE) 
+
+![Manfred's CPC](images/manfred.png)
+
+What an amazing CPC 6128 setup - unbelievable that all these hardware
+extensions coexist on one Z80 databus!
+
+This was a bit challenging to achieve, because both Speak&SID and
+LambdaSpeak emulate the SSA-1 Speech Synthesizer, and hence occupy the
+same port `&FBEE`. He was looking for a solution that would allow him
+to have all expansions connected to the CPC permanentely, without
+having to remove and add cards all the time. We tried various
+after-market "hacks" in order to support this and came up with a
+solution that requires cutting the CPC IOREQ trace on the LS3 and
+Speak&SID PCBs. This signal usually goes into the CPLD address
+decoder. Do disable the signal, a 2-position switch is used that
+either connects the CPLD pin to the IOREQ signal from the CPC, or
+disables it by connecting it to +5V / VCC via a 4.7 kOhm resistor.
+That way, each card (LS3 and Speak&SID) can be en- and disabled
+individually with a switch. I should have though of such a switch in
+the first place. Fortunately, this is a straight-forward PCB
+modification, even if it requires cutting a PCB trace though and some
+soldering.
+
+### Older News
+
 You know you are on the right track with your OpenSource project when it gets picked up by some third party "manufacturer! Thanks to [https://chipkin.ru/](https://chipkin.ru/product/pechatnaya-plata-14/) for manufacturing my LambdaSpeak 3 PCB and distributing it on eBay and in Russia! These guys have a strong tradition of retro computer homebrews (think of all the Speccy clones... even back in the 80s). I have no idea what the website says, but here you go - enjoy: 
 
 ![The Last LambdaSpeak 3](images/chipkinru.jpg)
 
-I really wish somebody would manufacture the complete board though! Anybody? :-) 
+I really wish somebody would manufacture the complete board though! Anybody? :-)
 
-
-### Older News
+*** 
 
 I have decided to publish [the WinAVR C sources for LambdaSpeak 3](src/atmega644-20pu/). The  [main C firmware file](src/atmega644-20pu/lambdaspeak.c) is shared among LambdaSpeak 1.95, LambdaSpeak 1.99, and LambdaSpeak 3, so please make sure to have `#define LS300` defined. 
+
+*** 
 
 It is end of May 2020, and the last LambdaSpeak 3 "deluxe edition" has been sold and goes to Germany!  It started making and selling them a year ago, and during that time I managed to sell 20 of them. Due to the labor-intensive assembly process - it takes me about 5 to 6 hours to assemble and test one LambdaSpeak 3 -, and because of its rather high price point, I have stopped LambdaSpeak 3 production now. This should not stop you from trying to make one for yourself though - everything you need is in this GitHub! 
 
