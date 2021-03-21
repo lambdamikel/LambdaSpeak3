@@ -28,10 +28,9 @@ decoder. Do disable the signal, a 2-position switch is used that
 either connects the CPLD pin to the IOREQ signal from the CPC, or
 disables it by connecting it to +5V / VCC via a 4.7 kOhm resistor.
 That way, each card (LS3 and Speak&SID) can be en- and disabled
-individually with a switch. I should have though of such a switch in
-the first place. Fortunately, this is a straight-forward PCB
-modification, even if it requires cutting a PCB trace though and some
-soldering.
+individually with a switch. I should have thought of such a switch in
+the first place. Fortunately, this is a straight-forward PCB mod, even
+if it requires cutting a track and some soldering.
 
 ### Older News
 
