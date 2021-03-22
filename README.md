@@ -33,6 +33,17 @@ and off individually with a switch. I should have thought of such a
 switch in the first place. Fortunately, this is a straight-forward PCB
 mod, even if it requires cutting a track and some soldering.
 
+Here are some annotated images that explain the mod: 
+
+![LS3 Mod 1](images/ls3-1.jpg)
+
+![LS3 Mod 2](images/ls3-2.jpg)
+
+![LS3 Mod 3](images/ls3-3.jpg)
+
+![LS3 Mod 4](images/ls3-4.jpg)
+
+![LS3 Mod 5](images/resistor-4.7k.jpg)
 
 
 ### Older News
