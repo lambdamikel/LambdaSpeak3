@@ -229,7 +229,7 @@ Note that, in the table above, `PC` stands for Power Cycle - the only way of qui
 
 #### Printed Circuit Boards 
 
-LambdaSpeak 3 was made with [KiCad EDA v4.0.7](http://kicad-pcb.org/),
+LambdaSpeak 3 was made with [KiCad EDA v4.0.7](http://kicad.org/),
 and "freeRouting.jar" did the routing.
 
 ![PCB](images/ls3-pcb.jpg) 
