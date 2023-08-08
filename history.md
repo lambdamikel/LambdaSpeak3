@@ -23,7 +23,7 @@ Computer Games"](https://en.wikipedia.org/wiki/BASIC_Computer_Games) a
 voice, and it could even speak German (albeit with strong American
 accent)!
 
-![DK'tronics Speech Synthesizer](./articlepics/dktronics.png =300x300)
+![DK'tronics Speech Synthesizer](./articlepics/dktronics.png)
 
 Whereas the DK'tronics was certainly a cherished item, I was
 nevertheless a bit disappointed by the SP0256-AL2's limited
