@@ -1,6 +1,5 @@
-# LambdaSpeak History 
-
-![Manfred's CPC](images/manfred.png)
+# The Making of LambdaSpeak for the Amstrad CPC 
+## From the humble beginnings as an Arduino Uno-R3 Project to a multi-purpose CPC extension card 
 
 *This is an article which was invited by the Editor of the "Amstrad CPC
 UsACUC (Amstrad CPC User Club Magazine)", Dr. CPC. Unfortunately, the
