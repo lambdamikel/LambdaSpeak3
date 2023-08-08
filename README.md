@@ -20,7 +20,6 @@ Speak&SID in action!](https://youtu.be/c94lG-UYBnE)
 What an amazing CPC 6128 setup - unbelievable that all these hardware
 extensions coexist on one Z80 databus!
 
-
 This was a bit challenging to achieve, because both Speak&SID and
 LambdaSpeak emulate the SSA-1 Speech Synthesizer, and hence occupy the
 same port `&FBEE`. He was looking for a solution that would allow him
@@ -48,6 +47,8 @@ Here are some annotated images that explain the mod:
 ![LS3 Mod 4](images/ls3-4.jpg)
 
 ![LS3 Mod 5](images/resistor-4.7k.jpg)
+
+*** 
 
 You know you are on the right track with your OpenSource project when it gets picked up by some third party "manufacturer! Thanks to [https://chipkin.ru/](https://chipkin.ru/product/pechatnaya-plata-14/) for manufacturing my LambdaSpeak 3 PCB and distributing it on eBay and in Russia! These guys have a strong tradition of retro computer homebrews (think of all the Speccy clones... even back in the 80s). I have no idea what the website says, but here you go - enjoy: 
 
