@@ -2,7 +2,7 @@
 ## From Humble Beginnings as an Arduino Project to a Multi-Purpose CPC Expansion Board
 
 *This is an article that was invited by the editor of the "Amstrad CPC
-UsACUC (Amstrad CPC User Club Magazine)", Dr. CPC. Unfortunately, this 
+ACUC (Amstrad CPC User Club Magazine)", Dr.CPC. Unfortunately, this 
 fanzine no longer seems to exist, and the article never got published,
 so I thought I put it up here. Enjoy!* 
 
