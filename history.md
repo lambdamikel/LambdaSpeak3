@@ -113,7 +113,7 @@ two GAL’s and remaining 72LSxxx glue logic by a single Xilinx CPLD
 chip count and hence costs. Thanks to Bryce, I started to learn
 Verilog and familiarized myself with CPLDs. A CPLD was used for
 LambdaSpeak III (see below) and for some of my future projects (e.g.,
-[Speak&SID for the CPC](https://github.com/lambdamikel/Speak-SID).
+[Speak&SID for the CPC](https://github.com/lambdamikel/Speak-SID))
 
 [TFM of FutureSoft](https://www.cpcwiki.eu/index.php/TFM) joined the
 LambdaSpeak development team in early 2018 - whereas early versions of
