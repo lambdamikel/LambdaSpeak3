@@ -1,10 +1,10 @@
 # The Making of LambdaSpeak for the Amstrad CPC 
-## From the humble beginnings as an Arduino Uno-R3 Project to a multi-purpose CPC extension card 
+## From Humble Beginnings as an Arduino Project to a Multi-Purpose CPC Expansion Board
 
-*This is an article which was invited by the Editor of the "Amstrad CPC
-UsACUC (Amstrad CPC User Club Magazine)", Dr. CPC. Unfortunately, the
-fanzine no longer exists and the article never got publish, so I
-thought I put it up here.*
+*This is an article which was invited by the editor of the "Amstrad
+CPC UsACUC (Amstrad CPC User Club Magazine)", Dr. CPC. Unfortunately,
+the fanzine no longer seems to exist, and the article never got
+publish, so I thought I put it up here.*
 
 My [(LambdaMikel's)](https://hackaday.io/projects/hacker/138722)
 fascination with speech synthesis started in the early 80s, and was
@@ -66,13 +66,16 @@ the display of my beloved DDI-3 HxC disc emulator interface connected
 to my CPC 464. I was just having fun.
 
 ![LambdaSpeak 1 using the Emic-2](articlepics/emic4cpc.jpg)
+![LambdaSpeak 1.5](articlepics/ls1.jpg)
 
 However, Emic-2 was (too) pricey, my first designs were too clunky,
 and so I was looking for an alternative. Realizing that the Emic-2 was
 centered around the **Epson S1V30120 DSP**, I found a module which was
 only half the price, and which became the heart of all future
 LambdaSpeak designs: the Text2Speech "Click!" board from
-MikroElektronika. ![Text2Speech Module](articlepics/epson.png)
+MikroElektronika.
+
+![Text2Speech Module](articlepics/epson.png)
 
 In order to use it, I had to switch to a more powerful
 microcontroller, for which I chose the Atmega 644 with 64 KB of
@@ -93,8 +96,6 @@ in February 2018, DK'tronics and SSA-1 emulation was working well
 enough so that all existing SSA-1 (DK'tronics) software would run with
 LambdaSpeak. LambdaSpeak 1.5 was born, and I started to sell a few
 units to like-minded CPC enthusiasts.
-
-![LambdaSpeak 1.5](articlepics/ls1.jpg)
 
 The first LambdaSpeak customers started to make feature requests. For
 example, Zhulien from the CPC Wiki EU Forum suggested the "Amdrum
