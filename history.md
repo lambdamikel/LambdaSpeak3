@@ -1,10 +1,10 @@
 # The Making of LambdaSpeak for the Amstrad CPC 
 ## From Humble Beginnings as an Arduino Project to a Multi-Purpose CPC Expansion Board
 
-*This is an article which was invited by the editor of the "Amstrad
-CPC UsACUC (Amstrad CPC User Club Magazine)", Dr. CPC. Unfortunately,
-the fanzine no longer seems to exist, and the article never got
-publish, so I thought I put it up here.*
+*This is an article that was invited by the editor of the "Amstrad CPC
+UsACUC (Amstrad CPC User Club Magazine)", Dr. CPC. Unfortunately, this 
+fanzine no longer seems to exist, and the article never got published,
+so I thought I put it up here. Enjoy!* 
 
 My [(LambdaMikel's)](https://hackaday.io/projects/hacker/138722)
 fascination with speech synthesis started in the early 80s, and was
@@ -41,19 +41,17 @@ damaging voice clarity. Later, Amstrad would release the SSA-1 using
 the same chip, but with the extra crystal. In comparison, the SSA-1
 sounds much better than the DK’tronics indeed. I wondered if maybe one
 day I could design a more natural sounding voice synthesizer for the
-CPC that sounded as good as HAL-9000! One day...
+CPC that sounded as good as HAL 9000! One day...
 
 Fast forward 30 years (in 2016), I started tinkering with Arduinos,
 and came across the Emic-2 speech synthesizer module in Palo Alto's
 [Fry's Electronics](https://en.wikipedia.org/wiki/Fry%27s_Electronics)
 store. It's quality of speech blew me away - finally, natural sounding
 speech from a compact, affordable little unit! I realized that this
-unit was the key towards realizing my dream from the 80s. We could now
-build a natural sounding speech synthesizer for the CPC that would
-sound as good as HAL-9000! I learned that the Emic-2 was running the
-legendary [DECtalk speech synthesizer
+unit was the key towards realizing my dream from the 80s. I learned
+that the Emic-2 was running the legendary [DECtalk speech synthesizer
 software](https://en.wikipedia.org/wiki/DECtalk), and that it could
-even sing!
+even sing, just like HAL 9000! 
 
 And, sure enough, in May 2017, I released the first version of
 LambdaSpeak using the Emic-2. Emic-2 was controlled over a serial
@@ -144,33 +142,35 @@ you will still get the DECtalk-based SP0 emulation.
 ![LambdaSpeak 3](articlepics/ls3.jpg)
 
 Eventually, the final versions of LambdaSpeak III featured:
-- natural sounding DECtalk speech synthesis that puts HAL 9000 to shame, supporting English and Castilian Spanish, 
+- natural sounding DECtalk speech synthesis that puts HAL 9000 to shame, supporting English and Castilian Spanish; 
 - the SP0256-AL2 emulation, 
-- an optional SP0256-AL2 as a second speech chip option - if present, LambdaSpeak III is also a SSA-1 and DK'tronics re-implementation that sounds and behaves exactly like the originals, not only an emulation; 
-- the Amdrum PCM sample playing mode, 
-- 128 KBs of (SPI) EEPROM providing arbitrary persistent data storage - it's main purpose is to act as PCM sample memory for the 
-- 8bit hiqh-quality PCM sample player mode, realizing 4-channel PCM sound of unheard quality on the CPC; this mode differs from the Amdrum PCM mode in that the CPC does not have to stream the PCM sample data, but the data is coming from the EEPROM on board of the LS 3, and that it can be played back autonomously by LambdaSpeak with a command issued from the CPC, hence greatly reducing load on the CPC side; 
-- a general purpose serial interface which can be used to control, for example, a serial MP3 player, a MIDI interface breakout board; and finally, 
-- a DS3231 real-time clock with temperature sensor (connected via the I2C protocol).
+- an optional SP0256-AL2 as a second speech chip option - if present, LambdaSpeak III is also a SSA-1 and DK'tronics re-implementation that sounds like the originals; 
+- the Amdrum PCM sample playing mode; 
+- 128 KBs of (SPI) EEPROM providing for non-volatile data storage - it's main purpose is to act as PCM sample memory for the 
+- 8bit hiqh-quality PCM sample player mode, realizing 4-channel PCM sound of unheard quality on the CPC; this mode differs from the Amdrum PCM mode in that the CPC does not have to stream the PCM sample data - instead, the data is coming from the EEPROM and it can be played back autonomously by LambdaSpeak without CPC involvement, hence greatly reducing CPU load; 
+- a general purpose serial interface that can be used to control, for example, a serial MP3 player or a MIDI interface breakout board; and finally, 
+- a battery backed-up real-time clock with temperature sensor (a DS3231 via I2C protocol).
 
-However, LambdaSpeak III turned out to be pricey as well (in the 120 €
-range with SP0-256AL2 chip!), and sales had been slow. Given both
-TFM's as well as LambdaMikels huge time and financial investment in
-developing it, TFM suggested in November 2020 to improve the situation
-by bringing "LambdaSpeak to the masses, not the classes" - the idea to
-develop a much more affordable "cost-down" version was born. Hence,
-the SP0256-AL2 option as well as the EEPROM and extended PCM sample
-playing modes were dropped, and the MP3 and RTC modules were added as
-they were received more favorably than the SP0256-AL2 and EEPROM
-options by customers. LambdaSpeak "FutureSoft Edition", or LFS for
-short, was born!  The slightly reduced capabilities of LFS made a
-massively cost-reduced hardware possible - the expensive (and
-increasingly difficult to source) Xilinx CPLD was replaced by a single
-22V10 GAL for address decoding, accompanied by the same ATmega 644
-microcontroller, and a 74LS374 flip flop in tandem with a 74LS244 line
-driver for CPC databus management. LambdaMikel designed the LFS
-hardware over the Thanksgiving weekend 2021, and delivered a first
-prototype to TFM in December 2021.
+However, LambdaSpeak III turned out to be too pricey as well for broad
+customer acceptance (in the 120 € range with SP0-256AL2 chip!), and
+sales had been slow. Given both TFM's as well as LambdaMikels huge
+time and financial investment in developing it, TFM suggested in
+November 2020 to improve the situation by bringing "LambdaSpeak to the
+masses, not the classes" - the idea to develop a much more affordable
+"cost-down" version was born. Hence, the SP0256-AL2 option as well as
+the EEPROM and extended PCM sample playing modes were dropped, and the
+MP3 and RTC modules were added as they were received more favorably
+than the SP0256-AL2 and EEPROM options by customers. LambdaSpeak
+"FutureSoft Edition", or LFS for short, was born!
+
+The slightly reduced capabilities of LFS made a massively cost-reduced
+hardware possible - the expensive (and increasingly difficult to
+source) Xilinx CPLD was replaced by a single 22V10 GAL for address
+decoding, accompanied by the same ATmega 644 microcontroller, and a
+74LS374 flip flop in tandem with a 74LS244 line driver for CPC databus
+management. LambdaMikel designed the LFS hardware over the
+Thanksgiving weekend 2021, and delivered a first prototype to TFM in
+December 2021.
 
 ![LambdaSpeak FS Front](articlepics/lsfs1.jpg)
 
