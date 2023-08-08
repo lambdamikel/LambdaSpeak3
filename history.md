@@ -16,12 +16,14 @@ Forbin Project"](https://youtu.be/kyOEwiQhzMI),
 When I got my [Schneider CPC 464 with CTM 640 Color
 Monitor](articlepics/mycpc.jpg) for my confirmation in April 1985, the
 first hardware extension that I acquired in July 1985 was the freshly
-released ![**DK'tronics speech synthesizer**](dktronics.png),
-containing the infamous **SP0256-AL2 speech chip** used in so many
-speech synths of that time. Soon it gave the "Eliza" program from
-[David H. Ahl's "BASIC Computer
-Games"](https://en.wikipedia.org/wiki/BASIC_Computer_Games) a voice,
-and it could even speak German (albeit with strong American accent)!
+released **DK'tronics speech synthesizer**, containing the infamous
+**SP0256-AL2 speech chip** used in so many speech synths of that
+time. Soon it gave the "Eliza" program from [David H. Ahl's "BASIC
+Computer Games"](https://en.wikipedia.org/wiki/BASIC_Computer_Games) a
+voice, and it could even speak German (albeit with strong American
+accent)!
+
+![DK'tronics Speech Synthesizer](articlepics/dktronics =300x)
 
 Whereas the DK'tronics was certainly a cherished item, I was
 nevertheless a bit disappointed by the SP0256-AL2's limited
