@@ -83,25 +83,26 @@ DECtalk software (the Emic-2 was hosting this firmware in it's own
 microcontroller).
 
 Whereas the original focus of LambdaSpeak was to provide natural
-sounding speech, it dawned me that it would also be nice if could also
+sounding speech, it dawned me that it would be nice if it could also
 *emulate* the original DK'tronics and SSA-1 speech synthesizers so
-that existing speech synth software and games would run with
-LambdaSpeak. I hence worked out a mapping from SP0256-AL2 "allophones"
-to DECtalk phonemes, and how to emulate the SP0's hardware pins to
-fool the software into thinking that an SSA-1 or DK'tronics was
-connected to the CPC whereas in fact there was a LambdaSpeak. Finally,
-in February 2018, DK'tronics and SSA-1 emulation was working well
-enough so that all existing SSA-1 (DK'tronics) software would run with
+that existing speech synth software (especially games with speech)
+would run with it. I hence worked out a mapping from SP0256-AL2
+"allophones" to DECtalk phonemes and learned how to emulate the SP0
+chip signals so that existing speech software would detect an SSA-1 or
+DK'tronics speech synth when in fact there was a LambdaSpeak.
+Finally, in February 2018, the SP0 emulation was working well enough
+so that existing SSA-1 and DK'tronics speech software would run with
 LambdaSpeak. LambdaSpeak 1.5 was born, and I started to sell a few
 units to like-minded CPC enthusiasts.
 
-The first LambdaSpeak customers started to make feature requests. For
-example, Zhulien from the CPC Wiki EU Forum suggested the "Amdrum
-emulation mode". This mode turns LambdaSpeak into an 8bit,
-high-quality PCM sample player, and the original Amdrum drum computer
-software sounds as good (if not better) with LambdaSpeak as with the
-original Amdrum hardware. Later, TFM ported Prodatron's Digitracker
-(8Bit PCM Sound Tracker) to Amdrum mode as well.
+These first LambdaSpeak customers started to make feature requests!
+For example, Zhulien from the CPC Wiki EU Forum suggested the "Amdrum
+emulation mode". This mode turned LambdaSpeak into a high-quality PCM
+8bit sample player, and the original Amdrum drum computer software
+sounds as good with LambdaSpeak as with the original Amdrum hardware
+(if not better). Later, TFM ported Prodatron's Digitracker (an 8Bit
+PCM Sound Tracker meant for the DigiBlaster) to use the Amdrum mode as
+well.
 
 At some point, Bryce from the CPC Wiki EU Forum also provided some
 guidance and ideas; for example, he reviewed one of my earlier designs
@@ -122,7 +123,7 @@ RSX commands, truly unleashing its full potential! After a number of
 revisions, LambdaSpeak 1.95 was the first feature-complete and stable
 version of which about 20 units were sold in 2018, and which now came
 with TFM’s sophisticated RSX software. Here is a picture of
-LambdaSpeak 1.95 with TFM's RSX ROM in ToTO's Xmem.
+LambdaSpeak 1.95 with TFM's RSX ROM hosted by ToTO's Xmem.
 
 ![LambdaSpeak 1.95](articlepics/ls195.jpg)
 
@@ -136,8 +137,8 @@ speech chip on board, LambdaSpeak III is also a modern
 re-implementation of these classic speech synths, not only an
 emulation. With a SP0256-AL2 on board it sounds exactly like the
 originals, and it also has the proper 3.12 MHz crystal. However, the
-SP0256-AL2 is optional and can be difficult to source, so without it,
-you will still get the DECtalk-based SP0 emulation. 
+SP0256-AL2 is optional and can be difficult to source, so you will
+still get the DECtalk-based SP0 emulation without it.
 
 ![LambdaSpeak 3](articlepics/ls3.jpg)
 
@@ -151,17 +152,17 @@ Eventually, the final versions of LambdaSpeak III featured:
 - a general purpose serial interface that can be used to control, for example, a serial MP3 player or a MIDI interface breakout board; and finally, 
 - a battery backed-up real-time clock with temperature sensor (a DS3231 via I2C protocol).
 
-However, LambdaSpeak III turned out to be too pricey as well for broad
-customer acceptance (in the 120 € range with SP0-256AL2 chip!), and
-sales had been slow. Given both TFM's as well as LambdaMikels huge
-time and financial investment in developing it, TFM suggested in
+Unfortunately, LambdaSpeak III turned out to be too pricey for broad
+customer acceptance (with SP0-256AL2 chip, it was in the 120 € range!),
+and sales had been slow. Given both TFM's as well as LambdaMikel's
+huge time and financial investment in developing it, TFM suggested in
 November 2020 to improve the situation by bringing "LambdaSpeak to the
 masses, not the classes" - the idea to develop a much more affordable
 "cost-down" version was born. Hence, the SP0256-AL2 option as well as
 the EEPROM and extended PCM sample playing modes were dropped, and the
-MP3 and RTC modules were added as they were received more favorably
-than the SP0256-AL2 and EEPROM options by customers. LambdaSpeak
-"FutureSoft Edition", or LFS for short, was born!
+MP3 and RTC modules were added by default as they were received more
+favorably by customers. LambdaSpeak "FutureSoft Edition", or LFS for
+short, was born!
 
 The slightly reduced capabilities of LFS made a massively cost-reduced
 hardware possible - the expensive (and increasingly difficult to
@@ -176,10 +177,10 @@ December 2021.
 
 ![LambdaSpeak FS Back](articlepics/lsfs2.jpg)
 
-TFM started refactoring the ROM software. Finally, the first batch of
-10 LFS was shipped to TFM for distribution in January 2021.
-Eventually, TFM took on production of further units, continued to
-develop the ROM software, provided customer support, shipping, and
+TFM started refactoring the LS III ROM software for LFS. Finally, the
+first batch of 10 LFS was shipped to TFM for distribution in January
+2021.  Eventually, TFM took on production of further units, continued
+to develop the ROM software, provided customer support, shipping, and
 spread the word in the CPC Community.
 
 ![LambdaSpeak FS First Batch](articlepics/lsfs3.jpg)
