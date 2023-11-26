@@ -170,8 +170,8 @@ source) Xilinx CPLD was replaced by a single 22V10 GAL for address
 decoding, accompanied by the same ATmega 644 microcontroller, and a
 74LS374 flip flop in tandem with a 74LS244 line driver for CPC databus
 management. LambdaMikel designed the LFS hardware over the
-Thanksgiving weekend 2021, and delivered a first prototype to TFM in
-December 2021.
+Thanksgiving weekend 2020, and delivered a first prototype to TFM in
+December 2020.
 
 ![LambdaSpeak FS Front](articlepics/lsfs1.jpg)
 
