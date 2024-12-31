@@ -1,0 +1,497 @@
+
+ IMPORTANT									Version: 2019.08.28
+-=========-
+Before you use this RSX expansion, you shall use the command |LSINIT (English mode) or 
+|LSINIC (Catalan/Spanish Mode) to enable all the features of the great LambdaSpeak III.
+If not, the LS3 will just behave like the Amstrad SSA-1 speech synthesizer!
+
+
+LambdaSpeak III Speech Synthesizer, Drum Machine, Sample Player, Real-Time-Clock and MP3/WAV Player
+===================================================================================================
+
+This is a new generation speech synthesizer which emulates/simulates the following expansions:
+
+- EPSOM mode    / - These modes provide different voices and can even sing!
+- DECtalk mode /
+- dk'tronics SPEECH synthesizer
+- Amstrad SSA1 synthesizer
+- Amdrum drum kit
+- PCM Sample player
+- MP3 / WAV player
+- Real-Time-Clock
+- MIDI (with little expansion cars, connected via serial connection)
+
+
+Software support: ROM with RSX commands, Z80 library, FutureOS and some games
+
+
+RSX Library for the LambdaSpeak III expansion interface
+-------------------------------------------------------
+To use the RSX commands you either put disc in your drive and type: run"disc
+Or you can install the "LS3.ROM" as an expansion ROM. It contains all RSX commands and more.
+
+Before we start:
+----------------
+To use LambdaSpeak III in the mighty Epson mode you type the RSX command |LSINIT or |LSINIC.
+This initializes LambdaSpeak III, which is in SSA1 mode when you switch on your CPC or Plus.
+
+
+List of Commands
+================
+
+The RSX command |LSHELP will display this list on your screen:
+
+RSX commands for LambdaSpeak III:
+---------------------------------
+|LSINIT / |LSINIC --> Use commands to initialize LambdaSpeak III after reset!
+|RESET             |STOP             |SP,@text$      |LAMBDASPEAK,@text$
+|SETVOLUME,0-15    |GETVOLUME,@v%    |SETVOICE,0-15  |GETVOICE,@v%
+|SETSPEED,0-15     |GETSPEED,@v%     |SETDELAY,0-15  |GETDELAY,@v%
+|SPEAKMODE         |GETLANGUAGE,@v%  |ENGLISH        |SPANISH
+|LAMBDA            |SSA1             |DECTALK        |DKTRONICS
+|SSASP0            |DKSP0            |SERIAL         |SEROFF
+|GETMODE,@v%       |GETFMODE,@v%     |BLOCKOFF       |BLOCKON
+|CONFOFF           |CONFON           |GETFAST        |GETMED         |GETSLOW
+|SPEAKINFO         |SPSCREEN         |SPFILE,file$   |DAISY          |BIGWATCH
+|HAL9000           |AMDRUM           |PCMTEST        |GETVERSION,@v% |LED,0-255
+|PLAY,address,length,delay           |EPLAY,address,length/64,delay,E-RAM
+|XBLKON            |XBLKOFF          |SAYTIME        |SAYDATE        |SAYTEMP
+|SETTIME, hour , minute , second     |SETDATE, year , month , day , dow 
+|GETTIME,@hour%,@minute%,@second%    |GETDATE,@year%,@month%,@day%,@dow%
+|PCMUP,adr,StP,#P  |PCMMODE,1-4      |PCMPLAY,chan,sample_#,#_pages,rate
+|EECLR             |EETEST           |EEGET,adr,page |EEUP,adr,StPage,#pages
+|MP3SLEEP          |MP3WAKE          |GETTEMP,@t%    |HIBERNATE      |RESUME
+|MP3PLAY,song      |MP3XPLAY,dir,sng |MP3PLAYC,song  |MP3PLAYF,folder(01-99)
+|MP3VOL,vol(0-30)  |MP3STOP          |MP3HOLD        |MP3CONT        |MP3RES
+
+|LSHELP --> will display this message. Support via PayPal: tfm@futureos.de (don't email, not connected)
+
+Support can be reached using: FutureSoft@gmx.de (don't use TFM@FutureOS.de)
+
+
+Commands to control LambdaSpeak III:
+------------------------------------
+
+Attention: One of the two following commands shall be used before you can use the power of LambdaSpeak III
+
+|LSINIT: Initializes the LambdaSpeak III when using the LambdaSpeak III ROMs. The following steps are carried out: 
+         The passing of parameters is switched to 'fast' (using |GETFAST), the language is set to English (|ENGLISH), 
+         the Blocking is set to OFF (|BLOCKOFF), the mode is set to Epson (|LAMBDA) and the speech delay is set to a 
+         minimum (20 ms) (|SETDELAY,1).
+
+|LSINIC: Initializes the LambdaSpeak III when using the LambdaSpeak III ROMs. The following steps are carried out: 
+         The passing of parameters is switched to 'fast' (using |GETFAST), the language is set to Spanish (|SPANISH), 
+         the Blocking is set to OFF (|BLOCKOFF), the mode is set to Epson (|LAMBDA) and the speech delay is set to a 
+         minimum (20 ms) (|SETDELAY,1).
+
+|RESET.: This is like to switch OFF and ON the LambdaSpeak III. It switches LambdaSpeak III into the dk'tronics mode.
+
+|STOP..: Stops the current output of language (only in non blocking mode).
+         Attention: You need to completely unblock the LambdaSpeak III using |BLOCKOFF and |XBLKOFF before using |STOP.
+
+|WAIT..: Waits until LambdaSpeak III is ready. This means port &FBEE equals &20 or &80.
+
+
+Commands to select the LambdaSpeak III mode:
+--------------------------------------------
+
+|LAMBDA...: Selects the powerful Epson mode.
+
+|DECTALK..: Selects the DECtalk mode, it even can sing songs.
+
+|SSA1.....: Switches to the Amstrad SSA-1 mode. The LambdaSpeak III now emulates the Amstrad SSA-1 speech synthesizer.
+|SSASP0...: Like the SSA1 mode, but uses the SP0256-AL2 chip onboard (like the real thing from Amstrad).
+
+|DKTRONICS: Switches to the dk'tronics mode. The LambdaSpeak III now emulates the dk'tronics SPEECH synthesizer.
+|DKSP0....: Like the dk'tronics mode, but uses the SP0256-AL2 chip onboard (like the real thing from dk'tronics).
+
+|AMDRUM...: Switches to the Amdrum mode. The LambdaSpeak III now emulates the AMDRUM drum system.
+            This mode needs to be activated when using the RSX commands |PLAY and |EPLAY to play Amdrum samples.
+            Attention: This mode can only be left by switching the CPC / LambdaSpeak III OFF and ON again!
+
+|PCMMODE..: Switches to PCM mode. In this mode PCM samples of the 128 KB EEPROM can be played.
+            Attention: This mode can only be left by pressing the Reset_LambdaSpeak III button on the LS3 board.
+
+
+Commands to select parameters of the LambdaSpeak III expansion
+--------------------------------------------------------------
+
+|SETVOLUME,0-15: Sets the volume to a value between 1 and 15. The value 0 select the standard volume.
+
+|SETVOICE,0-15: Sets the voice to a value between 1 and 15. The value 0 select the standard voice.
+
+|SETSPEED,0-15: Sets the speed of speaking to a value between 1 and 15. The value 0 select the standard speaking speed.
+
+|SETDELAY,0-15: Sets the delay to a value between 1 and 15. The value 0 select the standard delay.
+                With the 'delay' the time is indicated, which will pass before the LS starts talking after 
+                sending the last character to it.
+
+|ENGLISH: Switches the language to English.
+
+|SPANISH: Switches the language to Spanish.
+
+|BLOCKON and |BLOCKOFF: These two commands switch the 'Blocking' on and off for 'User content'.
+                        If the 'Blocking' is switched on, then the LambdaSpeak III will HALT the CPC until
+                        all characters have been spoken and the LambdaSpeak III is ready again.
+
+|XBLKON and |XBLKOFF: These two commands switch 'Blocking' on and off for 'Confirmations'.
+                      If the 'X Blocking' is switched on, then the LambdaSpeak III will HALT the CPC until
+                      the actual 'Confirmation' was spoken and the LambdaSpeak III is ready again.
+
+|CONFON and |CONFOFF: These two commands switch the 'Conformations' on and off. If the 'Conformations' are switche on,
+                      the LambdaSpeak III will tell you all alterations (f.e. mode, language etc.) acoustically.
+
+|GETFAST, |GETMED and |GETSLOW: These commands influence the length of the time span the LambdaSpeak III will provide 
+                                parameters on the bus for the CPC. The LS3 shows data for 10 us, 50 us or 20 ms.
+                                For quick machine code the 'fast' mode should be used. As for FutureOS. 10 us.
+                                For regular machine code the 'medium' mode should be used. As for the RSX commands. 50 us.
+                                For BASIC programs (using IN and OUT commands) the mode should be switched to 'slow' = 20 ms.
+
+
+Commands to read parameters from LambdaSpeak III
+------------------------------------------------
+
+|GETVOLUME,@v%: Reads the actual value of 'volume' (from 1 to 15) into a variable.
+                This variable (here: v%) must be defined before usage.
+
+|GETVOICE,@v%: Reads the actual number of the used 'voice' (from 1 to 15) into a variable.
+               This variable (here: v%) must be defined before usage.
+
+|GETSPEED,@v%: Reads the actual value of 'speed of speech' (from 1 to 15) into a variable.
+               This variable (here: v%) must be defined before usage.
+
+|GETDELAY,@v%: Reads the actual value of 'delay until speech' (from 1 to 15) into a variable.
+               This variable (here: v%) must be defined before usage.
+
+|GETLANGUAGE,@v%: Reads the actual value of 'used language' (from 1 to 15) into a variable.
+                  This variable (here: v%) must be defined before usage.
+
+|GETMODE,@v%.: Reads the actual value of 'speech mode' (from 1 to 15) into a variable. Depends on mode, language, blocking.
+               This variable (here: v%) must be defined before usage.
+
+|GETFMODE,@v%: Reads the actual full mode in which LambdaSpeak III currently operates
+               This variable (here: v%) must be defined before usage.
+
+|GETVER,@v%: Reads the actual value of 'version of LambdaSpeak III' (from 1 to 255) into a variable.
+             This variable (here: v%) must be defined before usage.
+
+|SPEAKMODE: The LambdaSpeak III tells its actual speech mode.
+
+
+Commands to output speech
+-------------------------
+
+|SP,@text$ or |LAMBDASPEAK,@text$: The words contained in the variable text$ will be spoken using LambdaSpeak III.
+                                   You should switch to Epson mode or DECtalk mode first.
+                                   Attention: You must use |LSINIT or |LSINIC before you use this command!
+
+|SPEAKSCREEN: The actual content of the screen will be spoken using LambdaSpeak III.
+              ATTENTION: If the LambdaSpeak III is not in Epson or DECtalk mode, it will be switched to Epson Mode.
+                         And Confirmations are OFF.
+              ---------- This command can be cancelled by pressing the ESCape key for some seconds.
+
+|SPFILE,file$: The content of an ASCII file (here: 'file$') will be spoken using LambdaSpeak III.
+               ATTENTION: Command |LSINIT, |LAMBDA or |DECTALK must be used before this command.
+                          Else this command will switch to EPSON mode and Confirmations are OFF.
+               ---------- This command can be cancelled by pressing the ESCape key for some seconds.
+
+
+Commands to control the Real-Time-Clock of the LambdaSpeak III
+--------------------------------------------------------------
+
+|SAYTIME: LambdaSpeak III will tell you the time
+
+|SAYDATE: LambdaSpeak III will tell you the date
+
+|SETTIME: The format of the command is |SETTIME, hour(0-23), minute(0-59), second(0-59)
+          The command is used to set the time of the Real-Time-Clock of LambdaSpeak III.
+          Attention: This command switches Confirmations OFF, you can/should switch them on again with |CONFON.
+
+|SETDATE: The format of the command is |SETDATE, year(00-99), month(1-12), day(1-31), day of week(1-7)
+          The command is used to set the LambdaSpeak III Real-Time-Clock's date and day of the week.
+          In this case 1 = Monday and 7 = Sunday.
+          Attention: This command switches Confirmations OFF, you can/should switch them on again with |CONFON.
+
+|GETTIME: The format of the command is hour%=0:minute%=0:second%=0:|GETTIME,@hour%,@minute%,@second%
+          This command allows to read the time of the Real-Time-Clock of the LambdaSpeak III into variables.
+          This command does switch to Lambda/Epson Mode (in case the mode isn't already DEC or Epson mode)
+
+|GETDATE: The format of the command is year%=0:month%=0:day%=0:day_of_week%=0:|GETDATE,@year%,@month%,@day%,@day_of_week%
+          This command allows to read the date of the Real-Time-Clock of the LambdaSpeak III into variables.
+          This command does switch to Lambda/Epson Mode (in case the mode isn't already DEC or Epson mode)
+
+
+Commands for the Amdrum Mode of the LambdaSpeak III
+---------------------------------------------------
+
+|PLAY,adr,len,del: Plays a sample using the Amdrum emulation. The sample begins at address 'adr' in main RAM,
+                   it's 'len' bytes long and will be played with a delay of 'del'.
+                   Attention: Before using this command you need to switch Amdrum emulation on using |AMDRUM.
+                   ---------- From the Amdrum mode you can only switch back using a power cycle.
+
+|EPLAY,adr,len/64,delay,E-RAM: Plays a sample using the Amdrum emulation. The sample begins at address 'adr' in 
+                               the expansion RAM, it's 'len/64' bytes long and will be played with a delay of 'del'.
+                               The length in bytes can be calculated by: len * 64
+                               This way you can play samples up to 4096 KB.
+                               The expansion RAM in which the sample starts is provided in variable 'E-RAM'.
+                               The parameter 'E-RAM' has the format of &7FC4, &7FC5, ... &7FFF.
+                               Attention: Before using this command you need to switch Amdrum emulation on using |AMDRUM.
+                               ---------- From the Amdrum mode you can only switch back using a power cycle.
+
+Attention: Samples located in the first 64 KB of RAM are played using |PLAY, whereas sample being located in the
+---------- expansion RAM will be played using the command |EPLAY
+
+
+Commands for the PCM sample player Mode of the LambdaSpeak III
+--------------------------------------------------------------
+
+|PCMUP..: The format of this command is |PCMUP, RAM-address, first_page(0-255), number_of_pages_to_be_written(1-256)
+          This command is used to upload data from RAM into the 128 KB EEPROM of the PCM sample player.
+          Every page is 512 bytes long. Page 0 can't be used to play samples.
+          Attention: This command switches the confirmations off.
+
+|EEUP...: The format of this command is |EEUP, RAM-address, first_page(0-255), number_of_pages_to_be_written(1-256)
+          This command is used to upload data from RAM into the 128 KB EEPROM of the LambdaSpeak III.
+          Every page is 512 bytes long.
+
+|EEGET..: The format of this command is |EEGET, RAM-address, first_page(0-255)
+          This command is used to read 512 bytes (one page) from the EEPROM of the LambdaSpeak III.
+
+|PCMMODE: The format of this command is |PCMMODE, number_of_channels(1-4)
+          This command switches to the PCM sample player mode and selects how much channels (1-4) shall be used
+          The PCM mode can only be left by pressing Reset_LS3 button on the LambdaSpeak III or a power cycle.
+
+|PCMPLAY: The format of this command is |PCMPLAY, channel(1-4), first_page(1-255), number_of_pages(1-255), speed-rate(1-255)
+          The command is used to start playing a sample. The sample can be up to 128 KB long.
+          Sample borders are defined by the 512 byte long pages of the EEPROM.
+          Attention: Before you use |PCMPLAY you need to activate PCM sample play using the command |PCMMODE!
+
+|PCMTEST: Send an 'test sample' to the Digital-Analog-Converter of the Amdrum emulation. Will loop forever.
+
+|EECLR..: Clears the 128 KB EEPROM which is used to store PCM samples.
+
+|EETEST.: Verifies the 128 KB EEPROM which is used to store PCM samples and tells its size and state.
+
+
+Commands to control the MP3 module of the LambdaSpeak III
+---------------------------------------------------------
+|MP3PLAY.: The format of this command is |MP3PLAY,number_of_song. The number can be from 0 to 99.
+           In the root directory of the SD card of the MP3 modules must be a song starting with the corresponding number.
+           Examples:
+           |MP3PLAY,1 will play the song "001_The_cats_meow" or...
+           |MP3PLAY,7 will play the song "007_FutureOS_rulez" and so on...
+           Attention: This command activates the serial mode of the LambdaSpeak III!
+
+|MP3XPLAY: The format of this command is |MP3XPLAY,directory,song-number. 
+           This command allows to play a song (defined by number) from a folder (defined by number)
+           Example
+           |MP3XPLAY,1,1 will play song "001_Captain_Future" from the folder "01_CF"
+           Attention: This command activates the serial mode of the LambdaSpeak III!
+
+|MP3PLAYC: The format of this command is |MP3PLAYC,song_number. 
+           It will repeat to play the same song continuously.
+           Attention: This command activates the serial mode of the LambdaSpeak III!
+
+|MP3PLAYF: The format of this command is |MP3PLAYF,folder(01-99)
+           To repeat all songs of a folder with the name 01xxx to 99xxx you can use this command.
+           For example |MP3PLAYF,9 will repeat all songs in the folder "09_A_Tribute_to_the_Sisters"
+           Like usual the file names of the songs must start with "01xxx" up to "99xxx"
+           Attention: This command activates the serial mode of the LambdaSpeak III!
+
+|MP3VOL..: The format of this command is |MP3VOL,vol(0-30)
+           To set the volume of the MP3 song output this command can be used. Volume is between 0 (off) and 30 (loudest)
+           Attention: This command activates the serial mode of the LambdaSpeak III!
+
+|MP3STOP.: Will stop the current MP3 song. There will be silence.
+           Attention: This command activates the serial mode of the LambdaSpeak III!
+
+|MP3HOLD.: Pauses the currently being played MP3 song.
+           Attention: This command activates the serial mode of the LambdaSpeak III!
+
+|MP3CONT.: Continues to play the current MP3 song after pausing it using command |MP3HOLD.
+           Attention: This command activates the serial mode of the LambdaSpeak III!
+
+|MP3RES..: Resets the MP3 circuit, should be used once after switching on the unit.
+           Should be used before using any other MP3 command ;-) (Well, if needed)
+           Attention: This command activates the serial mode of the LambdaSpeak III!
+
+|MP3SLEEP: Puts the MP3 module into sleep mode (other serial communication possible?!??)
+           Attention: This command activates the serial mode of the LambdaSpeak III!
+
+|MP3WAKE.: Wakes up the MP3 module after it was put into sleep mode using |MP3SLEEP
+           Attention: This command activates the serial mode of the LambdaSpeak III!
+
+|SERIAL..: Switches the serial mode on
+
+|SEROFF..: Switches the serial mode off
+
+
+ATTENTION: With current firmware the commands are not 100% optimized, in few cases the first command with not work.
+           Therefore you can use |SERIAL or |MP3RES first.
+           I hope the problem will be solved with the next update. Also it's not possible (this time!) to exit serial mode.
+
+
+Additional commands
+-------------------
+
+|SPEAKINFO: Provides (tells) information about the LambdaSpeak III speech synthesizer.
+
+|DAISY....: Just sings an example song.
+
+|HAL9000..: Tells a citation from the legendary HAL9000 computer.
+
+|LED......: The format of this command is |LED,0-255. The LEDs will be set according to the provided value.
+
+|GETTEMP..: The format of this command is t%=0:|GETTEMP,@t%
+            This command is used to read the actual temperature of the Real-Time-Clock board.
+            This command does switch to Lambda/Epson Mode (in case the mode isn't already DEC or Epson mode)
+
+|BIGWATCH.: This command shows a BIG watch on screen. Date and temperature are also shown.
+
+|HIBERNATE: The format of this command is |HIBERNATE,first_page
+            This command will save the first 48 KB of the CPC's main memory to EEPROM beginning at the given page.
+            To save this 48 KB in the EEPROM 96 pages will be used.
+            Attention: You must use |LSINIT or |LSINIC first, else the CPC hangs!
+
+|RESUME...: The format of this command is |RESUME,first_page
+            This command will load 48 KB from EEPROM to of the CPC's main memory beginning at the given page.
+            To load 48 KB from the EEPROM 96 pages will be read.
+            Attention: You must use |LSINIT or |LSINIC first, else the CPC hangs!
+
+
+Hardware of the LambdaSpeak III
+-------------------------------
+More about this great piece of hardware can be found here: 
+https://github.com/lambdamikel/LambdaSpeak
+
+
+
+Updates / Version 3.00
+----------------------
+2019.08.28: Bugs killed SPO into SP0 transformed (requested)
+2019.08.14: RSX software updated for new firmware v47
+2019.07.17: |GETMED command added. Stability enhanced. Manual split in German and English
+2019.07.15: |BIGWATCH command enhanced with date and temperature
+2019.07.04: |BIGWATCH und |LED,value added
+2019.07.01: Commands |HIBERNATE and |RESUME added
+2019.06.21: Update for new firmware. Serial commands added
+2019.06.15: First set of MP3 RSX commands added
+2019.06.02: New updates and enhances command set for the new all wonderful LambdaSpeak III released (this doc uncompleted)
+2018.08.15: Loadable RSX from disc updated. English manual added
+2018.07.27: RSX |LS replaced by RSX |SP (because there is also the RSX |LS in the M4 ROM)
+2018.06.28: RSX commands |SSASP0 and |DKSP0 enhanced
+2018.05.27: Added RSX commands |SSASP0 and |DKSP0 to enter SP0256-AL2 modes
+2018.04.30: Added ESCape feature to |SPEAKSCREEN and |SPEAKFILE
+2018.04.27: German Manual added (well, started doing that ;-))
+2018.04.21: Added RSX command |SPEAKFILE to speak the content of an ASCII/FSCW file
+2018.04.17: Added RSX command |LSINIT to initialize LambdaSpeak after power on or reset
+2018.04.09: LS-ROM: RSX command |LSHELP added, to display command summary; sign-on message added; checksum added
+2018.03.29: Expansion ROM "LS.ROM" added
+2018.03.28: First release of version 1.0
+
+
+
+Greets,
+TFM of FutureSoft
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Stop scrolling... nothing will show up...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Now you know it better ;-)
+
+
+
+
+
+
+
+
+
+
+
+
+
+This software is powered by FutureSoft and lots of CPC spirit, also plenty of 6128 Plus spirit ;-)
+
+
+
+
+
+
+
+
+
+
+
+
+
