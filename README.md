@@ -2,7 +2,6 @@
 ## A Modern-Vintage Speech Synthesizer, PCM Sample Player, Drum Computer, Serial Interface, MP3 Player, MIDI Interface, and Real Time Clock for the Amstrad / Schneider CPC  
 #### Hardware Design & LambdaSpeak Firmware: [Michael Wessel](https://www.michael-wessel.info/) 
 #### LambdaSpeak CPC ROM and RSX: [Dr. Stefan Stumpferl (TFM)](http://futureos.cpc-live.com) 
-#### Technical Guidance: Bryce from the [CPC Wiki Board](http://www.cpcwiki.eu/forum/index.php)
 #### Additional Ideas: Zhulien from the [CPC Wiki Board](http://www.cpcwiki.eu/forum/index.php)
 #### License: GPL 3
 
@@ -827,7 +826,7 @@ TFM (Dr. Stefan Stumpferl) for the RSX driver and CPC ROM, ideas, enthusiasm, fr
 
 Julian ("zhulien" from the CPC Wiki Forum) for suggesting the Amdrum mode, incorporating the MP3 module, enthusiasm and support! 
 
-Bryce, for guiding and pushing me into the right direction - Xilinx CPLD instead of GAL22V10, Verilog instead of WinCupl, countless discussions, etc.  
+Bryce from the CPC Wiki Board, for suggesting to use a Xilinx CPLD instead of GAL22V10, Verilog instead of WinCupl, a few discussions, etc.  
 
 ChinnyVision, for [reviewing a previous version of LambdaSpeak on his YouTube channel.](https://youtu.be/yAZAAMu1DfA)
 
