@@ -5,8 +5,7 @@
 #### Additional Ideas: Zhulien from the [CPC Wiki Board](http://www.cpcwiki.eu/forum/index.php)
 #### License: GPL 3
 
-### News 
-
+### Latest News
 [I have written down the "Making of LambdaSpeak".](./history.md) 
 
 ### Older News
