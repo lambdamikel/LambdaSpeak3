@@ -6,6 +6,7 @@
 #### License: GPL 3
 
 ### Latest News
+
 [I have written down the "Making of LambdaSpeak".](./history.md) 
 
 ### Older News
