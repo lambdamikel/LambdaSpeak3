@@ -22,7 +22,7 @@ extensions coexist on one Z80 databus!
 This was a bit challenging to achieve, because both Speak&SID and
 LambdaSpeak emulate the SSA-1 Speech Synthesizer, and hence occupy the
 same port `&FBEE`. He was looking for a solution that would allow him
-to have all expansions connected to the CPC permanentely, without
+to have all expansions connected to the CPC permanently, without
 having to remove and add cards all the time. We tried various
 after-market "hacks" in order to support this and came up with a
 solution that requires cutting the CPC IOREQ trace on the LS3 and
@@ -83,8 +83,8 @@ from Elliot Williams' book "Make: AVR Programming" are being used.
 
 ### Building and Maker Support 
 
-I am able to provide LambdaSpeak 3 as a kit, or only pre-programmed components (CPLD, ATMega), or even a fully assembled version inlcuding
-a connection cable and/or LambdaBoard expansion board backplane. Send me a mail if you are interrested. Or, just download the sources and build it from the [provided Gerbers](gerbers/lambdaspeak30-final.zip) and [BOM part 1](images/bom1.jpg), [BOM part 2](images/bom2.jpg). 
+I am able to provide LambdaSpeak 3 as a kit, or only pre-programmed components (CPLD, ATMega), or even a fully assembled version including
+a connection cable and/or LambdaBoard expansion board backplane. Send me a mail if you are interested. Or, just download the sources and build it from the [provided Gerbers](gerbers/lambdaspeak30-final.zip) and [BOM part 1](images/bom1.jpg), [BOM part 2](images/bom2.jpg). 
 
 To build the [firmware from source,](src/atmega644-20pu/lambdaspeak.c) use `make` and the [provided `Makefile`](src/atmega644-20pu/Makefile). The makefile template is again from Elliot Williams' "AVR Programming" book. See below (Acknowledgements). 
 
@@ -96,11 +96,11 @@ It offers:
 
   1. **DECtalk-based Text-to-Speech (TTS) synthesis:** the **Epson S1V30120 TTS** chip on the utilized mikroBUS "TextToSpeech Click!" daughterboard from MikroElektronika implements DECtalk v5 -- a natural sounding speech synthesizer for English and Spanish, with different voices. DECtalk can even sing. The DECtalk mode is very powerful and versatile, but the DECtalk control language can be difficult to program. Hence, a simplified control language for the S1V30120 is offered as well, the so-called Epson mode. The DECtalk mode is used to implement two Amstrad CPC-specific modes: LambdaSpeak offers a DECtalk-based emulation of the Amstrad SSA-1 Speech Synthesizer, and an emulation of the DK'tronics Speech Synthesizer as well. These retro speech synthesizers from ~ 1985 used the SP0256-AL2 from General Instruments. The emulation is faithful enough such that software that supports these speech synthesizers (e.g., games such as "Roland in Space" from Amsoft) works. However, the DECtalk-based speech sounds different from the original SP0256 AL2-based speech. For higher authenticity, LambdaSpeak can optionally be fitted with a SP0256-AL2 as well, see next. 
 
-  2. **Optional GI SP0256-AL2 speech synthesis:** this chip was used in the official Amstrad CPC SSA-1 speech synthesizer as well as the D'tronics speech synthesizer for the CPC. With fitted SP0256-AL2, LambdaSpeak 3 offers a modern re-implementation of these historic speech synthesizers that sound just like the originals from ano 1985. 
+  2. **Optional GI SP0256-AL2 speech synthesis:** this chip was used in the official Amstrad CPC SSA-1 speech synthesizer as well as the DK'tronics speech synthesizer for the CPC. With fitted SP0256-AL2, LambdaSpeak 3 offers a modern re-implementation of these historic speech synthesizers that sound just like the originals from ano 1985. 
 
   3. **PCM Sample Playing Capability / Amdrum emulation:** the Amdrum was a digital sample player / drum computer for the CPC. It consisted of a simple Digital-to-Analog (DAC) converter connected to the CPC databus. Bytes transmitted to the DAC would be turned into PCM audio. Hence, the PCM sample data has to be "streamed" from the CPC over the databus to Amdrum to play a PCM sample. The Amdrum supports 3 channels of 8 Bit audio in a decent quality; the mixing of PCM channels is done in software by the CPC / Z80 though, in real time, to achieve polyphony. LambdaSpeak 3's Amdrum emulation sounds just as good as the original (if not better). 
 
-  4. **High Quality Polyphonous Autonomous PCM Sample Playing Capability:** unlike the Amdrum mode, which requires the CPC to send the PCM sample bytes in real time over the databus to the Amdrum DAC, this mode offers "autonomous" sample playing. LambdaSpeak 3 is equipped with a 128 KB SPI EEPROM, which serves as a persistent memory for PCM samples. Samples can be uploaded into the EEPROM memory from the CPC, and played back by sending a "Play PCM" command. This mode offers up to 4 channels of PCM polyphony, and > 16 kHz bandwith is possible. Of course, higher quality PCM samples / WAV files will take up more space on the EEPROM. Moreover, since no real time streaming of PCM sample bytes is required from the CPC for sample playback, the automous EEPROM PCM sample playback can be triggered even from a BASIC program. The playback mode offers up to 4 channels of PCM audio, and the pitch / sample playback speed can be controlled to some extent as well. A sample can be as large as 128 KBs. The resulting PCM quality can be much higher than with the Amdrum mode. 
+  4. **High Quality Polyphonous Autonomous PCM Sample Playing Capability:** unlike the Amdrum mode, which requires the CPC to send the PCM sample bytes in real time over the databus to the Amdrum DAC, this mode offers "autonomous" sample playing. LambdaSpeak 3 is equipped with a 128 KB SPI EEPROM, which serves as a persistent memory for PCM samples. Samples can be uploaded into the EEPROM memory from the CPC, and played back by sending a "Play PCM" command. This mode offers up to 4 channels of PCM polyphony, and > 16 kHz bandwidth is possible. Of course, higher quality PCM samples / WAV files will take up more space on the EEPROM. Moreover, since no real time streaming of PCM sample bytes is required from the CPC for sample playback, the autonomous EEPROM PCM sample playback can be triggered even from a BASIC program. The playback mode offers up to 4 channels of PCM audio, and the pitch / sample playback speed can be controlled to some extent as well. A sample can be as large as 128 KBs. The resulting PCM quality can be much higher than with the Amdrum mode. 
 
   5. **An UART / Serial Interface:**  this versatile general purpose UART / Serial Interface offers flexible BAUD rates, 5 to 8 bits per frame, and different parity bit and number of stop bit configurations. The UART Interface can either be offered via a PIN header on the LambdaSpeak 3 PCB such that a FTDI cable or RS232 TTL serial converter can be hooked up directly via DuPont cables, or an UART module can be soldered in permanently. The 4 $ MP3 UART Module from Catalex is a good choice for such a module - it offers MP3 playback from a MicroSD card. In addition, the 
 MIDI Breakout Board from ubld.it is a great choice for MIDI IN/OUT. See below.  
@@ -113,7 +113,7 @@ MIDI Breakout Board from ubld.it is a great choice for MIDI IN/OUT. See below.
 
 LambdaSpeak 3 got a mention in the **ComputerShopper December 2019** magazine UK issue. I got permission from the editor-in-chief, Madeline Bennett, to upload a brief PDF [excerpt here - check it out!](images/Computer_Shopper_-_December_2019-LS3.pdf) 
 
-![ComputerShoppper LambdaSpeak 3 featured 12/2019](images/computershopper-ls3.jpg)
+![ComputerShopper LambdaSpeak 3 featured 12/2019](images/computershopper-ls3.jpg)
 
 ### CPC Connection 
 
@@ -144,7 +144,7 @@ From left to right, the DIP switches 1 to 5 and 6 to 10 are:
 
   - **MIX (1 = left, 6 = right):** MIX is the output of LambdaSpeak's OP amp. The OP amp is a summing OP amp with Gain control that amplifies and recovers the mono PCM output generated by the ATmega (PCM Sample Playing), and the sound generated by the SP0256-AL2 vintage speech chip. The corresponding DIP switch determines if the OP amp's output is routed to the left and/or right output channel (or turned off completely). Notice that using an OP amp always results in some degradation of the audio quality. Hence, it is also possible to exclusively route the PCM output or exclusively route the SP0256-AL2 output to the left or right channel (see switches SP0 and AT below). If no SP0256-AL2 is being used, then there is no need for the MIX output, and the switch should be in the off position. 
 
-  - **EPS (2 = left, 7 = right):** Turn on or off routing of the stereo audio signal received over LambdaSpeak's stereo audio input jack (the right stero jack on the board). Usually, this connects to the output output jack of the Epson click daughter board. The output of the Epson speech board is mono, but heard on the left and right channel. The TTS click daughterboard is already equipped with an audio amplifier, so it also possible to directly connect a loudspeaker or audio amplifier to the audio socket of the daughterboard itself. In the case, LambdaSpeak's stereo input jack is available to receive either the audio output generated by the  CPC, using the audio stereo output jack of the CPC (and left or right channels will be routed accordingly), or to the output of the MP3 module can be used (see below). In any way, the left or right channels will be routed accordingly (i.e., left to left and right to right). Note that EPS input is not amplified by the internal OP amp. 
+  - **EPS (2 = left, 7 = right):** Turn on or off routing of the stereo audio signal received over LambdaSpeak's stereo audio input jack (the right stereo jack on the board). Usually, this connects to the output output jack of the Epson click daughter board. The output of the Epson speech board is mono, but heard on the left and right channel. The TTS click daughterboard is already equipped with an audio amplifier, so it also possible to directly connect a loudspeaker or audio amplifier to the audio socket of the daughterboard itself. In the case, LambdaSpeak's stereo input jack is available to receive either the audio output generated by the  CPC, using the audio stereo output jack of the CPC (and left or right channels will be routed accordingly), or to the output of the MP3 module can be used (see below). In any way, the left or right channels will be routed accordingly (i.e., left to left and right to right). Note that EPS input is not amplified by the internal OP amp. 
 
   - **AT (3 = left, 8 = right):** the raw PCM output from the ATmega; used for the Amdrum mode and the autonomous PCM Sample Playing mode. This signal has higher quality than the MIX output. If no SP0256-AL2 is being used, then there is no need for the MIX output, and the AT raw PCM output achieves higher PCM quality and bandwidth. 
 
@@ -156,7 +156,7 @@ A *reasonable default configuration* for a LambdaSpeak 3 *with SP0256-AL2* is `1
 
 A *reasonable default configuration* for a LambdaSpeak 3 *without SP0256-AL2* is `00101-01001`, resulting in raw ATmega PCM audio on the left channel, and Epson speech on the right. Moreover, the CPC speaker is turned on. 
 
-A *reasonable default configuration* for an Amdrum / PCM Sample Playing session could be `00101-00101`, giving raw ATmega PCM audio on the left and right channel, and no speech output at all. However, an extra cable and external mixer and amplifier or dedicated loudspeaker could still be used for Epson speech (use the daughterboard’s own stero jack). 
+A *reasonable default configuration* for an Amdrum / PCM Sample Playing session could be `00101-00101`, giving raw ATmega PCM audio on the left and right channel, and no speech output at all. However, an extra cable and external mixer and amplifier or dedicated loudspeaker could still be used for Epson speech (use the daughterboard’s own stereo jack). 
 
 The **10 LED segment bar on the left** is used to indicate the current mode / status of LambdaSpeak 3. The LEDs have the following meaning:
 
@@ -273,7 +273,7 @@ Final version of LambdaSpeak 3:
 
 ![LambdaSpeak 3 Board](images/DSC08491.JPG)
 
-Backside of LamdbaSpeak 3, with Catalex MP3 UART module connected / soldered in, and I2C DSS3231 RTC with buffer battery connected to I2C header: 
+Backside of LambdaSpeak 3, with Catalex MP3 UART module connected / soldered in, and I2C DSS3231 RTC with buffer battery connected to I2C header: 
 
 ![LambdaSpeak 3 Board](images/DSC08493.JPG)
 
@@ -656,7 +656,7 @@ The timing (repeatedly sampling of the databus to check for the byte 255 and rem
 
 #### LambdaSpeak 3 Programming 
 
-Have a look at the BASIC programs. And here is a piece of Z80 Assembler that shows how to send a reset command to LambdaSpeak 3; see program `ASM.BAS` on the [`LS300.DSK`](cpc/lambda/LS300.dsk).  The program returns when the Native Mode READY indiciator has been received (= 128), i.e., the reset completed: 
+Have a look at the BASIC programs. And here is a piece of Z80 Assembler that shows how to send a reset command to LambdaSpeak 3; see program `ASM.BAS` on the [`LS300.DSK`](cpc/lambda/LS300.dsk).  The program returns when the Native Mode READY indicator has been received (= 128), i.e., the reset completed: 
 
 ~~~~
 org #8000
@@ -718,7 +718,7 @@ The main disk is called [`LS300.DSK`](cpc/lambda/LS300.dsk):
 | Program   | Description                                   |
 |-----------|-----------------------------------------------|
 | ASM       | Send Reset Command from Z80 MC Program.       |
-| ASMCLOCK  | Z80 Clock - read RTC registers / show protcol.|
+| ASMCLOCK  | Z80 Clock - read RTC registers / show protocol.|
 | BANNER    | DECSING DECTalk Song.                         |
 | BDAY      | DECSING DECTalk Song.                         |
 | DECSING   | Demo of DECtalk singing. Load BANNER or BDAY. |
@@ -757,7 +757,7 @@ First, the [`HIDEFSEQ1.DSK`](cpc/lambda/hidefseq1.dsk) contains high  quality PC
 | Program   | Description                                     |
 |-----------|-------------------------------------------------|
 | DRUMLOAD  | Load the PCM samples from disk into EEPROM.     |
-| DRUMLD2   | Dito, but with MUCH FASTER |PCMUP from LS3 ROM. |
+| DRUMLD2   | Ditto, but with MUCH FASTER |PCMUP from LS3 ROM. |
 | DRUMPLAY  | A drum computer - DRUMLOAD or DRUMLD2 first!    |
 | DRUMSEQ   | A simple patter-based drum computer.            | 
 | *.WAV     | Boss DR660 Wave Files (LARGE - High Quality).   |
@@ -771,9 +771,9 @@ A larger set of drums in slightly lower PCM (medium) quality is on the disk [`MI
 | Program   | Description                                     |
 |-----------|-------------------------------------------------|
 | DRUMLOAD  | Load the PCM samples from disk into EEPROM.     |
-| DRUMLD2   | Dito, but with MUCH FASTER |PCMUP from LS3 ROM. |
+| DRUMLD2   | Ditto, but with MUCH FASTER |PCMUP from LS3 ROM. |
 | DRUMMER   | A drum computer - DRUMLOAD or DRUMLD2 first!    |
-| DRUMMER2  | Dito, but uses |PCMPLAY commands from LS3 ROM.  |
+| DRUMMER2  | Ditto, but uses |PCMPLAY commands from LS3 ROM.  |
 | SEQUENC2  | A patter-based drum computer, with SP0 track.   |  
 | *.WAV     | Boss DR660 Wave Files (SMALL -Medium Quality).  |
 ---------------------------------------------------------------
@@ -815,12 +815,12 @@ LambdaSpeak 3, please contact me.
 
 ### Acknowledgements
 
-Thanks to [Teodor Costachioiuo](https://electronza.com/about-me/) for
+Thanks to [Teodor Costachioiu](https://electronza.com/about-me/) for
 the [Talking Clock Tutorial with the Mikroelektronika Text to Speech
 Clock Board](https://electronza.com/wp-content/uploads/2017/09/talking_clock-1.zip);
 I have rewritten this (Arduino) code and ported it to WinAVR.
 
-Elliot Wiliams for his book "Make: AVR Programming" and [corresponding sources /AVR Programming Libraries.](https://github.com/hexagon5un/AVR-Programming).
+Elliot Williams for his book "Make: AVR Programming" and [corresponding sources /AVR Programming Libraries.](https://github.com/hexagon5un/AVR-Programming).
 
 TFM (Dr. Stefan Stumpferl) for the RSX driver and CPC ROM, ideas, enthusiasm, friendship! 
 

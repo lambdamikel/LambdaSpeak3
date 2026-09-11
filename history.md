@@ -148,7 +148,7 @@ Eventually, the final versions of LambdaSpeak III featured:
 - an optional SP0256-AL2 as a second speech chip option - if present, LambdaSpeak III is also a SSA-1 and DK'tronics re-implementation that sounds like the originals; 
 - the Amdrum PCM sample playing mode; 
 - 128 KBs of (SPI) EEPROM providing for non-volatile data storage - it's main purpose is to act as PCM sample memory for the 
-- 8bit hiqh-quality PCM sample player mode, realizing 4-channel PCM sound of unheard quality on the CPC; this mode differs from the Amdrum PCM mode in that the CPC does not have to stream the PCM sample data - instead, the data is coming from the EEPROM and it can be played back autonomously by LambdaSpeak without CPC involvement, hence greatly reducing CPU load; 
+- 8bit high-quality PCM sample player mode, realizing 4-channel PCM sound of unheard quality on the CPC; this mode differs from the Amdrum PCM mode in that the CPC does not have to stream the PCM sample data - instead, the data is coming from the EEPROM and it can be played back autonomously by LambdaSpeak without CPC involvement, hence greatly reducing CPU load; 
 - a general purpose serial interface that can be used to control, for example, a serial MP3 player or a MIDI interface breakout board; and finally, 
 - a battery backed-up real-time clock with temperature sensor (a DS3231 via I2C protocol).
 
