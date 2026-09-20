@@ -7,6 +7,24 @@
 
 ### Latest News
 
+The 1985 Vector Head speaks, on LambdaSpeak 3!
+
+A wireframe head I digitized by hand off a P.M. Computerheft article in
+1985, using tracing paper and graph paper, and drew with a Locomotive
+BASIC 1.0 program on my Schneider CPC 464 - it has been my logo ever
+since - has been rewritten in Z80 assembler, animated, and given a
+voice. The head is drawn in 0.18 seconds instead of the 13.2 the BASIC
+took, and you can type any sentence and have it spoken, with the lips,
+the jaw, the chin and the eyes moving on the allophones. The
+text-to-speech is the Naval Research Laboratory letter-to-sound
+algorithm, adapted from the 1985 Amstrad SSA-1 driver.
+
+![The Vector Head](images/vectorhead.png)
+
+[Watch the LambdaSpeak 3 demo video.](https://youtu.be/XNuESTllX0o)
+
+[And here is the original demo video.](https://youtu.be/UzU3wziq7BQ)
+
 [I have written down the "Making of LambdaSpeak".](./history.md) 
 
 ### Older News
