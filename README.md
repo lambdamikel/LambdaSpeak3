@@ -30,7 +30,7 @@ real drive, and [head.hfe](cpc/vectorhead/head.hfe) for a Gotek or HxC.
 Start it with `RUN"VH` - [here is how to run it.](cpc/vectorhead/) The
 assembler source is not public yet.
 
-08-08-2023: The Making of LambdaSpeak
+08-07-2023: The Making of LambdaSpeak
 
 How LambdaSpeak grew from a humble Arduino project into a multi-purpose
 expansion board for the CPC. The article was invited by the editor of the
@@ -40,6 +40,8 @@ it, so it lives here instead.
 [Read "The Making of LambdaSpeak".](./history.md)
 
 ### Older News
+
+03-21-2021: LambdaSpeak 3 and Speak&SID on the same databus
 
 Here is a [great demo video by Manfred Gross, showing LambdaSpeak 3 and
 Speak&SID in action!](https://youtu.be/c94lG-UYBnE) 
@@ -79,6 +81,8 @@ Here are some annotated images that explain the mod:
 
 *** 
 
+03-07-2021: chipkin.ru is manufacturing the LambdaSpeak 3 PCB
+
 You know you are on the right track with your OpenSource project when it gets picked up by some third party "manufacturer! Thanks to [https://chipkin.ru/](https://chipkin.ru/product/pechatnaya-plata-14/) for manufacturing my LambdaSpeak 3 PCB and distributing it on eBay and in Russia! These guys have a strong tradition of retro computer homebrews (think of all the Speccy clones... even back in the 80s). I have no idea what the website says, but here you go - enjoy: 
 
 ![The Last LambdaSpeak 3](images/chipkinru.jpg)
@@ -87,15 +91,19 @@ I really wish somebody would manufacture the complete board though! Anybody? :-)
 
 *** 
 
-I have decided to publish [the WinAVR C sources for LambdaSpeak 3](src/atmega644-20pu/). The  [main C firmware file](src/atmega644-20pu/lambdaspeak.c) is shared among LambdaSpeak 1.95, LambdaSpeak 1.99, and LambdaSpeak 3, so please make sure to have `#define LS300` defined. 
-
-*** 
+05-30-2020: Farewell, LambdaSpeak 3
 
 It is end of May 2020, and the last LambdaSpeak 3 "deluxe edition" has been sold and goes to Germany!  It started making and selling them a year ago, and during that time I managed to sell 20 of them. Due to the labor-intensive assembly process - it takes me about 5 to 6 hours to assemble and test one LambdaSpeak 3 -, and because of its rather high price point, I have stopped LambdaSpeak 3 production now. This should not stop you from trying to make one for yourself though - everything you need is in this GitHub! 
 
 So, here is a picture of **the last LambdaSpeak 3** - farewell, LambdaSpeak 3: 
 
 ![The Last LambdaSpeak 3](images/last-one.jpg)
+
+*** 
+
+12-15-2019: The firmware C sources are published
+
+I have decided to publish [the WinAVR C sources for LambdaSpeak 3](src/atmega644-20pu/). The  [main C firmware file](src/atmega644-20pu/lambdaspeak.c) is shared among LambdaSpeak 1.95, LambdaSpeak 1.99, and LambdaSpeak 3, so please make sure to have `#define LS300` defined. 
 
 ### Important License Information
 
@@ -227,7 +235,7 @@ The following automaton gives an overview of the different modes and transitions
 
 ![LS3 Modes](manuals/ls3-modes.png) 
 
-There is also [a PDF version of this image.](manuals/ls3-modes.pdf). 
+There is also [a PDF version of this image.](manuals/ls3-modes.pdf) 
 
 The default mode is the SSA-1 Emulation mode. This mode is enabled after a reset (via `&FF` or reset button), or after a power cycle, for example. 
 
