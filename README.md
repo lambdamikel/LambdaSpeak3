@@ -25,6 +25,11 @@ algorithm, adapted from the 1985 Amstrad SSA-1 driver.
 
 [And here is the original demo video.](https://youtu.be/UzU3wziq7BQ)
 
+The disc is here: [head.dsk](cpc/vectorhead/head.dsk) for an emulator or a
+real drive, and [head.hfe](cpc/vectorhead/head.hfe) for a Gotek or HxC.
+Start it with `RUN"VH` - [here is how to run it.](cpc/vectorhead/) The
+assembler source is not public yet.
+
 [I have written down the "Making of LambdaSpeak".](./history.md) 
 
 ### Older News
