@@ -7,7 +7,7 @@
 
 ### Latest News
 
-The 1985 Vector Head speaks, on LambdaSpeak 3!
+09-20-2026: The 1985 Vector Head speaks, on LambdaSpeak 3
 
 A wireframe head I digitized by hand off a P.M. Computerheft article in
 1985, using tracing paper and graph paper, and drew with a Locomotive
@@ -30,7 +30,14 @@ real drive, and [head.hfe](cpc/vectorhead/head.hfe) for a Gotek or HxC.
 Start it with `RUN"VH` - [here is how to run it.](cpc/vectorhead/) The
 assembler source is not public yet.
 
-[I have written down the "Making of LambdaSpeak".](./history.md) 
+08-08-2023: The Making of LambdaSpeak
+
+How LambdaSpeak grew from a humble Arduino project into a multi-purpose
+expansion board for the CPC. The article was invited by the editor of the
+Amstrad CPC User Club Magazine, but the fanzine folded before it could run
+it, so it lives here instead.
+
+[Read "The Making of LambdaSpeak".](./history.md)
 
 ### Older News
 
